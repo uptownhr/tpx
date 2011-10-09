@@ -7,9 +7,11 @@ $data = array(
 );
 Jien::model("Post")->save($data);
 
-$posts = Jien::model("Post")
-	->select("p.subject, p.message")
-	->leftJoin("User u", "u.user_id = p.user_id", "u.username, u.user_id, p.created as post_created")
+$posts = Jien::model("User")
+	->leftJoin("Post p", "p.user_id = u.user_id")
+	->where("p.user_id IS NOT NULL")
+	->groupBy("u.gender")
+	->having("u.active=1")
 	->getAll();
 Jien::debug($posts);
 

@@ -159,7 +159,7 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 					array_push($having, trim($field));
 				}
 			}
-			$q->having($having);
+			$q->having(implode(" AND ", $having));
 		}
 		
 		if(!empty($this->_query['order'])){
