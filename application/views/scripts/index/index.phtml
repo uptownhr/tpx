@@ -1,5 +1,39 @@
 Hello World!!
 <?php
-$users = Jien::model("User")->fetchAll()->toArray();
-Jien::debug($users);
+
+// get a single record by it's primary id
+$data = Jien::model("User")->get(16);
+
+// get a single record with a where clause
+$data = Jien::model("User")->get("u.username LIKE '%jae%'");
+
+// get all records
+$data = Jien::model("User")->getAll();
+
+// get all records and limit to 20
+$data = Jien::model("User")->limit(20)->getAll();
+
+// get all records and limit to 20 and offset by 10
+$data = Jien::model("User")->limit(20, 10)->getAll();
+
+// sort by username desc
+$data = Jien::model("User")->limit(20)->orderBy('u.username desc')->getAll();
+
+// where clause for male only
+$data = Jien::model("User")->where("u.gender = 'm'")->orderBy('u.user_id asc')->getAll();
+
+// where clause for male or female
+$data = Jien::model("User")->where("u.gender = 'm' OR u.gender='f'")->getAll();
+
+// alternatively ...
+$data = Jien::model("User")->where("u.gender = 'm'")->orWhere("u.gender = 'f'")->orderBy('u.username asc')->getAll();
+
+
+// get all records and where clause for male only and add a or where clause
+$data = Jien::model("User")->where("u.gender = 'm'")->orWhere("u.gender = 'f'")->getAll();
+
+// get all records and where clause for male only and add a or where clause
+$data = Jien::model("User")->where("u.gender = 'm'")->orWhere("u.gender = 'f'")->getAll();
+
+Jien::debug($data);
 ?>
