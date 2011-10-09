@@ -180,15 +180,20 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 		if(!empty($this->_query['join'])){
 			foreach($this->_query['join'] AS $table=>$v){
 				$join_alias = $v['alias'];
-				$join_fields = array();
+				$join_method = 'join' . ucfirst($v['type']);
+				
 				if(!empty($v['fields'])){
 					$join_fields = array();
 					$xJoinFields = explode(",", $v['fields']);
+					$join_fields = array();
 					foreach($xJoinFields AS $field){
 						array_push($join_fields, trim($field));
 					}
+					$q->$join_method(array($join_alias => $table), $v['condi'], $join_fields);
+				}else{
+					$q->$join_method(array($join_alias => $table), $v['condi']);
 				}
-				$q->joinLeft(array($join_alias => $table), $v['condi'], $join_fields);
+				
 			}
 		}
 		
@@ -270,7 +275,7 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 		return $this;
 	}
 	
-	public function leftJoin($table, $condi, $fields = ''){
+	public function join($type, $table, $condi, $fields = ''){
 		$xTable = explode(" ", $table);
 		$table = $xTable[0];
 		if(!empty($xTable[1])){
@@ -286,5 +291,27 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 		return $this;
 	}
 	
+	public function leftJoin($table, $condi, $fields = ''){
+		$this->join('left', $table, $condi, $fields);
+		return $this;
+	}
+	
+	public function innerJoin($table, $condi, $fields = ''){
+		$this->join('inner', $table, $condi, $fields);
+		return $this;
+	}
+	
+	public function rightJoin($table, $condi, $fields = ''){
+		$this->join('right', $table, $condi, $fields);
+		return $this;
+	}
+	
+	public function fullJoin($table, $condi, $fields = ''){
+		$this->join('full', $table, $condi, $fields);
+		return $this;
+	}
+	
+	
+
 }
 ?>

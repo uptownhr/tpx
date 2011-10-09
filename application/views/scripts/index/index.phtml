@@ -9,7 +9,7 @@ Jien::model("Post")->save($data);
 
 $posts = Jien::model("Post")
 	->select("p.subject, p.message")
-	->leftJoin("User u", "u.user_id = p.user_id", "u.username, u.user_id")
+	->leftJoin("User u", "u.user_id = p.user_id", "u.username, u.user_id, p.created as post_created")
 	->getAll();
 Jien::debug($posts);
 
