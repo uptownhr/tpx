@@ -37,6 +37,11 @@ $data = Jien::model("User")->where("u.gender = 'm'")->orWhere("u.gender = 'f'")-
 // get all records and where clause for male only and add a or where clause
 $data = Jien::model("User")->where("u.gender = 'm'")->orWhere("u.gender = 'f'")->getAll();
 
+// left join takes 2 params, 3rd optional (table and alias(optional), join condition, fields to select)
+$data = Jien::model("Post")
+	->select("p.subject, p.message")
+	->leftJoin("User u", "u.user_id = p.user_id", "u.username, u.user_id")
+	->getAll();
 
 *** From the User model ***
 

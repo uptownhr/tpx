@@ -1,9 +1,22 @@
 Hello World!!
 <?php
+$data = array(
+	"user_id"	=> 17,
+	"subject"	=>	'kids are hard',
+	"message"	=>	'take care of them',
+);
+Jien::model("Post")->save($data);
+
+$posts = Jien::model("Post")
+	->select("p.subject, p.message")
+	->leftJoin("User u", "u.user_id = p.user_id", "u.username, u.user_id")
+	->getAll();
+Jien::debug($posts);
+
 
 // get a single record by it's primary id
-$data = Jien::model("User")->get(16);
-
+$user = Jien::model("User")->getAll("gender='f'");
+/*
 // get a single record with a where clause
 $data = Jien::model("User")->where("u.username LIKE '%jae%'")->get();
 
@@ -33,7 +46,7 @@ $data = Jien::model("User")->where("u.gender = 'm'")->orWhere("u.gender = 'f'")-
 $data = Jien::model("User")->where("u.gender = 'm'")->orWhere("u.gender = 'f'")->getAll();
 
 // get all records and where clause for male only and add a or where clause
-$data = Jien::model("User")->where("u.gender = 'm'")->orWhere("u.gender = 'f'")->getAll();
+$data = Jien::model("User")->where("u.gender = 'm'")->orWhere("u.gender = 'f'")->getAll();*/
 
-Jien::debug($data);
+
 ?>

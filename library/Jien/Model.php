@@ -177,6 +177,21 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 			$q->limit($this->_query['limit']['limit'], $this->_query['limit']['skip']);
 		}
 		
+		if(!empty($this->_query['join'])){
+			foreach($this->_query['join'] AS $table=>$v){
+				$join_alias = $v['alias'];
+				$join_fields = array();
+				if(!empty($v['fields'])){
+					$join_fields = array();
+					$xJoinFields = explode(",", $v['fields']);
+					foreach($xJoinFields AS $field){
+						array_push($join_fields, trim($field));
+					}
+				}
+				$q->joinLeft(array($join_alias => $table), $v['condi'], $join_fields);
+			}
+		}
+		
 		return $q;
 	}
 	
@@ -252,6 +267,22 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 	public function limit($limit, $skip = 0){
 		$this->_query['limit']['limit'] = $limit;
 		$this->_query['limit']['skip'] = $skip;
+		return $this;
+	}
+	
+	public function leftJoin($table, $condi, $fields = ''){
+		$xTable = explode(" ", $table);
+		$table = $xTable[0];
+		if(!empty($xTable[1])){
+			$alias = $xTable[1];
+		}else{
+			$alias = Jien::model($table)->_alias;
+		}
+		$this->_query['join'][$table]['alias'] = $alias;
+		$this->_query['join'][$table]['type'] = 'left';
+		$this->_query['join'][$table]['condi'] = $condi;
+		$this->_query['join'][$table]['fields'] = $fields;
+		
 		return $this;
 	}
 	
