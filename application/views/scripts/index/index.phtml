@@ -5,7 +5,7 @@ Hello World!!
 $data = Jien::model("User")->get(16);
 
 // get a single record with a where clause
-$data = Jien::model("User")->get("u.username LIKE '%jae%'");
+$data = Jien::model("User")->where("u.username LIKE '%jae%'")->get();
 
 // get all records
 $data = Jien::model("User")->getAll();

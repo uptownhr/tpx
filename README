@@ -1,12 +1,13 @@
 ** Jien Model **
 
 *** I created tihs wrapper so that I can get access to my data quicker and safer
+*** The query methods (where, limit, orderBy, groupBy, having) are all chainable so you can mix/match them.
 
 // get a single record by it's primary id
 $data = Jien::model("User")->get(16);
 
 // get a single record with a where clause
-$data = Jien::model("User")->get("u.username LIKE '%jae%'");
+$data = Jien::model("User")->where("u.username LIKE '%jae%')->get();
 
 // get all records
 $data = Jien::model("User")->getAll();
@@ -36,4 +37,18 @@ $data = Jien::model("User")->where("u.gender = 'm'")->orWhere("u.gender = 'f'")-
 // get all records and where clause for male only and add a or where clause
 $data = Jien::model("User")->where("u.gender = 'm'")->orWhere("u.gender = 'f'")->getAll();
 
-Jien::debug($data);
+
+*** From the User model ***
+
+You can create pre-defined chunks of sql to re-use / interchange easily:
+
+public function byHuman(){
+	$this->andWhere("u.gender = 'f' OR u.gender = 'm'");
+	return $this;
+}
+
+.....
+
+Now you can just:
+
+$data = Jien::model("User")->byHuman()->byPopular()->etc..etc..->getAll();
