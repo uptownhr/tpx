@@ -10,7 +10,7 @@ class IndexController extends My_Controller {
     public function indexAction(){
     	$current_page = $this->_getParam('page', 1);
 		$this->view->data = Jien::model("User")
-			->enablePager($current_page, 5, 10)
+			->enablePager($current_page)
 			->getAll();
 
     }

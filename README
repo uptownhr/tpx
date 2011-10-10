@@ -71,3 +71,21 @@ public function byHuman(){
 Now you can just:
 
 $data = Jien::model("User")->byHuman()->byPopular()->etc..etc..->getAll();
+
+
+....
+
+Pagination:
+
+[controller]
+$current_page = $this->_getParam('page', 1);
+$this->view->data = Jien::model("User")->enablePager($current_page)->getAll();
+
+or to override defaults (defaults are item_per_page = 10, page_range = 10)
+
+$item_per_page = 10;
+$page_range = 10;
+$this->view->data = Jien::model("User")->enablePager($current_page, $item_per_page, $page_range)->getAll();
+
+[index.phtml]
+<?php echo $this->paginationControl($this->data['paginator'], 'Sliding', 'pagination.phtml'); ?>
