@@ -34,7 +34,7 @@ class Jien_Model extends Zend_Db_Table_Abstract {
         return $row;
 	}
 	
-	public function save($data){
+	public function save($data, $where = ''){
 		
 		$info = $this->info();
 		$primary = $this->getPrimary();
@@ -54,13 +54,15 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 		}
 		
 		// if editing, just update
-		if(!empty($data[$primary])){
-			$affected = $this->update($data, "{$primary} = {$data[$primary]}");
-			return $data[$primary];
+		if($where){
+			return $this->update($data, "{$where}");
+		}else if(!empty($data[$primary])){
+			return $this->update($data, "{$primary} = {$data[$primary]}");
 		}else{
 			// create a new record
 			$data['active'] = 1;
-			return $this->insert($data);	
+			$id = $this->insert($data);	
+			return $id;
 		}
 		
 	}

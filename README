@@ -66,16 +66,15 @@ public function byHuman(){
 	return $this;
 }
 
-.....
+...
 
 Now you can just:
 
 $data = Jien::model("User")->byHuman()->byPopular()->etc..etc..->getAll();
 
+...
 
-....
-
-Pagination:
+And pagination is simple too:
 
 [controller]
 $current_page = $this->_getParam('page', 1);
@@ -90,3 +89,30 @@ $this->view->data = Jien::model("User")->enablePager($current_page, $item_per_pa
 [index.phtml]
 <?php echo $this->paginationControl($this->data['paginator'], 'Sliding', 'pagination.phtml'); ?>
 <?php Jien::debug($this->data['records']); ?>
+
+
+*** Save ***
+
+$id = Jien::model("User")->save(array(
+	"username"	=>	"someguy123",
+));
+
+*** Update ***
+
+just pass it's primary value to the data:
+
+$id = Jien::model("User")->save(array(
+	"user_id"	=>	23,
+	"username"	=>	"someguy123",
+));
+
+or pass a wheres clause...
+
+$id = Jien::model("User")->save(array(
+	"username"	=>	'newname',
+), "gender = 'm'");
+
+
+----------
+
+I let my request object be responsible for filtering out sql injection ...
