@@ -54,6 +54,11 @@
             <input class="input-small" type="password" placeholder="password" name="password">
             <button class="btn" type="submit">Sign in</button>
           </form>
+          <script>
+          $(document).ready(function(){
+          	$('#login_form input[name=username]').focus();
+          });
+          </script>
           <?php } ?>
         </div>
       </div>
@@ -81,6 +86,7 @@
 				window.location.href = '/admin/dashboard';	
 			}else{
 				alert('invalid user/pass');
+				$('#login_form input[name=username]').focus();
 			}
 			
 		});
