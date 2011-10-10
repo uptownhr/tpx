@@ -101,16 +101,20 @@ $id = Jien::model("User")->save(array(
 
 just pass it's primary value to the data:
 
-$id = Jien::model("User")->save(array(
+$affected = Jien::model("User")->save(array(
 	"user_id"	=>	23,
 	"username"	=>	"someguy123",
 ));
 
 or pass a wheres clause...
 
-$id = Jien::model("User")->save(array(
+$affected = Jien::model("User")->save(array(
 	"username"	=>	'newname',
 ), "gender = 'm'");
+
+*** Delete ***
+
+$affected = Jien::model("User")->delete("gender = ''");
 
 
 ----------
