@@ -242,7 +242,7 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 		$res = array();
 		if($rows){
 			$res = array(
-				"rows"	=>	$rows,
+				"records"	=>	$rows,
 			);
 			if(!empty($pager)){
 				$res['paginator'] = $pager;
