@@ -214,16 +214,39 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 		}
 	}
 	
+	public function enablePager($current_page = 1, $item_count_per_page = 10, $page_range = 10){
+		$this->_query['pager'] = array(
+			"current_page"	=>	$current_page,
+			"item_count_per_page" => $item_count_per_page,
+			"page_range" => $page_range,
+		);
+		$this->limit($item_count_per_page, ($current_page - 1) * $item_count_per_page);
+		return $this;
+	}
+	
 	public function getAll($where = ''){
 		if($where){
 			$this->andWhere($where);
 		}
 		$select = $this->_getQuery();
+		
+		if(!empty($this->_query['pager'])){
+			$pager = Zend_Paginator::factory($select);
+	        $pager->setCurrentPageNumber($this->_query['pager']['current_page']);
+	        $pager->setItemCountPerPage($this->_query['pager']['item_count_per_page']);
+	        $pager->setPageRange($this->_query['pager']['page_range']);
+		}
+		
 		$stmt = Jien::db()->query($select);
 		$rows = $stmt->fetchAll();
 		$res = array();
 		if($rows){
-			$res = $rows;
+			$res = array(
+				"rows"	=>	$rows,
+			);
+			if(!empty($pager)){
+				$res['paginator'] = $pager;
+			}
 			$this->_resetQuery();
 		}
 		return $res;
