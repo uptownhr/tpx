@@ -1,7 +1,7 @@
 <?php
 
 // increase it as needed
-ini_set("memory_limit", "128M");
+ini_set("memory_limit", "512M");
 
 // define path to application directory
 defined('APPLICATION_PATH')

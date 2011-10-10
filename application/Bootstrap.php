@@ -2,6 +2,10 @@
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
 	
+	protected function _initSession(){
+		Zend_Session::start();	
+	}
+	
 	protected function _initView(){
 		
 		// Initialize view
@@ -95,9 +99,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
 			
 		}
 		
-		// enable session
-    	session_start();
-    	
 	    // set cache to registry
 	    Zend_Registry::set('cache', $cache);
 	    

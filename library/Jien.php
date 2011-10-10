@@ -324,4 +324,62 @@ class Jien {
 		error_log(str_replace("\t", "", str_replace("\n", " ", var_export($data,true))));
 	}
 	
+	static function outputDbProfiler(){
+		$db = Zend_Registry::get('db');
+		if($db){
+		    $profiler = $db->getProfiler();
+		    $totalTime    = $profiler->getTotalElapsedSecs();
+		    $queryCount   = $profiler->getTotalNumQueries();
+		    $longestTime  = 0;
+		    $longestQuery = null;
+		    foreach ($profiler->getQueryProfiles() as $query) {
+		            $queries .= $query->getQuery() . "\n" . "({$query->getElapsedSecs()} seconds)" . "\n\n";
+		        if ($query->getElapsedSecs() > $longestTime) {
+		            $longestTime  = $query->getElapsedSecs();
+		            $longestQuery = $query->getQuery();
+		        }
+		    }
+		    echo '<!--slave
+		    Executed ' . $queryCount . ' queries in ' . $totalTime . ' seconds' . "\n";
+		    echo 'Average query length: ' . $totalTime / $queryCount . ' seconds' . "\n";
+		    echo 'Queries per second: ' . $queryCount / $totalTime . "\n";
+		    echo 'Longest query length: ' . $longestTime . "\n";
+		    echo "Longest query: \n" . $longestQuery . "\n";
+		    echo "Total queries: \n" . $queries;
+		    echo "-->";
+		}
+		
+		$db = Zend_Registry::get('masterdb');
+		if($db){
+			
+			$queries = '';
+		    $profiler = $db->getProfiler();
+		    $totalTime    = $profiler->getTotalElapsedSecs();
+		    $queryCount   = $profiler->getTotalNumQueries();
+		    $longestTime  = 0;
+		    $longestQuery = null;
+		    foreach ($profiler->getQueryProfiles() as $query) {
+		            $queries .= $query->getQuery() . "\n" . "({$query->getElapsedSecs()} seconds)" . "\n\n";
+		        if ($query->getElapsedSecs() > $longestTime) {
+		            $longestTime  = $query->getElapsedSecs();
+		            $longestQuery = $query->getQuery();
+		        }
+		    }
+		    echo '<!--master
+		    Executed ' . $queryCount . ' queries in ' . $totalTime . ' seconds' . "\n";
+		    echo 'Average query length: ' . $totalTime / $queryCount . ' seconds' . "\n";
+		    echo 'Queries per second: ' . $queryCount / $totalTime . "\n";
+		    echo 'Longest query length: ' . $longestTime . "\n";
+		    echo "Longest query: \n" . $longestQuery . "\n";
+		    echo "Total queries: \n" . $queries;
+		    echo "-->";
+		}
+		
+	}
+	
+	public static function auth(){
+		$auth = Zend_Auth::getInstance();
+		return $auth;
+	}
+	
 }

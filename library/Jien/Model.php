@@ -23,17 +23,6 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 		$this->_primary = $this->getPrimary();
 	}
 	
-	public function getById($id){
-		
-		$row = $this->find($id);
-        if (!$row) {
-            throw new Exception("Could not find {$this->getPrimary()}: $id");
-        }else{
-        	$row = $row->current();
-        }
-        return $row;
-	}
-	
 	public function save($data, $where = ''){
 		
 		$info = $this->info();
@@ -202,15 +191,13 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 		return $q;
 	}
 	
-	public function get($where = ''){
-		if($where){
-			if(is_numeric($where)){
-				$this->andWhere("{$this->_alias}.{$this->getPrimary()} = {$where}");
-			}
+	public function get($id = ''){
+		if($id && is_numeric($id)){
+			$this->andWhere("{$this->_alias}.{$this->getPrimary()} = {$id}");
 		}
-		$res = $this->getAll($where);
-		if(!empty($res[0])){
-			return $res[0];
+		$res = $this->getAll();
+		if(!empty($res['records'][0])){
+			return $res['records'][0];
 		}else{
 			return false;
 		}

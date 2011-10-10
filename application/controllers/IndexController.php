@@ -6,15 +6,8 @@ class IndexController extends My_Controller {
         parent::init();
     }
     
-
     public function indexAction(){
-    	
-    	$d = Jien::model("User")->delete("gender = ''");
-    	$current_page = $this->_getParam('page', 1);
-		$this->view->data = Jien::model("User")
-			->enablePager($current_page, 500)
-			->getAll();
-
+		$this->view->data = Jien::model("User")->enablePager($this->_getParam('page', 1), 50)->getAll();
     }
     
 }
