@@ -89,3 +89,4 @@ $this->view->data = Jien::model("User")->enablePager($current_page, $item_per_pa
 
 [index.phtml]
 <?php echo $this->paginationControl($this->data['paginator'], 'Sliding', 'pagination.phtml'); ?>
+<?php Jien::debug($this->data['records']); ?>
