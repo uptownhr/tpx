@@ -21,17 +21,35 @@ class AdminController extends My_Controller {
     public function saveAction(){
     	$data = $this->params();
     	$model = $data['model'];
-    	$id = Jien::model($model)->save($data);
-    	echo $id;
-    	exit;
+    	
+    	try {
+    		$id = Jien::model($model)->save($data);
+    		$primary = Jien::model($model)->getPrimary();
+    		
+    		echo Jien::outputResultToJson(200, array($primary=>$id));
+    		exit;
+    		
+    	}catch(Exception $e){
+    		
+    		echo Jien::outputResultToJson(405, array(), $e->getMessage());
+    		exit;
+    		
+    	}
     }
     
     public function deleteAction(){
     	$id = $this->params('id');
     	$model = $this->params('model');
-    	$affected = Jien::model($model)->delete($id);
-    	echo $affected;
-    	exit;
+    	
+    	try {
+    		$affected = Jien::model($model)->delete($id);
+    		echo Jien::outputResultToJson(200, array("affected"=>$affected), 'deleted');
+    		exit;
+    	}catch(Exception $e){
+    		echo Jien::outputResultToJson(405, array(), $e->getMessage());
+    		exit;
+    	}
+    	
     }
     
     public function indexAction(){

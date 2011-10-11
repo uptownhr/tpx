@@ -17,37 +17,24 @@ class AuthController extends My_Controller {
 				"accessed"	=>	new Zend_Db_Expr('NOW()'),
 			));
 			
-			$res = array(
-				"result"	=>	array(
-					"code"	=>	200,
-					"text"	=>	"success",
-				),
-				"user"	=>	$_SESSION['user'],
-			);
+			echo Jien::outputResultToJson(200, array("user"=>$_SESSION['user']));
+			exit;
+			
 		}else{
-			$res = array(
-				"result"	=>	array(
-					"code"	=>	404,
-					"text"	=>	"rejected",
-				),
-			);
+			
+			echo Jien::outputResultToJson(401, array("user"=>$_SESSION['user']));
+			exit;
+			
 		}
-		header('Content-type: application/json');
-		echo Zend_Json::encode($res);
-		exit;
+		
 	}
 	
 	public function logoutAction(){
 		unset($_SESSION['user']);
-		$res = array(
-			"result"	=>	array(
-				"code"	=>	200,
-				"text"	=>	"success",
-			),
-		);
-		header('Content-type: application/json');
-		echo Zend_Json::encode($res);
+		
+		echo Jien::outputResultToJson(200, array());
 		exit;
+		
 	}
     
 }

@@ -382,4 +382,56 @@ class Jien {
 		return $auth;
 	}
 	
+	public static function outputResult($code, $result, $msg = ''){
+		
+		switch($code){
+			
+			case 200:
+				$text = 'ok';
+				break;
+			
+			case 400:
+				$text = 'bad request';
+				break;	
+				
+			case 401:
+				$text = 'unauthorized';
+				break;
+				
+			case 403:
+				$text = 'forbidden';
+				break;
+			
+			case 404:
+				$text = 'not found';
+				break;
+				
+			case 405:
+				$text = 'not allowed';
+				break;
+				
+			default:
+				$text = 'internal server error';
+				break;
+			
+		}
+		
+		$res = array(
+			"status"	=>	array(
+				"code"	=>	$code,
+				"text"	=>	$text,
+				"message"	=> $msg,
+			),
+			"result"	=>	$result,
+		);
+		
+		return $res;
+	}
+	
+	public static function outputResultToJson($code, $result, $msg = ''){
+		$res = Jien::outputResult($code, $result, $msg);
+		header('Content-type: application/json');
+		return Zend_Json::encode($res);
+	}
+	
 }
