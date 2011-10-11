@@ -36,4 +36,5 @@ class Jien_Controller extends Zend_Controller_Action {
 			return $request->getParams();
 		}
     }
+    
 }
