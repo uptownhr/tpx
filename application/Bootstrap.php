@@ -18,6 +18,10 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
 		);
 		$viewRenderer->setView($view);
 		
+		// add helper path
+		$view->addHelperPath('Jien/View/Helper/', 'Jien_View_Helper');
+		$view->addHelperPath('My/View/Helper/', 'My_View_Helper');
+		
 		// Return it, so that it can be stored by the bootstrap
 		return $view;
 	}

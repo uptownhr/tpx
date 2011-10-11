@@ -3,7 +3,11 @@
 class AdminController extends My_Controller {
 
     public function init(){
-    	$this->_helper->layout()->setLayout('admin');
+    	if(!empty($_SESSION['user'])){
+    		$this->_helper->layout()->setLayout('admin');
+    	}else{
+    		$this->_helper->layout()->setLayout('admin-loggedout');
+    	}
         parent::init();
     }
     
@@ -21,5 +25,11 @@ class AdminController extends My_Controller {
     	
     }
     
+    public function usersAction(){
+    	$this->view->data = Jien::model("User")->enablePager($this->params('page', 1), 2)->getAll();
+    }
+    
+    public function userAction(){
+    }
     
 }

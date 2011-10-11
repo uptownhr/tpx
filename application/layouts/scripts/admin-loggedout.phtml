@@ -32,24 +32,8 @@
     <div class="topbar">
       <div class="fill">
         <div class="container">
-          <a class="brand" href="/admin">Admin</a>
-          <ul class="nav" id="main_menu">
-            <li class="active"><a href="/admin">Home</a></li>
-            <li><a href="/admin/users">Users</a></li>
-          </ul>
+          <a class="brand" href="/admin">Jien Framework</a>
           
-          <?php if(!empty($_SESSION['user'])){ ?>
-          <ul id="profile" class="nav secondary-nav">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle">jaequery</a>
-              <ul class="dropdown-menu">
-                <li><a href="/auth/logout" class='trig_logout'>Log-out</a></li>
-              </ul>
-            </li>
-          </ul>
-          <?php } ?>
-
-          <?php if(empty($_SESSION['user'])){ ?>
           <form action="/auth/login" method="POST" id="login_form" class="pull-right">
             <input class="input-small" type="text" placeholder="username" name="username">
             <input class="input-small" type="password" placeholder="password" name="password">
@@ -60,16 +44,11 @@
           	$('#login_form input[name=username]').focus();
           });
           </script>
-          <?php } ?>
         </div>
       </div>
     </div>
 
-    <div id="main" class="main">
-    	<div class="container">
-			<?php echo $this->layout()->content; ?>	
-		</div>
-	</div>
+	<?php echo $this->layout()->content; ?>	
 	
 	<div class="container" style='padding-top: 10px;'>
 	  	<footer>
@@ -110,9 +89,6 @@
   	$('#main_menu li').removeClass('active');
   	
   	</script>
-  	
-  	
-  	
     
   </body>
   
