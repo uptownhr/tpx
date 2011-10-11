@@ -14,6 +14,7 @@ class Jien_Controller extends Zend_Controller_Action {
         $adapter->setCredential($password);
 
         $auth = Zend_Auth::getInstance();
+        
         $result = $auth->authenticate($adapter);
         if ($result->isValid()) {
             $user = $adapter->getResultRowObject();
@@ -24,7 +25,11 @@ class Jien_Controller extends Zend_Controller_Action {
     }
     
     protected function _getAuthAdapter() {
-        $authAdapter = new Zend_Auth_Adapter_DbTable(Jien::db(), "User", "username", "password", "level > 0 AND active=1");
+        $authAdapter = new Zend_Auth_Adapter_DbTable(Jien::db(), "User", "username", "password", "");
+        
+        $select = $authAdapter->getDbSelect();
+		$select->where('level > 2 AND active=1');
+        
         return $authAdapter;
     }
     

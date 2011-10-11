@@ -10,6 +10,13 @@ class AuthController extends My_Controller {
 		$auth = $this->_authenticate($_REQUEST['username'], $_REQUEST['password']);
 		$res = array();
 		if($auth){
+			
+			// updates accessed field to now
+			Jien::model("User")->save(array(
+				"user_id"	=>	$_SESSION['user']->user_id,
+				"accessed"	=>	new Zend_Db_Expr('NOW()'),
+			));
+			
 			$res = array(
 				"result"	=>	array(
 					"code"	=>	200,

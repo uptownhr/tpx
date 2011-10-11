@@ -9,6 +9,9 @@ class AdminController extends My_Controller {
     		$this->_helper->layout()->setLayout('admin-loggedout');
     	}
         parent::init();
+        
+        // view vars
+        $this->view->title = "Jien Framework";
     }
     
     public function preDispatch(){
