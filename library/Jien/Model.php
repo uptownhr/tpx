@@ -49,7 +49,6 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 			return $this->update($data, "{$primary} = {$data[$primary]}");
 		}else{
 			// create a new record
-			$data['active'] = 1;
 			$id = $this->insert($data);	
 			return $id;
 		}
@@ -63,6 +62,8 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 	}
 	
 	public function insert(array $data){
+		$data['active'] = 1;
+		$data['created'] = new Zend_Db_Expr('NOW()');
 		$res = $this->masterdb->insert($this->_name, $data);
 		$id = $this->masterdb->lastInsertId();
 		return $id;
@@ -74,7 +75,8 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 	}
 	
 	public function delete($where){
-		if(is_int($where)){
+		
+		if(is_numeric($where)){
 			$where = $this->getPrimary() . " = " . $where;
 		}
 		if($this->_soft_delete === true){
@@ -323,6 +325,12 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 		return $this;
 	}
 	
+	public function scheme(){
+ 		$info = $this->info();
+ 		$meta = $info['metadata'];
+ 		$scheme = $meta;
+ 		return $scheme;
+ 	}
 	
 
 }
