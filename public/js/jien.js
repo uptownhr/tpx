@@ -1,4 +1,4 @@
-var site = {};
+var jien = {};
 
 // prevent console errors on browsers without firebug
 if (!window.console) {
@@ -6,7 +6,7 @@ if (!window.console) {
     console.log = function(){};
 }
 (function($) {
-	site = {
+	jien = {
 		util: {
 			serializeForm: function(target){
 				var post = {};
