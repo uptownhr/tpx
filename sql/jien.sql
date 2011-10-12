@@ -25,13 +25,16 @@ DROP TABLE IF EXISTS `Page`;
 CREATE TABLE `Page` (
   `page_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL,
-  `page_title` varchar(128) NOT NULL,
-  `page_content` tinytext NOT NULL,
+  `title` varchar(128) NOT NULL,
+  `content` tinytext NOT NULL,
+  `url` varchar(128) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` datetime DEFAULT NULL,
   `deleted` datetime DEFAULT NULL,
   `active` tinyint(4) NOT NULL,
-  PRIMARY KEY (`page_id`)
+  PRIMARY KEY (`page_id`),
+  KEY `user_id` (`user_id`),
+  KEY `url` (`url`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -41,7 +44,7 @@ CREATE TABLE `Page` (
 
 LOCK TABLES `Page` WRITE;
 /*!40000 ALTER TABLE `Page` DISABLE KEYS */;
-INSERT INTO `Page` VALUES (1,1,'Welcome','Hello this is a welcome page','2011-10-11 06:52:24','2011-10-10 23:52:32','0000-00-00 00:00:00',1);
+INSERT INTO `Page` VALUES (1,1,'Welcome','Hello this is a welcome page','','2011-10-11 06:52:24','2011-10-10 23:52:32','0000-00-00 00:00:00',1);
 /*!40000 ALTER TABLE `Page` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,7 +64,8 @@ CREATE TABLE `Post` (
   `updated` datetime DEFAULT NULL,
   `deleted` datetime DEFAULT NULL,
   `active` tinyint(4) NOT NULL,
-  UNIQUE KEY `post_id` (`post_id`)
+  UNIQUE KEY `post_id` (`post_id`),
+  KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -103,8 +107,10 @@ CREATE TABLE `User` (
   `deleted` datetime DEFAULT NULL,
   `accessed` datetime DEFAULT NULL,
   `active` tinyint(4) NOT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `username` (`username`),
+  KEY `level` (`level`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,7 +119,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (1,'admin','demo',1,'m','demo','demo','demo@demo.com','0000-00-00','','',0,'',0,'','2011-10-11 06:57:24','0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00',1);
+INSERT INTO `User` VALUES (5,'admin','demo',1,'','','','','0000-00-00','','',0,'',0,'','2011-10-11 15:40:41','2011-10-12 13:21:40','0000-00-00 00:00:00','2011-10-12 13:20:13',1),(38,'jae','wtfsd',0,'','','','',NULL,'','',0,'',0,'','2011-10-12 20:21:33',NULL,NULL,NULL,1);
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -126,4 +132,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-10-10 23:58:02
+-- Dump completed on 2011-10-12 13:23:10
