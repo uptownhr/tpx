@@ -39,8 +39,8 @@
 			            <td><?php echo $value['level']; ?></td>
 			            <td><?php echo date("m/d/y", strtotime($value['created'])); ?></td>
 			            <td>
-			            	<a href="/admin/<?php echo strtolower($this->model); ?>/id/<?php echo $value[strtolower($this->model).'_id']; ?>" class="btn blue">Edit</a>
-			            	<a href="/admin/delete/?model=<?php echo $this->model; ?>&id=<?php echo $value[strtolower($this->model).'_id'];; ?>" class="btn red">Remove</a>
+			            	<a href="/admin/<?php echo strtolower($this->model); ?>/id/<?php echo $value[$this->primary]; ?>" class="btn blue">Edit</a>
+			            	<a href="/admin/delete/?model=<?php echo $this->model; ?>&id=<?php echo $value[$this->primary];; ?>" class="btn red trig_delete" rel="model=<?php echo $this->model; ?>|id=<?php echo $value[$this->primary]; ?>">Remove</a>
 			            </td>
 			          </tr>
 			          <?php } ?>

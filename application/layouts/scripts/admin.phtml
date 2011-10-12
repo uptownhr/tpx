@@ -82,8 +82,16 @@
 	
 	<!--domready javascript-->
   	<script>
-  	$('#profile').dropdown();
   	
+  	/** onready events **/
+  	
+  	// enable dropdown
+  	$('#profile').dropdown();
+
+  	// enable active menu highlighting
+  	$('#main_menu li').removeClass('active');
+  	
+  	// login event
   	$('#login_form').submit(function(e){
 		e.preventDefault();
 		var form = site.util.serializeForm($(this));
@@ -98,6 +106,7 @@
 		});
   	});
   	
+  	// logout event
   	$('.trig_logout').click(function(e){
   		e.preventDefault();
   		$.post("/auth/logout", function(res){
@@ -105,10 +114,38 @@
   		});
   	});
   	
+  	// save form event
+  	$('form.trig_save').submit(function(e){
+		e.preventDefault();
+		var data = jien.util.serializeForm(this);
+		$.post("/admin/data", data, function(res){
+			if(res.status.code == 200){
+				jien.ui.growl('Saved!');
+				history.go(-1);
+			}else{
+				jien.ui.growl(res.status.text, 'error');
+			}
+		});
+  	});
   	
-  	
-  	// highlight active menu
-  	$('#main_menu li').removeClass('active');
+  	// delete event
+  	$('a.trig_delete').click(function(e){
+  		e.preventDefault();
+  		var c = confirm('Are you sure?');
+  		if(c){
+	  		var opts = jien.util.parseRel($(this).attr('rel'));
+	  		opts.cmd = 'delete';
+	  		var self = this;
+	  		$.post("/admin/data", opts, function(res){
+	  			if(res.status.code == 200){
+	  				jien.ui.growl('Deleted');
+	  				$(self).parent().parent().slideUp();
+	  			}else{
+	  				jien.ui.growl(res.status.text, 'error');
+	  			}
+	  		});
+  		}
+  	});
   	
   	</script>
   	

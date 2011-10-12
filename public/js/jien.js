@@ -7,12 +7,38 @@ if (!window.console) {
 }
 (function($) {
 	jien = {
+		ui: {
+			growl: function(msg, type){
+				if(!type) type = 'success';
+				var method = '';
+				switch(type){
+					case 'notice':
+						method = 'showNoticeToast';
+					break;
+					
+					case 'success':
+						method = 'showSuccessToast';
+					break;
+					
+					case 'warning':
+						method = 'showWarningToast';
+					break;
+					
+					case 'error':
+						method = 'showErrorToast';
+					break;
+				}
+				$().toastmessage(method, msg);
+			}
+		},
 		util: {
 			serializeForm: function(target){
 				var post = {};
 				var form = $(target).serializeArray();
 				$.each(form, function(k,v){
-					post[v.name] = v.value;		
+					if(v.value){
+						post[v.name] = v.value;
+					}
 				});
 				return post;
 			},
