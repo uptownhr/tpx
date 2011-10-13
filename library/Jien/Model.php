@@ -224,9 +224,9 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 		// whitespace test
 		if(!empty($this->_query['pager'])){
 			$pager = Zend_Paginator::factory($select);
-	        $pager->setCurrentPageNumber($this->_query['pager']['current_page']);
-	        $pager->setItemCountPerPage($this->_query['pager']['item_count_per_page']);
-	        $pager->setPageRange($this->_query['pager']['page_range']);
+			$pager->setCurrentPageNumber($this->_query['pager']['current_page']);
+			$pager->setItemCountPerPage($this->_query['pager']['item_count_per_page']);
+			$pager->setPageRange($this->_query['pager']['page_range']);
 		}
 
 		$stmt = Jien::db()->query($select);
