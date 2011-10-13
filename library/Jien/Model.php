@@ -221,7 +221,6 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 		}
 		$select = $this->_getQuery();
 
-		// whitespace test
 		if(!empty($this->_query['pager'])){
 			$pager = Zend_Paginator::factory($select);
 			$pager->setCurrentPageNumber($this->_query['pager']['current_page']);
@@ -334,7 +333,7 @@ class Jien_Model extends Zend_Db_Table_Abstract {
  	}
 
 	public function withUser(){
-    	$this->leftJoin("User", "u.user_id = {$this->_alias}.user_id");
+		$this->leftJoin("User", "u.user_id = {$this->_alias}.user_id");
     	return $this;
     }
 
