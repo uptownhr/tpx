@@ -9,20 +9,16 @@
 		  		Listing all <?php echo $this->model; ?>s <small></small> <span class='right'><a href='/admin/<?php echo strtolower($this->model); ?>'>Add a <?php echo strtolower($this->model); ?></a></span>
 		  	</h3>
 		</div>
-		
-		<?php 
-		Jien::debug($this->data);
-		?>
-		
+
 		<div class="row">
 		  	<div class="span12">
 		    	<?php echo $this->paginator($this->data, true); ?>
 		  	</div>
 		</div>
-		
+
 		<div class="row">
 		  	<div class="span15">
-		  	
+
 		  		<table class="zebra-striped">
 			        <thead>
 			          <tr>
@@ -52,15 +48,15 @@
 			          <?php } ?>
 			          </tbody>
 			      </table>
-			      
+
 			     <?php echo $this->paginator($this->data); ?>
 		  	</div>
-		  	
-		  	
-		  	
+
+
+
 		</div>
-	
+
 	</div>
-	
+
 </div>
 
