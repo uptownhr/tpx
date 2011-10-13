@@ -333,7 +333,7 @@ class Jien_Model extends Zend_Db_Table_Abstract {
  	}
 	
 	public function withUser(){
-    	$this->leftJoin("User", "u.user_id = {$this->_alias}.{$this->getPrimary()}");
+    	$this->leftJoin("User", "u.user_id = {$this->_alias}.user_id");
     	return $this;
     }
     
