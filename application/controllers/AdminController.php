@@ -7,7 +7,7 @@ class AdminController extends My_Controller {
     		$this->_helper->layout()->setLayout('admin');
     	}else{
     		$this->_helper->layout()->setLayout('admin-loggedout');
-            $this->render('admin/index');
+            $this->render('index');
     	}
         parent::init();
         
