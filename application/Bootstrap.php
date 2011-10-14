@@ -11,6 +11,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
 		// Initialize view
 		$view = new Zend_View();
 		$view->env = APPLICATION_ENV;
+		$view->setScriptPath(APPLICATION_PATH.'/views/default/');
 		
 		// Add it to the ViewRenderer
 		$viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper(

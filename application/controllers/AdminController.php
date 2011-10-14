@@ -63,42 +63,42 @@ class AdminController extends My_Controller {
     public function usersAction(){
     	$this->view->model = "User";
     	$this->view->primary = Jien::model($this->view->model)->getPrimary();
-    	$this->view->data = Jien::model($this->view->model)->orderBy("u.user_id DESC")->enablePager($this->params('page', 1))->getAll();
+    	$this->view->data = Jien::model($this->view->model)->orderBy("u.user_id DESC")->withPager($this->params('page', 1))->getAll();
     }
     
     public function userAction(){
     	$this->view->model = "User";
-    	$user_id = $this->params('id');
-    	if($user_id){
-    		$this->view->data = Jien::model($this->view->model)->get($user_id);
+    	$id = $this->params('id');
+    	if($id){
+    		$this->view->data = Jien::model($this->view->model)->get($id);
     	}
     }
     
     public function postsAction(){
     	$this->view->model = "Post";
     	$this->view->primary = Jien::model($this->view->model)->getPrimary();
-    	$this->view->data = Jien::model($this->view->model)->orderBy("p.post_id DESC")->withUser()->enablePager($this->params('page', 1))->getAll();
+    	$this->view->data = Jien::model($this->view->model)->orderBy("p.post_id DESC")->joinUser()->withPager($this->params('page', 1))->getAll();
     }
     
     public function postAction(){
     	$this->view->model = "Post";
-    	$user_id = $this->params('id');
-    	if($user_id){
-    		$this->view->data = Jien::model($this->view->model)->get($user_id);
+    	$id = $this->params('id');
+    	if($id){
+    		$this->view->data = Jien::model($this->view->model)->get($id);
     	}
     }
     
     public function pagesAction(){
     	$this->view->model = "Page";
     	$this->view->primary = Jien::model($this->view->model)->getPrimary();
-    	$this->view->data = Jien::model($this->view->model)->orderBy("page.page_id DESC")->withUser()->enablePager($this->params('page', 1))->getAll();
+    	$this->view->data = Jien::model($this->view->model)->orderBy("page.page_id DESC")->joinUser()->withPager($this->params('page', 1))->getAll();
     }
     
     public function pageAction(){
     	$this->view->model = "Page";
-    	$user_id = $this->params('id');
-    	if($user_id){
-    		$this->view->data = Jien::model($this->view->model)->get($user_id);
+    	$id = $this->params('id');
+    	if($id){
+    		$this->view->data = Jien::model($this->view->model)->get($id);
     	}
     }
     
