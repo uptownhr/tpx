@@ -44,7 +44,7 @@ CREATE TABLE `Page` (
 
 LOCK TABLES `Page` WRITE;
 /*!40000 ALTER TABLE `Page` DISABLE KEYS */;
-INSERT INTO `Page` VALUES (1,1,'Welcome','Hello this is a welcome page','','2011-10-11 06:52:24','2011-10-10 23:52:32','0000-00-00 00:00:00',1);
+INSERT INTO `Page` VALUES (1,5,'Welcome','Hello this is a welcome page','/welcome','2011-10-11 06:52:24','2011-10-12 20:05:22','0000-00-00 00:00:00',1);
 /*!40000 ALTER TABLE `Page` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -75,7 +75,7 @@ CREATE TABLE `Post` (
 
 LOCK TABLES `Post` WRITE;
 /*!40000 ALTER TABLE `Post` DISABLE KEYS */;
-INSERT INTO `Post` VALUES (1,1,'This is a first post','testing 1 2 3','2011-10-11 06:51:57','0000-00-00 00:00:00','0000-00-00 00:00:00',1);
+INSERT INTO `Post` VALUES (1,5,'This is a first post','testing 1 2 3','2011-10-11 06:51:57','2011-10-13 22:22:08','0000-00-00 00:00:00',1);
 /*!40000 ALTER TABLE `Post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,17 +88,17 @@ DROP TABLE IF EXISTS `User`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `User` (
   `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `username` varchar(128) NOT NULL,
-  `password` varchar(1024) NOT NULL,
-  `level` int(11) NOT NULL,
-  `gender` varchar(1) NOT NULL,
-  `firstname` varchar(128) NOT NULL,
-  `lastname` varchar(128) NOT NULL,
-  `email` varchar(128) NOT NULL,
+  `username` varchar(64) NOT NULL,
+  `password` varchar(64) NOT NULL,
+  `level` tinyint(1) NOT NULL,
+  `gender` enum('male','female') NOT NULL,
+  `first_name` varchar(64) NOT NULL,
+  `last_name` varchar(64) NOT NULL,
+  `email` varchar(64) NOT NULL,
   `birthday` date DEFAULT NULL,
-  `address` varchar(64) NOT NULL,
-  `address2` varchar(64) NOT NULL,
-  `city` int(11) NOT NULL,
+  `address` varchar(128) NOT NULL,
+  `address2` varchar(128) NOT NULL,
+  `city` varchar(128) NOT NULL,
   `state` varchar(2) NOT NULL,
   `zip` int(11) NOT NULL,
   `country` varchar(2) NOT NULL,
@@ -119,7 +119,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (5,'admin','demo',1,'','','','','0000-00-00','','',0,'',0,'','2011-10-11 15:40:41','2011-10-12 13:21:40','0000-00-00 00:00:00','2011-10-12 13:20:13',1),(38,'jae','wtfsd',0,'','','','',NULL,'','',0,'',0,'','2011-10-12 20:21:33',NULL,NULL,NULL,1);
+INSERT INTO `User` VALUES (5,'admin','demo',1,'male','jae','lee','','0000-00-00','','','0','',0,'','2011-10-11 15:40:41','2011-10-13 22:19:09','0000-00-00 00:00:00','2011-10-13 18:57:48',1),(38,'jae','demo',0,'male','jung','ji','jaequery@gmail.com','2009-02-08','','','studio city','ca',0,'','2011-10-12 20:21:33','2011-10-13 23:08:45',NULL,NULL,1);
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -132,4 +132,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-10-12 13:23:10
+-- Dump completed on 2011-10-13 23:10:05
