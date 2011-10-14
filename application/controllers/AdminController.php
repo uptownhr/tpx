@@ -72,6 +72,7 @@ class AdminController extends My_Controller {
     	if($id){
     		$this->view->data = Jien::model($this->view->model)->get($id);
     	}
+        $this->_helper->viewRenderer('form');
     }
     
     public function postsAction(){
@@ -84,8 +85,9 @@ class AdminController extends My_Controller {
     	$this->view->model = "Post";
     	$id = $this->params('id');
     	if($id){
-    		$this->view->data = Jien::model($this->view->model)->get($id);
+    		$this->view->data = Jien::model($this->view->model)->joinUser()->get($id);
     	}
+        $this->_helper->viewRenderer('form');
     }
     
     public function pagesAction(){
@@ -100,6 +102,7 @@ class AdminController extends My_Controller {
     	if($id){
     		$this->view->data = Jien::model($this->view->model)->get($id);
     	}
+        $this->_helper->viewRenderer('form');
     }
     
 }

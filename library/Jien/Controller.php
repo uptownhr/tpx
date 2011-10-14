@@ -42,4 +42,13 @@ class Jien_Controller extends Zend_Controller_Action {
 		}
     }
     
+    // renders a script i.e; admin/form will render admin/form.phtml
+    public function render($script){
+        $this->_helper->viewRenderer($script);
+    }
+
+    // will retrieve the contents of the file (filename with extensions, i.e; admin/form.phtml)
+    public function retrieve($file){
+        return $this->render($file);
+    }
 }
