@@ -7,15 +7,12 @@ class AdminController extends My_Controller {
     		$this->_helper->layout()->setLayout('admin');
     	}else{
     		$this->_helper->layout()->setLayout('admin-loggedout');
+            $this->render('admin/index');
     	}
         parent::init();
         
         // view vars
         $this->view->title = "Jien Framework";
-    }
-    
-    public function preDispatch(){
-        
     }
     
     public function dataAction(){
