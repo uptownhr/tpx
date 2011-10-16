@@ -10,6 +10,8 @@ class My_Controller extends Jien_Controller {
     	$this->view->addScriptPath(APPLICATION_PATH.'/views/'.$theme.'/');
     	$this->_helper->layout()->setLayout($theme);
 
+    	// set title
+    	$this->view->title = "Jien - An open-source CMS built on top of Zend Framework";
     }
 
 }
