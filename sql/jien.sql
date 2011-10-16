@@ -16,6 +16,37 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `Contact`
+--
+
+DROP TABLE IF EXISTS `Contact`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Contact` (
+  `contact_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `subject` varchar(256) NOT NULL,
+  `message` text NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated` datetime DEFAULT NULL,
+  `deleted` datetime DEFAULT NULL,
+  `active` tinyint(4) NOT NULL,
+  UNIQUE KEY `post_id` (`contact_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Contact`
+--
+
+LOCK TABLES `Contact` WRITE;
+/*!40000 ALTER TABLE `Contact` DISABLE KEYS */;
+INSERT INTO `Contact` VALUES (1,'jae lee','jaequery@gmail.com','jae is cool','too hot','2011-10-16 01:49:30',NULL,NULL,1),(2,'jae','jae@stiqr.com','yo','yo aman','2011-10-16 02:06:04',NULL,NULL,1),(3,'jaelen lee','jaelen@stiqr.com','jaelen is cool','i love jaelen','2011-10-16 02:21:28',NULL,NULL,1),(4,'jaelen lee','jaelen@stiqr.com','jaelen is cool','i love jaelen','2011-10-16 02:21:53',NULL,NULL,1),(5,'jaelen','jaelen@stiqr.com','jae is cool','hi jae','2011-10-16 02:23:26',NULL,NULL,1);
+/*!40000 ALTER TABLE `Contact` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Page`
 --
 
@@ -66,7 +97,7 @@ CREATE TABLE `Post` (
   `active` tinyint(4) NOT NULL,
   UNIQUE KEY `post_id` (`post_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,7 +106,7 @@ CREATE TABLE `Post` (
 
 LOCK TABLES `Post` WRITE;
 /*!40000 ALTER TABLE `Post` DISABLE KEYS */;
-INSERT INTO `Post` VALUES (1,5,'This is a first post','testing 1 2 3','2011-10-11 06:51:57','2011-10-13 22:22:08','0000-00-00 00:00:00',1);
+INSERT INTO `Post` VALUES (1,5,'This is a first REAL ee post by jae','<p>\r\n	Hello amigoes,<br />\r\n	<br />\r\n	This is <strong>Jae&nbsp;</strong>the coolest dude in the whole wide world.&nbsp;<br />\r\n	And I&#39;m here to tell you a little story, and it goes like this:</p>\r\n<p>\r\n	Once up on a time...</p>\r\n','2011-10-11 06:51:57','2011-10-15 17:13:50','0000-00-00 00:00:00',1),(3,5,'Akunama tada','<p>\r\n	What a wonderful phrase.</p>\r\n<p>\r\n	It means no worries!</p>\r\n<p>\r\n	<span style=\"font-family:comic sans ms,cursive;\"><strong>Haknama Tada</strong></span></p>\r\n<p>\r\n	<br />\r\n	<font class=\"Apple-style-span\" face=\"\'comic sans ms\', cursive\">Hehehe</font></p>\r\n','2011-10-16 00:15:45',NULL,NULL,1),(5,5,'I really want to go to disney land','<p>\r\n	I always wanted to go to disney land because my daughter loves it so much. I know how excited she will be once I take her there because we went there a few years ago when she was a little baby.</p>\r\n<p>\r\n	<img alt=\"\" src=\"http://files.stiqr.com/public/images/63670.png\" style=\"margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; width: 199px; height: 210px; \" /></p>\r\n<p>\r\n	Now she knows and her expectations will be much higher, and she will know how to fully enjoy the moment.</p>\r\n','2011-10-16 00:21:59','2011-10-15 17:35:22',NULL,1);
 /*!40000 ALTER TABLE `Post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +150,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (5,'admin','demo',1,'male','jae','lee','','0000-00-00','','','0','',0,'','2011-10-11 15:40:41','2011-10-13 22:19:09','0000-00-00 00:00:00','2011-10-13 18:57:48',1),(38,'jae','demo',0,'male','jung','ji','jaequery@gmail.com','2009-02-08','','','studio city','ca',0,'','2011-10-12 20:21:33','2011-10-13 23:08:45',NULL,NULL,1);
+INSERT INTO `User` VALUES (5,'admin','demo',1,'female','jae','lee','jaequery@gmail.com','1982-01-06','','','0','',0,'','2011-10-11 15:40:41','2011-10-15 16:18:21','0000-00-00 00:00:00','2011-10-15 16:18:21',1),(38,'jae','demo',0,'male','jung','ji','jaequery@gmail.com','2009-02-08','','','studio city','ca',0,'','2011-10-12 20:21:33','2011-10-13 23:08:45',NULL,NULL,1);
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -132,4 +163,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-10-13 23:10:05
+-- Dump completed on 2011-10-15 19:56:11

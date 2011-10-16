@@ -9,23 +9,22 @@
 		  		Listing all <?php echo $this->model; ?>s <small></small> <span class='right'><a href='/admin/<?php echo strtolower($this->model); ?>'>Add a <?php echo strtolower($this->model); ?></a></span>
 		  	</h3>
 		</div>
-		
+
 		<div class="row">
 		  	<div class="span12">
 		    	<?php echo $this->paginator($this->data, true); ?>
 		  	</div>
 		</div>
-		
+
 		<div class="row">
 		  	<div class="span15">
-		  	
+
 		  		<table class="zebra-striped">
 			        <thead>
 			          <tr>
 			            <th class="header">#</th>
 			            <th class="header">User</th>
 			            <th class="header">Subject</th>
-			            <th class="header">Message</th>
 			            <th class="header">Created</th>
 			            <th class="header">Action</th>
 			          </tr>
@@ -36,7 +35,6 @@
 			            <td><?php echo $value['post_id']; ?></td>
 			            <td><?php echo $value['username']; ?></td>
 			            <td><?php echo $value['subject']; ?></td>
-			            <td><?php echo $value['message']; ?></td>
 			            <td><?php echo date("m/d/y", strtotime($value['created'])); ?></td>
 			            <td>
 			            	<a href="/admin/<?php echo strtolower($this->model); ?>/id/<?php echo $value[strtolower($this->model).'_id']; ?>" class="btn blue">Edit</a>
@@ -46,15 +44,15 @@
 			          <?php } ?>
 			          </tbody>
 			      </table>
-			      
+
 			     <?php echo $this->paginator($this->data); ?>
 		  	</div>
-		  	
-		  	
-		  	
+
+
+
 		</div>
-	
+
 	</div>
-	
+
 </div>
 

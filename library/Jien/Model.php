@@ -322,20 +322,6 @@ class Jien_Model extends Zend_Db_Table_Abstract {
  		return $scheme;
  	}
 
- 	public function withPager($current_page = 1, $item_count_per_page = 10, $page_range = 10){
-		$this->_query['pager'] = array(
-			"current_page"	=>	$current_page,
-			"item_count_per_page" => $item_count_per_page,
-			"page_range" => $page_range,
-		);
-		$this->limit($item_count_per_page, ($current_page - 1) * $item_count_per_page);
-		return $this;
-	}
-
-	public function joinUser(){
-		$this->leftJoin("User", "u.user_id = {$this->_alias}.user_id");
-    	return $this;
-    }
 
 }
 ?>

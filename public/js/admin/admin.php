@@ -65,7 +65,19 @@ $(document).ready(function(){
   		}
   	});
 
+  	// go back
+  	$('.back').click(function(e){
+  		e.preventDefault();
+  		history.go(-1);
+  	});
+
     // forms
     $(".datepicker").datepicker({dateFormat: "yy-mm-dd", changeMonth: true, changeYear: true, showAnim: 'fadeIn'});
+
+    // wysiwyg
+    var config = {
+		toolbar_Basic: ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
+	};
+	$('.wysiwyg').ckeditor(config);
 
 });

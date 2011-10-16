@@ -46,7 +46,7 @@
 			          		$scheme = Jien::model($this->model)->scheme();
 			          		foreach($scheme AS $field=>$values){
 			          			$label = ucwords(str_replace('_', ' ', $field));
-			          			$type = $values['DATA_TYPE'];
+			          			$type = 'text';
 			          			$class = 'large';
 			          			$size = 30;
 
@@ -96,13 +96,13 @@
 				          			case 'datetime':
 				          				$class = 'small';
 				          			break;
+
+				          			case 'text':
+				          				$type = 'textarea';
+				          			break;
 				          		}
 
 			          			switch($field){
-			          				default:
-			          					$type = 'text';
-			          				break;
-
 			          				case 'password':
 			          					$type = 'password';
 			          				break;
@@ -115,6 +115,7 @@
 			          			$input = "";
 
 			          			if(!empty($enum)) $type = 'enum';
+
 
 			          			switch($type){
 			          				default:
@@ -135,13 +136,17 @@
 			          					$input .= "</select>";
 			          				break;
 
+			          				case "textarea":
+			          					$input = "<textarea name='{$field}'>{$value	}</textarea>";
+			          				break;
+
 			          			}
 			          	?>
 
 				          <div class="clearfix">
 				            <label for="xlInput"><?php echo $label; ?></label>
 				            <div class="input">
-				              <?php echo $input; ?>				              	
+				              <?php echo $input; ?>
 				            </div>
 				          </div><!-- /clearfix -->
 
@@ -152,7 +157,7 @@
 
 			        <fieldset>
 			          <div class="actions">
-			            <input type="submit" class="btn primary" value="Save changes">&nbsp;<button type="reset" class="btn">Cancel</button>
+			            <input type="submit" class="btn primary" value="Save changes">&nbsp;<button type="reset" class="btn back">Cancel</button>
 			          </div>
 			        </fieldset>
 			      </form>

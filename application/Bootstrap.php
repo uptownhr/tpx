@@ -1,43 +1,43 @@
 <?php
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
-	
+
 	protected function _initSession(){
-		Zend_Session::start();	
+		Zend_Session::start();
 	}
-	
+
 	protected function _initView(){
-		
+
 		// Initialize view
 		$view = new Zend_View();
 		$view->env = APPLICATION_ENV;
-		$view->setScriptPath(APPLICATION_PATH.'/views/my/');
-		
+		$view->setScriptPath(APPLICATION_PATH.'/views/default/');
+
 		// Add it to the ViewRenderer
 		$viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper(
 		    'ViewRenderer'
 		);
 		$viewRenderer->setView($view);
-		
+
 		// add helper path
 		$view->addHelperPath('Jien/View/Helper/', 'Jien_View_Helper');
 		$view->addHelperPath('My/View/Helper/', 'My_View_Helper');
-		
+
 		// Return it, so that it can be stored by the bootstrap
 		return $view;
 	}
-	
+
 	protected function _initConfig(){
-		
+
 	    $config = new Zend_Config($this->getOptions(), true);
 	    Zend_Registry::set('config', $config);
 	    Zend_Registry::set('params', array());
-	    
+
 	    // set all settings to global
 	    foreach($config->settings AS $name=>$value){
 	    	define(strtoupper($name), $value);
 	    }
-	    
+
 	    /** MEM CACHE **/
 		 // try to set caching via memcache
 		try {
@@ -46,7 +46,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
 				'cache_id_prefix' => 'memcache',
 				'automatic_serialization' => true,
 			));
-			
+
 			$memcacheHosts = array();
 			$memcacheServers = array();
 			if(strstr(MEMCACHE_HOST,',')){
@@ -54,7 +54,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
 			}else{
 				$memcacheHosts[] = trim(MEMCACHE_HOST);
 			}
-			
+
 			foreach($memcacheHosts AS $host){
 				$memcacheServers[] = array(
 					"host"	=>	$host,
@@ -66,7 +66,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
 				'compression' => true
 			));
 			$cache = Zend_Cache::factory( $frontendOptions, $backendOptions);
-			
+
 			// test memcache
 			$cache->save(1, 'initialized');
 			$memcache_test = $cache->load('initialized');
@@ -78,9 +78,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
 		}catch(Exception $e){
 			$memcache_enabled = 0;
 		}
-		
+
 		if($memcache_enabled == 0){
-			
+
 			/** FILE CACHE **/
 	    	// set caching via files
 		    $frontendOptions = array(
@@ -91,9 +91,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
 			    'cache_dir' => '../cache'
 			);
 			$cache = Zend_Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
-			
+
 		}else{
-			
+
 			// save session to memcache
 		    ini_set('session.save_handler', 'memcache');
 		    $memcachePaths = array();
@@ -101,36 +101,36 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap{
 		    	$memcachePaths[] = "tcp://{$server['host']}:{$server['port']}?persistent=1";
 		    }
 			ini_set('session.save_path', implode(", ", $memcachePaths));
-			
+
 		}
-		
+
 	    // set cache to registry
 	    Zend_Registry::set('cache', $cache);
-	    
+
 	    // for Titan::startTimer() & Titan::endTimer() , time benchmarking
         Zend_Registry::set('timers', array());
-        
+
 	    return $config;
 	}
-	
+
 	protected function _initController(){
-      	
+
 	}
-	
+
 	protected function _initDb(){
-		
+
 		// gets our multi db instances
         $this->bootstrap('multidb');
         $dbr = $this->getResource('multidb');
-        
+
         // set to registry, can also get our default db adapter by doing: $db = Zend_Db_Table::getDefaultAdapter();
         Zend_Registry::set('db', $dbr->getDb('db')); // default db adapter
         Zend_Registry::set('masterdb', $dbr->getDb('masterdb')); // master db adapter
-        
+
         // for time benchmarking
         Zend_Registry::set('timers', array());
-        
+
 	}
-	
+
 }
 

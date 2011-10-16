@@ -1,13 +1,14 @@
 <?php
 
 class My_Controller extends Jien_Controller {
-	
+
     public function init(){
     	parent::init();
 
-    	// it will first look at views/my folder for the view file but if not found, it will look for the view from the views/default folder
-    	$theme = 'default';
+    	// set view path and layout but if it doesn't exist, it will use the default
+    	$theme = 'adventure';
     	$this->view->addScriptPath(APPLICATION_PATH.'/views/'.$theme.'/');
+    	$this->_helper->layout()->setLayout($theme);
 
     }
 
