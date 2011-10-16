@@ -317,7 +317,7 @@ $(document).ready(function() {
 jQuery.noConflict()(function($){
 $(document).ready(function() {
 $(".tweet").tweet({
-            username: "jaequery",/*CHANGE trendyWebStar WITH YOUR OWN USERNAME*/
+            username: twitter_id,/*CHANGE trendyWebStar WITH YOUR OWN USERNAME*/
             join_text: null,
             avatar_size: null,/*AVATAR*/
             count: 1,/*NUMBER OF TWEETS*/
