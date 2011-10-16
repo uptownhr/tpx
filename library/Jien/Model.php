@@ -228,8 +228,8 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 			if(!empty($pager)){
 				$res['paginator'] = $pager;
 			}
-			$this->_resetQuery();
 		}
+		$this->_resetQuery();
 		return $res;
 	}
 

@@ -169,7 +169,9 @@
 						<li><a href="/contact">Contact Us</a></li>
 						<li>
 						<fieldset class="search-place">
-							<input class="search-input" type="text" onblur="if(this.value=='')this.value='Type and hit enter';" onfocus="if(this.value=='Type and hit enter')this.value='';" value="Type and hit enter"/>
+							<form class='search_blog' action="/blog/search" method="get">
+								<input name="keyword" class="search-input" type="text" onblur="if(this.value=='')this.value='Type and hit enter';" onfocus="if(this.value=='Type and hit enter')this.value='';" value="<?php echo $this->params('keyword', 'Type and hit enter'); ?>"/>
+							</form>
 						</fieldset>
 						</li>
 					</ul>

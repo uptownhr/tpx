@@ -1,4 +1,19 @@
 /***************************************************
+		my stuffs
+***************************************************/
+jQuery.noConflict()(function($){
+$(document).ready(function() {
+		// search button top
+		$('.search_blog').submit(function(e){
+			/*e.preventDefault();
+			alert('searching');*/
+		});
+
+    });
+});
+
+
+/***************************************************
 		CYCLE SLIDER
 ***************************************************/
 jQuery.noConflict()(function($){
@@ -302,7 +317,7 @@ $(document).ready(function() {
 jQuery.noConflict()(function($){
 $(document).ready(function() {
 $(".tweet").tweet({
-            username: "trendywebstar",/*CHANGE trendyWebStar WITH YOUR OWN USERNAME*/
+            username: "jaequery",/*CHANGE trendyWebStar WITH YOUR OWN USERNAME*/
             join_text: null,
             avatar_size: null,/*AVATAR*/
             count: 1,/*NUMBER OF TWEETS*/
@@ -559,3 +574,5 @@ $wall.masonry();
 });
 });
 });
+
+
