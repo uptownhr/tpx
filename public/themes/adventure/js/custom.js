@@ -223,7 +223,7 @@ $(document).ready(function() {
 						$(this).before('<div class="simple-success">Your email was successfully sent. We will contact you as soon as possible.</div>');
 					});
 				}else{
-					alert("Something went wrong");
+					alert("Oops, something went wrong ...");
 				}
 			});
 		}
