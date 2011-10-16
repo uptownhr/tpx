@@ -218,7 +218,6 @@ $(document).ready(function() {
 			});
 			var formInput = $(this).serialize();
 			$.post($(this).attr('action'),formInput, function(data){
-				console.log(data);
 				if(data.status.code == 200){
 					$('form#contact-form').slideUp("fast", function() {
 						$(this).before('<div class="simple-success">Your email was successfully sent. We will contact you as soon as possible.</div>');
