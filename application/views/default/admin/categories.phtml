@@ -1,4 +1,5 @@
-
+<?php
+?>
 
 <div class="left">
 
@@ -18,23 +19,23 @@
 
 		<div class="row">
 		  	<div class="span15">
-
-		  		<div>
-		  			<p>
-			  			By category:
-			  			<select class="filter dropdown" rel="category_id">
-			  				<?php echo $this->CategoryDropdown('Post', $this->params('category_id')); ?>
-			  			</select>
-			  		</p>
-		  		</div>
-
-		  		<table class="zebra-striped">
+				<div>
+					<p>
+						By Type:
+						<select class="filter dropdown" rel="type">
+							<option value="">--</option>
+							<option value="Post">Post</option>
+							<option value="Page">Page</option>
+						</select>
+					</p>
+				</div>
+		  		<table>
 			        <thead>
 			          <tr>
 			            <th class="header">#</th>
-			            <th class="header">User</th>
+			            <th class="header">Type</th>
 			            <th class="header">Category</th>
-			            <th class="header">Subject</th>
+			            <th class="header">Path</th>
 			            <th class="header">Created</th>
 			            <th class="header">Action</th>
 			          </tr>
@@ -42,10 +43,10 @@
 			        <tbody>
 			        <?php foreach($this->data['records'] AS $key=>$value){ ?>
 			        <tr>
-			            <td><?php echo $value['post_id']; ?></td>
-			            <td><?php echo $value['username']; ?></td>
+			            <td><?php echo $value['category_id']; ?></td>
+			            <td><?php echo $value['type']; ?></td>
 			            <td><?php echo $value['category']; ?></td>
-			            <td><?php echo $value['subject']; ?></td>
+			            <td><?php echo $value['path']; ?></td>
 			            <td><?php echo date("m/d/y", strtotime($value['created'])); ?></td>
 			            <td>
 			            	<a href="/admin/<?php echo strtolower($this->model); ?>/id/<?php echo $value[strtolower($this->model).'_id']; ?>" class="btn blue">Edit</a>

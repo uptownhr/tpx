@@ -44,14 +44,15 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 
 		// if editing, just update
 		if($where){
-			return $this->update($data, "{$where}");
+			$res = $this->update($data, "{$where}");
 		}else if(!empty($data[$primary])){
-			return $this->update($data, "{$primary} = {$data[$primary]}");
+			$res = $this->update($data, "{$primary} = {$data[$primary]}");
 		}else{
 			// create a new record
-			$id = $this->insert($data);
-			return $id;
+			$res = $this->insert($data);
 		}
+
+		return $res;
 
 	}
 
@@ -269,7 +270,7 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 	}
 
 	public function orderBy($order){
-		$this->_query['order'][] = $order;
+		$this->_query['order'] = array($order);
 		return $this;
 	}
 
@@ -322,6 +323,64 @@ class Jien_Model extends Zend_Db_Table_Abstract {
  		return $scheme;
  	}
 
+	// enables filtering
+	public function filter($str = ''){
+		if($str != ''){
+			$filters = Jien::parseStrQuery($str);
+			foreach($filters AS $filter=>$value){
+
+				switch($filter){
+					case "order_by":
+						$this->orderBy($value);
+					break;
+
+					case "category_id":
+						if(!empty($value)){
+							$category = Jien::model("Category")->get($value);
+							$categories = Jien::model("Category")->select('category_id')->where("path LIKE '{$category['path']}%'")->getAll();
+							$in = array();
+							foreach($categories['records'] AS $cat){
+								$in[] = $cat['category_id'];
+							}
+							$in = implode(',', $in);
+							$this->andWhere("category.type = '{$this->_name}'");
+							$this->andWhere("{$this->_alias}.category_id IN ({$in})");
+						}
+					break;
+
+				}
+			}
+		}
+		return $this;
+	}
+
+
+	/*
+		sql snippets
+	*/
+
+	// enables pagination
+ 	public function withPager($current_page = 1, $item_count_per_page = 10, $page_range = 10){
+		$this->_query['pager'] = array(
+			"current_page"	=>	$current_page,
+			"item_count_per_page" => $item_count_per_page,
+			"page_range" => $page_range,
+		);
+		$this->limit($item_count_per_page, ($current_page - 1) * $item_count_per_page);
+		return $this;
+	}
+
+	// joins the user model
+	public function joinUser($fields = ''){
+		$this->leftJoin("User", "u.user_id = {$this->_alias}.user_id", $fields);
+    	return $this;
+    }
+
+    // joins the category model
+	public function joinCategory($fields = ''){
+		$this->leftJoin("Category", "category.category_id = {$this->_alias}.category_id", $fields);
+    	return $this;
+    }
 
 }
 ?>

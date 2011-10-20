@@ -1,7 +1,7 @@
 <?php
 
 class Jien {
-	
+
 	/**
 	 * gets a singleton of your model object
 	 *
@@ -20,17 +20,17 @@ class Jien {
             return $obj;
         }
     }
-    
+
     // short to db resource
     static function db(){
 		return Zend_Registry::get('db');
 	}
-	
+
 	// short to master db resource
 	static function masterdb(){
 		return Zend_Registry::get('masterdb');
 	}
-    
+
     /**
 	 * get date in utc date time or unix ts, plus removes invalid dates
 	 * returns in date time
@@ -44,7 +44,7 @@ class Jien {
 		}else{
 			$format = "Y-m-d H:i:s";
 		}
-		
+
 		// is date time
 		if(strstr($str,'-')){
 			if($str == '0000-00-00 00:00:00'){
@@ -61,7 +61,7 @@ class Jien {
 		}
 		return $date;
 	}
-	
+
 	/**
 	 * short hand for outputting pre-formmated struct to page via array or tables
 	 *
@@ -69,7 +69,7 @@ class Jien {
 	 * @param bool $js
 	 */
 	static function debug($data, $js=false){
-		
+
 		if($js){
 			echo "<script>console.log('" . json_encode($data) . "');</script>";
 		}else{
@@ -77,7 +77,7 @@ class Jien {
 	  		print_r($data);
 	  		echo '</pre>';
 		}
-	  
+
 	}
 
 	/**
@@ -96,7 +96,7 @@ class Jien {
 	  }
 	  return false;
 	}
-	
+
 	/**
 	 * Orders the associative array by key
 	 *
@@ -112,7 +112,7 @@ class Jien {
 	  }
 	  return $data;
 	}
-	
+
 	/**
 	* Translates a string with underscores into camel case (e.g. first_name -&gt; firstName)
 	* @param    string   $str                     String in underscore format
@@ -126,11 +126,11 @@ class Jien {
 		$func = create_function('$c', 'return strtoupper($c[1]);');
 		return preg_replace_callback('/_([a-z])/', $func, $str);
 	}
-		
+
 	static function validateIp($ip){
-		return preg_match("/^([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])" . "(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}$/", $ip); 
+		return preg_match("/^([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])" . "(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}$/", $ip);
 	}
-	
+
 	static function getClientIp(){
 		// get ip
 		$ipaddr = '';
@@ -143,16 +143,16 @@ class Jien {
 		}
 		return $ipaddr;
 	}
-	
+
 	static function dateSince($since) {
-    	
+
     	// if passed as datetime
     	if(strstr($since, '-')){
     		$since = strtotime($since);
     	}
-    	
+
     	$since = time() - $since;
-    	
+
 	    $chunks = array(
 	        array(60 * 60 * 24 * 365 , 'year'),
 	        array(60 * 60 * 24 * 30 , 'month'),
@@ -162,7 +162,7 @@ class Jien {
 	        array(60 , 'minute'),
 	        array(1 , 'second')
 	    );
-	
+
 	    for ($i = 0, $j = count($chunks); $i < $j; $i++) {
 	        $seconds = $chunks[$i][0];
 	        $name = $chunks[$i][1];
@@ -170,11 +170,11 @@ class Jien {
 	            break;
 	        }
 	    }
-	
+
 	    $print = ($count == 1) ? '1 '.$name : "$count {$name}s";
 	    return $print . ' ago';
 	}
-	
+
 	static function dateTo($future){
 	   	// if passed as datetime
     	if(strstr($future, '-')||strstr($future, '/')){
@@ -195,7 +195,7 @@ class Jien {
 		for ($i = 0, $j = count($periods); $i < $j; $i++){
 			$seconds = $periods[$i][0];
 			$name = $periods[$i][1];
-			
+
 		 	// Find the biggest whole period
 		 	if (($count = floor($since / $seconds)) != 0){
 		 		break;
@@ -213,51 +213,51 @@ class Jien {
 		}
 		return $print;
 	}
-	
+
 	static function encrypt($string, $key = SALT){
 		return base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($key), $string, MCRYPT_MODE_CBC, md5(md5($key))));
 	}
-	
+
 	static function decrypt($string, $key = SALT){
 		return rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($key), base64_decode($string), MCRYPT_MODE_CBC, md5(md5($key))), "\0");
 	}
-	
+
 	static function getCurrentUrl(){
 		return 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 	}
-	
+
 	static function getFriendlyUrl($str){
 		return str_replace(" ", "-", $str);
 	}
-	
+
 	static function englishNumber($number){
 		// Validate and translate our input
 	    if ( is_numeric($number)){
-	 
+
 	        // Get the last two digits (only once)
 	        $n = $number % 100;
-	 
-	    } 
+
+	    }
 	    else {
 	        // If the last two characters are numbers
 	        if ( preg_match( '/[0-9]?[0-9]$/', $number, $matches )){
-	 
+
 	            // Return the last one or two digits
 	            $n = array_pop($matches);
-	        } 
+	        }
 	        else {
-	 
+
 	            // Return the string, we can add a suffix to it
 	            return $number;
 	        }
 	    }
-	    
+
 	    $number = number_format($number);
-	 
+
 	    // Skip the switch for as many numbers as possible.
 	    if ( $n > 3 && $n < 21 )
 	        return $number . 'th';
-	 
+
 	    // Determine the suffix for numbers ending in 1, 2 or 3, otherwise add a 'th'
 	    switch ( $n % 10 ){
 	        case '1': return $number . 'st';
@@ -266,21 +266,21 @@ class Jien {
 	        default:  return $number . 'th';
 	    }
     }
-    
+
     static function csvEncode($data){
     	if(is_array($data)){
     		return implode(',', $data);
     	}
     }
-    
+
     static function csvDecode($data){
     	return explode(",", $data);
     }
-    
+
     static public function objectToArray(stdClass $Class){
         # Typecast to (array) automatically converts stdClass -> array.
         $Class = (array)$Class;
-        
+
         # Iterate through the former properties looking for any stdClass properties.
         # Recursively apply (array).
         foreach($Class as $key => $value){
@@ -290,7 +290,7 @@ class Jien {
         }
         return $Class;
     }
-    
+
     static function session($key='',$value=''){
     	$res = array();
     	if($key!=''){
@@ -308,7 +308,7 @@ class Jien {
     	if(empty($res)) $res = '';
     	return $res;
     }
-    
+
     static function curl($url, $method, $params = array()){
     	$client = new Zend_Http_Client($url);
     	if(strtoupper($method) == "POST"){
@@ -319,11 +319,11 @@ class Jien {
     	$response = $client->request($method);
     	return $response->getBody();
     }
-    
+
     static function errorLog($data){
 		error_log(str_replace("\t", "", str_replace("\n", " ", var_export($data,true))));
 	}
-	
+
 	static function outputDbProfiler(){
 		$db = Zend_Registry::get('db');
 		if($db){
@@ -348,10 +348,10 @@ class Jien {
 		    echo "Total queries: \n" . $queries;
 		    echo "-->";
 		}
-		
+
 		$db = Zend_Registry::get('masterdb');
 		if($db){
-			
+
 			$queries = '';
 		    $profiler = $db->getProfiler();
 		    $totalTime    = $profiler->getTotalElapsedSecs();
@@ -374,48 +374,48 @@ class Jien {
 		    echo "Total queries: \n" . $queries;
 		    echo "-->";
 		}
-		
+
 	}
-	
+
 	public static function auth(){
 		$auth = Zend_Auth::getInstance();
 		return $auth;
 	}
-	
+
 	public static function outputResult($code, $result, $msg = ''){
-		
+
 		switch($code){
-			
+
 			case 200:
 				$text = 'ok';
 				break;
-			
+
 			case 400:
 				$text = 'bad request';
-				break;	
-				
+				break;
+
 			case 401:
 				$text = 'unauthorized';
 				break;
-				
+
 			case 403:
 				$text = 'forbidden';
 				break;
-			
+
 			case 404:
 				$text = 'not found';
 				break;
-				
+
 			case 405:
 				$text = 'not allowed';
 				break;
-				
+
 			default:
 				$text = 'internal server error';
 				break;
-			
+
 		}
-		
+
 		$res = array(
 			"status"	=>	array(
 				"code"	=>	$code,
@@ -424,14 +424,27 @@ class Jien {
 			),
 			"result"	=>	$result,
 		);
-		
+
 		return $res;
 	}
-	
+
 	public static function outputResultToJson($code, $result, $msg = ''){
 		$res = Jien::outputResult($code, $result, $msg);
 		header('Content-type: application/json');
 		return Zend_Json::encode($res);
 	}
-	
+
+	// parses filter string query
+	public static function parseStrQuery($str = ''){
+		$filters = array();
+		if($str != ''){
+			$xFilters = explode("|", $str);
+			foreach($xFilters AS $f){
+				$x = explode(":", $f);
+				$filters[$x[0]] = $x[1];
+			}
+		}
+		return $filters;
+	}
+
 }

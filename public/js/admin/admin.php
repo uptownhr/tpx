@@ -80,4 +80,19 @@ $(document).ready(function(){
 	};
 	$('.wysiwyg').ckeditor(config);
 
+
+	/* admin lists events */
+
+	$('.filter.dropdown').change(function(e){
+		e.preventDefault();
+		var url = window.location.href;
+		var filter = $(this).attr('rel');
+		var value = $(this).attr('value');
+		var q = url.split('?');
+		url = q[0];
+		url += "?filter=" + filter + ":" + value;
+		window.location.href = url;
+	});
+
+
 });

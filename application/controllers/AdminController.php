@@ -76,7 +76,7 @@ class AdminController extends My_Controller {
     public function postsAction(){
     	$this->view->model = "Post";
     	$this->view->primary = Jien::model($this->view->model)->getPrimary();
-    	$this->view->data = Jien::model($this->view->model)->orderBy("p.post_id DESC")->joinUser()->withPager($this->params('page', 1))->getAll();
+    	$this->view->data = Jien::model($this->view->model)->orderBy("p.post_id DESC")->joinCategory()->joinUser()->withPager($this->params('page', 1))->filter($this->params('filter'))->getAll();
     }
 
     public function postAction(){
@@ -115,6 +115,24 @@ class AdminController extends My_Controller {
     		$this->view->data = Jien::model($this->view->model)->get($id);
     	}
         $this->render('form');
+    }
+
+    public function categoriesAction(){
+    	$this->view->model = "Category";
+    	$this->view->primary = Jien::model($this->view->model)->getPrimary();
+    	$this->view->data = Jien::model($this->view->model)
+    		->orderBy("category.category_id DESC")
+    		->filter($this->params('filter'))
+    		->withPager($this->params('page', 1))
+    	->getAll();
+    }
+
+    public function categoryAction(){
+    	$this->view->model = "Category";
+    	$id = $this->params('id');
+    	if($id){
+    		$this->view->data = Jien::model($this->view->model)->get($id);
+    	}
     }
 
 }

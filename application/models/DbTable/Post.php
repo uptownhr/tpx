@@ -16,4 +16,5 @@ class Application_Model_DbTable_Post extends My_Model
  		return $this;
  	}
 
+
 }

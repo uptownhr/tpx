@@ -5,7 +5,11 @@ class Jien_Controller extends Zend_Controller_Action {
     public function init(){
 
     	// pass request params to view
-    	$this->view->params = $this->_request->getParams();
+    	$params = $this->_request->getParams();
+    	if(!empty($params['filter'])){
+			$filters = Jien::parseStrQuery($params['filter']);
+			$_GET = array_merge($filters, $params);
+    	}
     }
 
     protected function _authenticate($username, $password){
@@ -55,4 +59,5 @@ class Jien_Controller extends Zend_Controller_Action {
     public function setLayout($script){
     	$this->_helper->layout()->setLayout($script);
     }
+
 }

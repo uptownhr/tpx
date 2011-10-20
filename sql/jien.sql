@@ -16,6 +16,39 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `Category`
+--
+
+DROP TABLE IF EXISTS `Category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Category` (
+  `category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(32) NOT NULL,
+  `category` varchar(128) NOT NULL,
+  `parent_id` int(11) NOT NULL,
+  `path` varchar(512) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated` datetime DEFAULT NULL,
+  `deleted` datetime DEFAULT NULL,
+  `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`category_id`),
+  KEY `path` (`path`),
+  KEY `type` (`type`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Category`
+--
+
+LOCK TABLES `Category` WRITE;
+/*!40000 ALTER TABLE `Category` DISABLE KEYS */;
+INSERT INTO `Category` VALUES (2,'Post','Biz',0,'2','2011-10-20 06:16:52','2011-10-19 23:16:52',NULL,1),(3,'Post','Stiqr',2,'2,3','2011-10-20 06:18:53','2011-10-19 23:18:53',NULL,1),(4,'Post','CMS',3,'2,3,4','2011-10-20 06:24:00','2011-10-19 23:24:00',NULL,1),(5,'Post','Spiritual',0,'5','2011-10-20 06:24:16','2011-10-19 23:24:16',NULL,1),(6,'Post','Christianity',5,'5,6','2011-10-20 06:24:29','2011-10-19 23:24:29',NULL,1);
+/*!40000 ALTER TABLE `Category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Contact`
 --
 
@@ -89,6 +122,7 @@ DROP TABLE IF EXISTS `Post`;
 CREATE TABLE `Post` (
   `post_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL,
+  `category_id` int(11) NOT NULL,
   `subject` varchar(256) NOT NULL,
   `message` text NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -97,7 +131,7 @@ CREATE TABLE `Post` (
   `active` tinyint(4) NOT NULL,
   UNIQUE KEY `post_id` (`post_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,7 +140,7 @@ CREATE TABLE `Post` (
 
 LOCK TABLES `Post` WRITE;
 /*!40000 ALTER TABLE `Post` DISABLE KEYS */;
-INSERT INTO `Post` VALUES (1,5,'This is a first REAL ee post by jae','<p>\r\n	Hello amigoes,<br />\r\n	<br />\r\n	This is <strong>Jae&nbsp;</strong>the coolest dude in the whole wide world.&nbsp;<br />\r\n	And I&#39;m here to tell you a little story, and it goes like this:</p>\r\n<p>\r\n	Once up on a time...</p>\r\n','2011-10-11 06:51:57','2011-10-15 17:13:50','0000-00-00 00:00:00',1),(3,5,'Akunama tada','<p>\r\n	What a wonderful phrase.</p>\r\n<p>\r\n	It means no worries!</p>\r\n<p>\r\n	<span style=\"font-family:comic sans ms,cursive;\"><strong>Haknama Tada</strong></span></p>\r\n<p>\r\n	<br />\r\n	<font class=\"Apple-style-span\" face=\"\'comic sans ms\', cursive\">Hehehe</font></p>\r\n','2011-10-16 00:15:45',NULL,NULL,1),(5,5,'I really want to go to disney land','<p>\r\n	I always wanted to go to disney land because my daughter loves it so much. I know how excited she will be once I take her there because we went there a few years ago when she was a little baby.</p>\r\n<p>\r\n	<img alt=\"\" src=\"http://files.stiqr.com/public/images/63670.png\" style=\"margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; width: 199px; height: 210px; \" /></p>\r\n<p>\r\n	Now she knows and her expectations will be much higher, and she will know how to fully enjoy the moment.</p>\r\n','2011-10-16 00:21:59','2011-10-15 17:35:22',NULL,1);
+INSERT INTO `Post` VALUES (1,5,3,'This is a first REAL ee post by jae','<p>\r\n	Hello amigoes,<br />\r\n	<br />\r\n	This is <strong>Jae&nbsp;</strong>the coolest dude in the whole wide world.&nbsp;<br />\r\n	And I&#39;m here to tell you a little story, and it goes like this:</p>\r\n<p>\r\n	Once up on a time...</p>\r\n','2011-10-11 06:51:57','2011-10-19 23:59:22','0000-00-00 00:00:00',1),(3,5,4,'Akunama tada','<p>\r\n	What a wonderful phrase.</p>\r\n<p>\r\n	It means no worries!</p>\r\n<p>\r\n	<span style=\"font-family:comic sans ms,cursive;\"><strong>Haknama Tada</strong></span></p>\r\n<p>\r\n	<br />\r\n	<font class=\"Apple-style-span\" face=\"\'comic sans ms\', cursive\">Hehehe</font></p>\r\n','2011-10-16 00:15:45','2011-10-20 00:37:53',NULL,1),(5,5,5,'I really want to go to disney land','<p>\r\n	I always wanted to go to disney land because my daughter loves it so much. I know how excited she will be once I take her there because we went there a few years ago when she was a little baby.</p>\r\n<p>\r\n	<img alt=\"\" src=\"http://files.stiqr.com/public/images/63670.png\" style=\"margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; width: 199px; height: 210px; \" /></p>\r\n<p>\r\n	Now she knows and her expectations will be much higher, and she will know how to fully enjoy the moment.</p>\r\n','2011-10-16 00:21:59','2011-10-19 23:58:17',NULL,1),(6,5,2,'biz','<p>\r\n	biz</p>\r\n','2011-10-20 07:02:30',NULL,NULL,1),(7,5,6,'Christians','<p>\r\n	Christ</p>\r\n','2011-10-20 07:06:03','2011-10-20 00:44:13',NULL,1);
 /*!40000 ALTER TABLE `Post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,7 +184,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (5,'admin','demo',1,'female','jae','lee','jaequery@gmail.com','1982-01-06','','','0','',0,'','2011-10-11 15:40:41','2011-10-15 16:18:21','0000-00-00 00:00:00','2011-10-15 16:18:21',1),(38,'jae','demo',0,'male','jung','ji','jaequery@gmail.com','2009-02-08','','','studio city','ca',0,'','2011-10-12 20:21:33','2011-10-13 23:08:45',NULL,NULL,1);
+INSERT INTO `User` VALUES (5,'admin','demo',1,'male','jae','lee','jaequery@gmail.com','1982-01-06','','','0','',0,'','2011-10-11 15:40:41','2011-10-19 21:49:25','0000-00-00 00:00:00','2011-10-19 21:49:25',1),(38,'jae','demo',0,'male','jung','ji','jaequery@gmail.com','2009-02-08','','','studio city','ca',0,'en','2011-10-12 20:21:33','2011-10-17 16:07:09',NULL,NULL,1);
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -163,4 +197,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-10-15 19:56:11
+-- Dump completed on 2011-10-20  0:48:21
