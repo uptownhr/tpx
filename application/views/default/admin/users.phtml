@@ -9,16 +9,16 @@
 		  		Listing all <?php echo $this->model; ?>s <small></small> <span class='right'><a href='/admin/<?php echo strtolower($this->model); ?>'>Add a <?php echo strtolower($this->model); ?></a></span>
 		  	</h3>
 		</div>
-		
+
 		<div class="row">
 		  	<div class="span12">
 		    	<?php echo $this->paginator($this->data, true); ?>
 		  	</div>
 		</div>
-		
+
 		<div class="row">
 		  	<div class="span15">
-		  	
+
 		  		<table class="zebra-striped">
 			        <thead>
 			          <tr>
@@ -31,7 +31,7 @@
 			          </tr>
 			        </thead>
 			        <tbody>
-			        <?php foreach($this->data['records'] AS $key=>$value){ ?>
+			        <?php foreach($this->data->dataset AS $key=>$value){ ?>
 			        <tr>
 			            <td><?php echo $value['user_id']; ?></td>
 			            <td><?php echo $value['username']; ?></td>
@@ -46,15 +46,15 @@
 			          <?php } ?>
 			          </tbody>
 			      </table>
-			      
+
 			     <?php echo $this->paginator($this->data); ?>
 		  	</div>
-		  	
-		  	
-		  	
+
+
+
 		</div>
-	
+
 	</div>
-	
+
 </div>
 

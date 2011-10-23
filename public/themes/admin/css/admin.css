@@ -1,5 +1,5 @@
-html {  background: url(http://d3mgwgvky5ru3z.cloudfront.net/img2/bg.r20676.jpg); }
-body {padding-top: 0px; background: url(http://d3mgwgvky5ru3z.cloudfront.net/img2/bg.r20676.jpg); }
+html {  background: url(/themes/admin/images/bg.r20676.jpg); }
+body {padding-top: 0px; background: url(/themes/admin/images/bg.r20676.jpg); }
 .hide { display: none; }
 .show { display: block; }
 .left { float: left; }

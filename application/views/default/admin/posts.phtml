@@ -1,4 +1,5 @@
-
+<?php
+?>
 
 <div class="left">
 
@@ -31,16 +32,16 @@
 		  		<table class="zebra-striped">
 			        <thead>
 			          <tr>
-			            <th class="header">#</th>
-			            <th class="header">User</th>
-			            <th class="header">Category</th>
-			            <th class="header">Subject</th>
-			            <th class="header">Created</th>
-			            <th class="header">Action</th>
+			            <th class="header" rel="p.post_id">#</th>
+			            <th class="header" rel="p.user_id">User</th>
+			            <th class="header" rel="category.category_id">Category</th>
+			            <th class="header" rel="p.subject">Subject</th>
+			            <th class="header" rel="p.created">Created</th>
+			            <th>Action</th>
 			          </tr>
 			        </thead>
 			        <tbody>
-			        <?php foreach($this->data['records'] AS $key=>$value){ ?>
+			        <?php foreach($this->data->dataset AS $key=>$value){ ?>
 			        <tr>
 			            <td><?php echo $value['post_id']; ?></td>
 			            <td><?php echo $value['username']; ?></td>

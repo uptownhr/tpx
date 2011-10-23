@@ -7,13 +7,11 @@ class Application_Model_DbTable_Category extends My_Model
  	protected $_soft_delete = true;
  	protected $_tree = true;
 
- 	public function filter($str = ''){
+ 	public function filter($filters = array()){
 
  		// runs base filtering
- 		parent::filter($str);
+ 		parent::filter($filters);
 
- 		// parses string into array
-		$filters = Jien::parseStrQuery($str);
 		if(!empty($filters)){
 
 			// filter by key value given

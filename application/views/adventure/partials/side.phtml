@@ -29,7 +29,7 @@ $latestPosts = Jien::model("Post")->byLatest()->limit(5)->getAll();
 
 <ul>
 	<!-- LATEST POSTS UL-->
-	<?php foreach($latestPosts['records'] AS $record){ ?>
+	<?php foreach($latestPosts->dataset AS $record){ ?>
 	<li>
 	<a href="/blog/post/id/<?php echo $record['post_id']; ?>"><?php echo $record['subject']; ?></a>
 	<p>

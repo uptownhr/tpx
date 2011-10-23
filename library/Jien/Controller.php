@@ -6,10 +6,7 @@ class Jien_Controller extends Zend_Controller_Action {
 
     	// pass request params to view
     	$params = $this->_request->getParams();
-    	if(!empty($params['filter'])){
-			$filters = Jien::parseStrQuery($params['filter']);
-			$_GET = array_merge($filters, $params);
-    	}
+
     }
 
     protected function _authenticate($username, $password){

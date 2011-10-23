@@ -12,9 +12,9 @@
 				<div class="one">
 					<div class="inner-content">
 
-					<?php if($this->data['records']){ ?>
+					<?php if($this->data->dataset){ ?>
 
-							<?php foreach($this->data['records'] AS $key=>$record){ ?>
+							<?php foreach($this->data->dataset AS $key=>$record){ ?>
 								<h3><a href="/blog/post/id/<?php echo $record['post_id']; ?>"><?php echo $record['subject']; ?></a></h3>
 								<p>
 									 Posted by: <a href="/user/profile/id/<?php echo $record['user_id']; ?>"><?php echo $record['username']; ?></a> on <?php echo date("F, d, Y", strtotime($record['created'])); ?> | <a href="/blog/post/id/<?php echo $record['post_id']; ?>#disqus_thread">Loading ...</a>

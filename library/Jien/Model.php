@@ -199,8 +199,10 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 			$this->andWhere("{$this->_alias}.{$this->getPrimary()} = {$id}");
 		}
 		$res = $this->getAll();
-		if(!empty($res['records'][0])){
-			return $res['records'][0];
+		$data = $res->getData();
+		if(!empty($data[0])){
+			$res->setData($data[0]);
+			return $res;
 		}else{
 			return false;
 		}
@@ -221,13 +223,11 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 
 		$stmt = Jien::db()->query($select);
 		$rows = $stmt->fetchAll();
-		$res = array();
+		$res = new Jien_Model_Factory();
 		if($rows){
-			$res = array(
-				"records"	=>	$rows,
-			);
+			$res->setData($rows);
 			if(!empty($pager)){
-				$res['paginator'] = $pager;
+				$res->setPaginator($pager);
 			}
 		}
 		$this->_resetQuery();
@@ -324,22 +324,26 @@ class Jien_Model extends Zend_Db_Table_Abstract {
  	}
 
 	// enables filtering
-	public function filter($str = ''){
-		if($str != ''){
-			$filters = Jien::parseStrQuery($str);
-			foreach($filters AS $filter=>$value){
+	public function filter($filters = array()){
+		if(!empty($filters)){
 
+			foreach($filters AS $filter=>$value){
 				switch($filter){
 					case "order_by":
-						$this->orderBy($value);
+						$sort_by = 'desc';
+						if(!empty($filters['sort_by'])){
+							$sort_by = $filters['sort_by'];
+						}
+						$order_clause = $value . ' ' . $sort_by;
+						$this->orderBy($order_clause);
 					break;
 
 					case "category_id":
 						if(!empty($value)){
 							$category = Jien::model("Category")->get($value);
-							$categories = Jien::model("Category")->select('category_id')->where("path LIKE '{$category['path']}%'")->getAll();
+							$categories = Jien::model("Category")->select('category_id')->where("path LIKE '{$category->dataset['path']}%'")->getAll();
 							$in = array();
-							foreach($categories['records'] AS $cat){
+							foreach($categories->dataset AS $cat){
 								$in[] = $cat['category_id'];
 							}
 							$in = implode(',', $in);
@@ -373,6 +377,7 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 	// joins the user model
 	public function joinUser($fields = ''){
 		$this->leftJoin("User", "u.user_id = {$this->_alias}.user_id", $fields);
+		$this->andWhere("u.user_id IS NOT NULL");
     	return $this;
     }
 

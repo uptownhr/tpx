@@ -9,21 +9,20 @@ if (!window.console) {
 	jien = {
 		ui: {
 			growl: function(msg, type){
-				if(!type) type = 'success';
 				var method = '';
 				switch(type){
-					case 'notice':
+					default:
 						method = 'showNoticeToast';
 					break;
-					
+
 					case 'success':
 						method = 'showSuccessToast';
 					break;
-					
+
 					case 'warning':
 						method = 'showWarningToast';
 					break;
-					
+
 					case 'error':
 						method = 'showErrorToast';
 					break;
@@ -102,14 +101,14 @@ if (!window.console) {
 		        });
 		        return attribs;
 			},
-			timeleft: function(a){ 
-				var hours=Math.floor(a/3600); 
-				var minutes=Math.floor(a/60)-(hours*60); 
-				var seconds=a-(hours*3600)-(minutes*60); 
-				var hs=' hr';var ms=' min';var ss=' sec'; 
-				if (hours!=1) {hs+='s';} 
-				if (minutes!=1) {ms+='s';} 
-				if (seconds!=1) {ss+='s';} 
+			timeleft: function(a){
+				var hours=Math.floor(a/3600);
+				var minutes=Math.floor(a/60)-(hours*60);
+				var seconds=a-(hours*3600)-(minutes*60);
+				var hs=' hr';var ms=' min';var ss=' sec';
+				if (hours!=1) {hs+='s';}
+				if (minutes!=1) {ms+='s';}
+				if (seconds!=1) {ss+='s';}
 				return hours+hs+', '+minutes+ms;
 			},
 			dateformat: function(dateObj, format){
@@ -126,12 +125,12 @@ if (!window.console) {
 			    } else if (!isNaN(parse = Date.parse(strTmp))) {
 			        return (parse/1000);
 				} else if (strTmp.match(new RegExp(regexp))) {
-				// to detect UTC 8601 date format... 
+				// to detect UTC 8601 date format...
 				var datum = new Date();
-				
+
 				var d = strTmp.match(new RegExp(regexp));
 				var offset = 0;
-				
+
 				datum.setUTCDate(1);
 				datum.setUTCFullYear(parseInt(d[1],10));
 				datum.setUTCMonth(parseInt(d[3],10) - 1);
@@ -187,7 +186,7 @@ if (!window.console) {
 			    var process = function (m) {
 			        var ago = (m[2] && m[2] == 'ago');
 			        var num = (num = m[0] == 'last' ? -1 : 1) * (ago ? -1 : 1);
-			
+
 			        switch (m[0]) {
 			            case 'last':
 			            case 'next':
@@ -278,7 +277,7 @@ if (!window.console) {
 			        s[0] = (s[0] >= 0 && s[0] <= 69) ? '20'+(s[0] < 10 ? '0'+s[0] : s[0]+'') : (s[0] >= 70 && s[0] <= 99) ? '19'+s[0] : s[0]+'';
 			        return parseInt(this.strtotime(s[2] + ' ' + s[1] + ' ' + s[0] + ' ' + match[2])+(match[4] ? match[4]/1000 : ''), 10);
 			    }
-			
+
 			    var regex = '([+-]?\\d+\\s'+
 			        '(years?|months?|weeks?|days?|hours?|min|minutes?|sec|seconds?'+
 			        '|sun\\.?|sunday|mon\\.?|monday|tue\\.?|tuesday|wed\\.?|wednesday'+
@@ -301,6 +300,6 @@ if (!window.console) {
 			}
 		}
 	};
-	
-	
+
+
 })(jQuery);

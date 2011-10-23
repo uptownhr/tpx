@@ -16,6 +16,12 @@ class AdminController extends My_Controller {
         $this->view->title = "Jien Framework";
     }
 
+    public function postDispatch(){
+    	if($this->params('view') == 'ajax'){
+    		$this->_helper->json($this->view->data->getResult());
+    	}
+    }
+
     public function dataAction(){
     	$data = $this->params();
     	$model = $data['model'];
@@ -76,7 +82,10 @@ class AdminController extends My_Controller {
     public function postsAction(){
     	$this->view->model = "Post";
     	$this->view->primary = Jien::model($this->view->model)->getPrimary();
-    	$this->view->data = Jien::model($this->view->model)->orderBy("p.post_id DESC")->joinCategory()->joinUser()->withPager($this->params('page', 1))->filter($this->params('filter'))->getAll();
+    	$filters = array(
+    		""
+    	);
+    	$this->view->data = Jien::model($this->view->model)->orderBy("p.post_id DESC")->joinCategory()->joinUser()->withPager($this->params('page', 1))->filter($_REQUEST)->getAll();
     }
 
     public function postAction(){
@@ -122,7 +131,7 @@ class AdminController extends My_Controller {
     	$this->view->primary = Jien::model($this->view->model)->getPrimary();
     	$this->view->data = Jien::model($this->view->model)
     		->orderBy("category.category_id DESC")
-    		->filter($this->params('filter'))
+    		->filter($_REQUEST)
     		->withPager($this->params('page', 1))
     	->getAll();
     }

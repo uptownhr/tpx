@@ -26,8 +26,8 @@ $application = new Zend_Application(
     APPLICATION_PATH . '/configs/application.ini'
 );
 
-$autoloader = Zend_Loader_Autoloader::getInstance(); 
-$autoloader->setFallbackAutoloader(true); 
+$autoloader = Zend_Loader_Autoloader::getInstance();
+$autoloader->setFallbackAutoloader(true);
 $application->bootstrap();
 $db = Zend_Db_Table::getDefaultAdapter();
 Zend_Registry::set('db',$db);

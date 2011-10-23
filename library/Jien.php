@@ -98,6 +98,18 @@ class Jien {
 	}
 
 	/**
+	 * converts multi-dimensional arrray to object
+	 *
+	 * @param array $a
+	 * @return object
+	 */
+	static function arrayToObjectRecursive($a = array()){
+		$b = json_encode($a);
+		$c = json_decode($b);//->object
+		return $c;
+	}
+
+	/**
 	 * Orders the associative array by key
 	 *
 	 * @param array $data

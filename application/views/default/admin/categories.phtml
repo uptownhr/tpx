@@ -1,4 +1,5 @@
 <?php
+
 ?>
 
 <div class="left">
@@ -23,9 +24,12 @@
 					<p>
 						By Type:
 						<select class="filter dropdown" rel="type">
-							<option value="">--</option>
-							<option value="Post">Post</option>
-							<option value="Page">Page</option>
+							<?php echo $this->dropdownOptions(array(
+								"",
+								"Post"	=>	"Post",
+								"Page"	=>	"Page",
+							), $this->params('type'));
+							?>
 						</select>
 					</p>
 				</div>
@@ -41,7 +45,7 @@
 			          </tr>
 			        </thead>
 			        <tbody>
-			        <?php foreach($this->data['records'] AS $key=>$value){ ?>
+			        <?php foreach($this->data->dataset AS $key=>$value){ ?>
 			        <tr>
 			            <td><?php echo $value['category_id']; ?></td>
 			            <td><?php echo $value['type']; ?></td>
