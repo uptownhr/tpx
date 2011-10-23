@@ -41,7 +41,7 @@ class Application_Model_DbTable_Category extends My_Model
  			));
  		}else{
  			$parent = Jien::model("Category")->select("category.path")->get($data['parent_id']);
- 			$path = $parent['path'] . ',' . $id;
+ 			$path = $parent->dataset['path'] . ',' . $id;
  			parent::save(array(
  				"category_id"	=>	$id,
  				"path"	=>	$path,

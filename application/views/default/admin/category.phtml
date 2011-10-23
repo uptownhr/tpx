@@ -1,13 +1,3 @@
-<?php
-$categories = Jien::model("Category")->orderBy("category.category_id ASC")->getAll();
-$category_dropdown = "<select name='parent_id'>";
-$category_dropdown .= "<option value='0'></option>";
-foreach($categories->dataset AS $category){
-	$sel = '';
-	$category_dropdown .= "<option {$sel} value='{$category['category_id']}'>{$category['category']}</option>";
-}
-$category_dropdown .= "</select>";
-?>
 
 <div class="left" style="width:20%;">
 
@@ -57,14 +47,16 @@ $category_dropdown .= "</select>";
 						<div class="clearfix">
 							<label for="xlInput">Type</label>
 							<div class="input">
-								<input class='large' name='type' value="<?php echo !empty($this->data->dataset['type']) ? $this->data->dataset['type'] : 'Post'; ?>" type='text'>
+								<input class='large disabled' disabled name='type' value="<?php echo $this->params('type', $this->data->dataset['type']); ?>" type='text'>
 							</div>
 						</div>
 
 						<div class="clearfix">
 							<label for="xlInput">Parent</label>
 							<div class="input">
-								<?php echo $category_dropdown; ?>
+								<select name='parent_id'>
+									<?php echo $this->CategoryDropdown($this->params('type', $this->data->dataset['type']), $this->params('category_id', $this->data->dataset['category_id'])); ?>
+								</select>
 							</div>
 						</div>
 
