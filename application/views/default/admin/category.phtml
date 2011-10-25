@@ -4,7 +4,7 @@
 	<div class="content">
 
 		<div>
-			<h4><a href="/admin/<?php echo strtolower($this->model); ?>s"><-- Back to <?php echo $this->model; ?>s</a></h4>
+			<h4><a href="/admin/categories"><-- Back to categories</a></h4>
 		</div>
 
 		<div class="row">
@@ -47,7 +47,7 @@
 						<div class="clearfix">
 							<label for="xlInput">Type</label>
 							<div class="input">
-								<input class='large disabled' disabled name='type' value="<?php echo $this->params('type', $this->data->dataset['type']); ?>" type='text'>
+								<input class='large disabled' name='type' value="<?php echo $this->params('type') != '' ? $this->params('type') : (!empty($this->data->dataset['type']) ? $this->data->dataset['type'] : 'Post'); ?>" type='text'>
 							</div>
 						</div>
 
@@ -55,7 +55,7 @@
 							<label for="xlInput">Parent</label>
 							<div class="input">
 								<select name='parent_id'>
-									<?php echo $this->CategoryDropdown($this->params('type', $this->data->dataset['type']), $this->params('category_id', $this->data->dataset['category_id'])); ?>
+									<?php echo $this->CategoryDropdown($this->params('type', $this->data->dataset['type']), !empty($this->data->dataset['parent_id']) ? $this->data->dataset['parent_id'] : $this->params('category_id')); ?>
 								</select>
 							</div>
 						</div>

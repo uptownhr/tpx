@@ -30,8 +30,10 @@ class Application_Model_DbTable_Category extends My_Model
  	}
 
  	public function save($data, $where = ''){
- 		$id = parent::save($data, $where);
 
+ 		error_log(var_export($data,true));
+
+ 		$id = parent::save($data, $where);
  		$path = '';
  		if($data['parent_id'] == 0){
  			$path = "{$id}";
@@ -47,6 +49,7 @@ class Application_Model_DbTable_Category extends My_Model
  				"path"	=>	$path,
  			));
  		}
+ 		return $id;
  	}
 
 

@@ -26,7 +26,7 @@ class Jien_Controller extends Zend_Controller_Action {
     }
 
     protected function _getAuthAdapter() {
-        $authAdapter = new Zend_Auth_Adapter_DbTable(Jien::db(), "User", "username", "password", "");
+        $authAdapter = new Jien_Auth_Adapter_DbTable(Jien::db(), "User", "username", "password", "");
 
         $select = $authAdapter->getDbSelect();
 		$select->where('level > 0 AND active=1');

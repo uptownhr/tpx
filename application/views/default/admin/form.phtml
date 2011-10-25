@@ -137,7 +137,11 @@
 			          				break;
 
 			          				case "textarea":
-			          					$input = "<textarea name='{$field}'>{$value	}</textarea>";
+			          					$input = "<textarea name='{$field}'>{$value}</textarea>";
+			          				break;
+
+			          				case "password":
+			          					$input = "<a href='#' class='btn trig_password' rel='{$field}'>set password</a>";
 			          				break;
 
 			          			}
@@ -168,3 +172,13 @@
 
 </div>
 
+<script>
+$(document).ready(function(){
+	$('.trig_password').click(function(e){
+		e.preventDefault();
+		var target = $(this).attr('rel');
+		var html = "<input type='password' class='medium' name='"+target+"' value=''>";
+		$(this).parent().html(html);
+	});
+});
+</script>
