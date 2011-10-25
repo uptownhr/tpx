@@ -63,7 +63,9 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 	}
 
 	public function insert(array $data){
-		$data['active'] = 1;
+		if(!empty($this->_soft_delete)){
+			$data['active'] = 1;
+		}
 		$data['created'] = new Zend_Db_Expr('NOW()');
 		$res = $this->masterdb->insert($this->_name, $data);
 		$id = $this->masterdb->lastInsertId();
