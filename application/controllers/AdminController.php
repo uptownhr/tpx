@@ -75,6 +75,8 @@ class AdminController extends My_Controller {
     	$id = $this->params('id');
     	if($id){
     		$this->view->data = Jien::model($this->view->model)->get($id);
+    	}else{
+    		$this->view->data = new Jien_Model_Factory();
     	}
         $this->render('form');
     }
@@ -90,6 +92,8 @@ class AdminController extends My_Controller {
     	$id = $this->params('id');
     	if($id){
     		$this->view->data = Jien::model($this->view->model)->get($id);
+    	}else{
+    		$this->view->data = new Jien_Model_Factory();
     	}
         $this->render('form');
     }
@@ -109,6 +113,8 @@ class AdminController extends My_Controller {
     	$id = $this->params('id');
     	if($id){
     		$this->view->data = Jien::model($this->view->model)->joinUser('u.username')->get($id);
+    	}else{
+    		$this->view->data = new Jien_Model_Factory();
     	}
     }
 
@@ -123,6 +129,8 @@ class AdminController extends My_Controller {
     	$id = $this->params('id');
     	if($id){
     		$this->view->data = Jien::model($this->view->model)->get($id);
+    	}else{
+    		$this->view->data = new Jien_Model_Factory();
     	}
         $this->render('form');
     }
@@ -138,6 +146,8 @@ class AdminController extends My_Controller {
     	$id = $this->params('id');
     	if($id){
     		$this->view->data = Jien::model($this->view->model)->get($id);
+    	}else{
+    		$this->view->data = new Jien_Model_Factory();
     	}
         $this->render('form');
     }
@@ -157,6 +167,8 @@ class AdminController extends My_Controller {
     	$id = $this->params('id');
     	if($id){
     		$this->view->data = Jien::model($this->view->model)->get($id);
+    	}else{
+    		$this->view->data = new Jien_Model_Factory();
     	}
     }
 

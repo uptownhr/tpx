@@ -5,8 +5,10 @@ class Jien_Model_Factory {
 	protected $_data;
 	protected $_pager;
 
-	public function __construct($data){
-		$this->setData($data);
+	public function __construct($data = array()){
+		if(!empty($data)){
+			$this->setData($data);
+		}
 	}
 
 	//

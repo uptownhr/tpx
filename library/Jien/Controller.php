@@ -5,10 +5,7 @@ class Jien_Controller extends Zend_Controller_Action {
     public function init(){
 
     	// pass request params to view
-    	$params = $this->_request->getParams();
-
-    	// prevent sql injection
-    	$params = Jien::sanitizeArray($params);
+    	$this->view->params = Jien::sanitizeArray($this->_request->getParams());
 
     }
 
@@ -40,12 +37,29 @@ class Jien_Controller extends Zend_Controller_Action {
     }
 
     protected function params($param = '', $default = ''){
-    	$request = Zend_Controller_Front::getInstance()->getRequest();
+
+		$request = Zend_Controller_Front::getInstance()->getRequest();
 		if($param){
 			return $request->getParam($param, $default);
 		}else{
 			return $request->getParams();
 		}
+
+		// @todo probably just go with prepared statements, but gotta rework how params are passed in sql clauses like where()
+		// using sanitized array
+    	/*$request = $this->view->params;
+		if($param){
+			$res = '';
+			if(!empty($request[$param])){
+				$res = $request[$param];
+			}else{
+				$res = $default;
+			}
+			return $res;
+		}else{
+			return $request;
+		}*/
+
     }
 
     // renders a script i.e; admin/form will render admin/form.phtml

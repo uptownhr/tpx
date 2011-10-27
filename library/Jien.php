@@ -460,9 +460,9 @@ class Jien {
 	}
 
 	public function sanitize($str){
-		$str = htmlspecialchars(stripslashes($str));
-        $str = str_ireplace("script", "blocked", $str);
+		$str = htmlspecialchars($str);
         $str = mysql_escape_string($str);
+        return $str;
 	}
 
 	public function sanitizeArray($arr = array()){
