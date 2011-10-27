@@ -23,7 +23,7 @@ admin.filters = {};
 $(document).ready(function(){
 
   	// enable dropdown
-  	$('#profile').dropdown();
+  	$('ul.nav').dropdown();
 
   	// enable active menu highlighting
   	$('#main_menu li').removeClass('active');
@@ -32,7 +32,7 @@ $(document).ready(function(){
   	$('#login_form').submit(function(e){
 		e.preventDefault();
 		var form = site.util.serializeForm($(this));
-		$.post("/auth/login", form, function(res){
+		$.post("/auth/login-admin", form, function(res){
 			if(res.result.code == 200){
 				window.location.href = '/admin/dashboard';
 			}else{

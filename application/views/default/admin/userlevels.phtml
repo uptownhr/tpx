@@ -1,4 +1,5 @@
-
+<?
+?>
 
 <div class="left">
 
@@ -23,24 +24,20 @@
 			        <thead>
 			          <tr>
 			            <th class="header">#</th>
-			            <th class="header">Username</th>
-			            <th class="header">Email</th>
 			            <th class="header">Level</th>
-			            <th class="header">Joined</th>
+			            <th class="header">Created</th>
 			            <th class="header">Action</th>
 			          </tr>
 			        </thead>
 			        <tbody>
 			        <?php foreach($this->data->dataset AS $key=>$value){ ?>
 			        <tr>
-			            <td><?php echo $value['user_id']; ?></td>
-			            <td><?php echo $value['username']; ?></td>
-			            <td><?php echo $value['email']; ?></td>
 			            <td><?php echo $value['user_level_id']; ?></td>
+			            <td><?php echo $value['level']; ?></td>
 			            <td><?php echo date("m/d/y", strtotime($value['created'])); ?></td>
 			            <td>
-			            	<a href="/admin/<?php echo strtolower($this->model); ?>/id/<?php echo $value[$this->primary]; ?>" class="btn blue">Edit</a>
-			            	<a href="/admin/delete/?model=<?php echo $this->model; ?>&id=<?php echo $value[$this->primary];; ?>" class="btn red trig_delete" rel="model=<?php echo $this->model; ?>|id=<?php echo $value[$this->primary]; ?>">Remove</a>
+			            	<a href="/admin/<?php echo strtolower($this->model); ?>/id/<?php echo $value['user_level_id']; ?>" class="btn blue">Edit</a>
+			            	<a href="/admin/delete/?model=<?php echo $this->model; ?>&id=<?php echo $value[strtolower($this->model).'_id'];; ?>" class="btn red trig_delete" rel="model=<?php echo $this->model; ?>|id=<?php echo $value[$this->primary]; ?>">Remove</a>
 			            </td>
 			          </tr>
 			          <?php } ?>

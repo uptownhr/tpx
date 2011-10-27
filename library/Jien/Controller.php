@@ -7,10 +7,13 @@ class Jien_Controller extends Zend_Controller_Action {
     	// pass request params to view
     	$params = $this->_request->getParams();
 
+    	// prevent sql injection
+    	$params = Jien::sanitize($params);
+
     }
 
-    protected function _authenticate($username, $password){
-        $adapter = $this->_getAuthAdapter();
+    protected function authenticate($username, $password, $level = ''){
+        $adapter = $this->_getAuthAdapter($level);
         $adapter->setIdentity($username);
         $adapter->setCredential($password);
 
@@ -25,12 +28,14 @@ class Jien_Controller extends Zend_Controller_Action {
         return false;
     }
 
-    protected function _getAuthAdapter() {
+    protected function _getAuthAdapter($level = '') {
         $authAdapter = new Jien_Auth_Adapter_DbTable(Jien::db(), "User", "username", "password", "");
-
         $select = $authAdapter->getDbSelect();
-		$select->where('level > 0 AND active=1');
-
+        if($level != ''){
+        	$select->where("level > {$level} AND active=1");
+        }else{
+        	$select->where('active=1');
+        }
         return $authAdapter;
     }
 

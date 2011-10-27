@@ -7,7 +7,8 @@ class BlogController extends My_Controller {
     }
 
     public function indexAction(){
-    	$this->view->data = Jien::model("Post")->orderBy("p.post_id DESC")->joinUser()->withPager($this->params('page', 1))->getAll();
+    	$params = $this->params();
+    	$this->view->data = Jien::model("Post")->orderBy("p.post_id DESC")->joinUser()->joinCategory()->filter($this->params())->withPager($this->params('page', 1))->getAll();
     }
 
     public function postAction(){

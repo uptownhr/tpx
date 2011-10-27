@@ -79,6 +79,21 @@ class AdminController extends My_Controller {
         $this->render('form');
     }
 
+    public function userlevelsAction(){
+    	$this->view->model = "UserLevel";
+    	$this->view->primary = Jien::model($this->view->model)->getPrimary();
+    	$this->view->data = Jien::model($this->view->model)->orderBy("ul.user_level_id ASC")->withPager($this->params('page', 1))->getAll();
+    }
+
+    public function userlevelAction(){
+    	$this->view->model = "UserLevel";
+    	$id = $this->params('id');
+    	if($id){
+    		$this->view->data = Jien::model($this->view->model)->get($id);
+    	}
+        $this->render('form');
+    }
+
     public function postsAction(){
     	$this->view->model = "Post";
     	$this->view->primary = Jien::model($this->view->model)->getPrimary();

@@ -459,4 +459,19 @@ class Jien {
 		return $filters;
 	}
 
+	public function sanitize($str){
+		$str = htmlspecialchars(stripslashes($str));
+        $str = str_ireplace("script", "blocked", $str);
+        $str = mysql_escape_string($str);
+	}
+
+	public function sanitizeArray($arr = array()){
+		if(!empty($arr)){
+			foreach($arr AS $key=>$value){
+				$arr[$key] = self::sanitize($value);
+			}
+		}
+		return $arr;
+	}
+
 }
