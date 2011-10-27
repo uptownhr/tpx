@@ -114,7 +114,13 @@ $affected = Jien::model("User")->save(array(
 
 *** Delete ***
 
-$affected = Jien::model("User")->delete("gender = ''");
+$affected = Jien::model("User")->delete($id);
+
+or
+
+$affected = Jien::model("User")->delete("gender = '' AND a != '2'");
+
+
 
 
 ----------
