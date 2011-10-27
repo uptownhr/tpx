@@ -8,7 +8,7 @@ class Jien_Controller extends Zend_Controller_Action {
     	$params = $this->_request->getParams();
 
     	// prevent sql injection
-    	$params = Jien::sanitize($params);
+    	$params = Jien::sanitizeArray($params);
 
     }
 
@@ -32,7 +32,7 @@ class Jien_Controller extends Zend_Controller_Action {
         $authAdapter = new Jien_Auth_Adapter_DbTable(Jien::db(), "User", "username", "password", "");
         $select = $authAdapter->getDbSelect();
         if($level != ''){
-        	$select->where("level > {$level} AND active=1");
+        	$select->where("user_level_id >= {$level} AND active=1");
         }else{
         	$select->where('active=1');
         }

@@ -64,40 +64,6 @@
 	  	</footer>
 	</div>
 
-
-
-	<!--domready javascript-->
-  	<script>
-  	$('#profile').dropdown();
-
-  	$('#login_form').submit(function(e){
-		e.preventDefault();
-		var form = jien.util.serializeForm($(this));
-		$.post("/auth/login", form, function(res){
-			if(res.status.code == 200){
-				window.location.href = '/admin/dashboard';
-			}else{
-				$().toastmessage('showErrorToast', 'Wrong username/password. Pleas try again.');
-				$('#login_form input[name=username]').focus();
-			}
-
-		});
-  	});
-
-  	$('.trig_logout').click(function(e){
-  		e.preventDefault();
-  		$.post("/auth/logout", function(res){
-  			window.location.href = '/admin';
-  		});
-  	});
-
-
-
-  	// highlight active menu
-  	$('#main_menu li').removeClass('active');
-
-  	</script>
-
   </body>
 
 

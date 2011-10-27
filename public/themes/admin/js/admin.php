@@ -31,15 +31,15 @@ $(document).ready(function(){
   	// login event
   	$('#login_form').submit(function(e){
 		e.preventDefault();
-		var form = site.util.serializeForm($(this));
+		var form = jien.util.serializeForm($(this));
 		$.post("/auth/login-admin", form, function(res){
-			if(res.result.code == 200){
+			if(res.status.code == 200){
+				$().toastmessage('showSuccessToast', 'Success');
 				window.location.href = '/admin/dashboard';
 			}else{
-				alert('invalid user/pass');
+				$().toastmessage('showErrorToast', 'Access denied. Please try again.');
 				$('#login_form input[name=username]').focus();
 			}
-
 		});
   	});
 
