@@ -7,6 +7,7 @@ class Jien_Controller extends Zend_Controller_Action {
     	// pass request params to view
     	$this->view->params = Jien::sanitizeArray($this->_request->getParams());
 
+
     }
 
     protected function authenticate($username, $password, $level = ''){

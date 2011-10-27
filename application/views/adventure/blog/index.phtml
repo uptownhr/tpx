@@ -22,7 +22,7 @@
 								<!--POST DETAILS-->
 								<!--POST INTRO-->
 								<p>
-									 <?php echo $row['message']; ?>
+									 <?php echo substr(strip_tags($row['message']), 0, 400); ?>
 									 <div style="clear:both;"></div>
 								</p>
 								<a href="/blog/post/id/<?php echo $row['post_id']; ?>">Read This Article</a>
