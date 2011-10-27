@@ -8,19 +8,19 @@ class BlogController extends My_Controller {
 
     public function indexAction(){
     	$params = $this->params();
-    	$this->view->data = Jien::model("Post")->orderBy("p.post_id DESC")->joinUser()->joinCategory()->filter($this->params())->withPager($this->params('page', 1))->get();
+    	$this->view->data = Jien::model("Post")->orderBy("p.post_id DESC")->isPublished()->joinUser()->joinCategory()->filter($this->params())->withPager($this->params('page', 1))->get();
     }
 
     public function postAction(){
     	$id = $this->params('id');
     	if($id){
-    		$this->view->data = Jien::model("Post")->joinUser('u.username')->get($id);
+    		$this->view->data = Jien::model("Post")->joinUser('u.username')->isPublished()->get($id);
     	}
     }
 
     public function searchAction(){
     	$keyword = $_REQUEST['keyword'];
-    	$this->view->data = Jien::model("Post")->orderBy("p.post_id DESC")->withKeyword($_REQUEST['keyword'])->joinUser()->withPager($this->params('page', 1))->get();
+    	$this->view->data = Jien::model("Post")->orderBy("p.post_id DESC")->isPublished()->withKeyword($_REQUEST['keyword'])->joinUser()->withPager($this->params('page', 1))->get();
 
 		$this->render('index');
     }

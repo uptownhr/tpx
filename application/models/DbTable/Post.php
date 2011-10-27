@@ -16,5 +16,9 @@ class Application_Model_DbTable_Post extends My_Model
  		return $this;
  	}
 
+ 	public function isPublished(){
+ 		$this->where("p.status = 'published'");
+ 		return $this;
+ 	}
 
 }
