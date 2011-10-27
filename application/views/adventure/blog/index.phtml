@@ -12,20 +12,20 @@
 				<div class="one">
 					<div class="inner-content">
 
-					<?php if($this->data->dataset){ ?>
+					<?php if($this->data->rows()){ ?>
 
-							<?php foreach($this->data->dataset AS $key=>$record){ ?>
-								<h3><a href="/blog/post/id/<?php echo $record['post_id']; ?>"><?php echo $record['subject']; ?></a></h3>
+							<?php foreach($this->data->rows() AS $key=>$row){ ?>
+								<h3><a href="/blog/post/id/<?php echo $row['post_id']; ?>"><?php echo $row['subject']; ?></a></h3>
 								<p>
-									 Posted by: <a href="/user/profile/id/<?php echo $record['user_id']; ?>"><?php echo $record['username']; ?></a> on <?php echo date("F, d, Y", strtotime($record['created'])); ?> | <a href="/blog/post/id/<?php echo $record['post_id']; ?>#disqus_thread">Loading ...</a>
+									 Posted by: <a href="/user/profile/id/<?php echo $row['user_id']; ?>"><?php echo $row['username']; ?></a> on <?php echo date("F, d, Y", strtotime($row['created'])); ?> | <a href="/blog/post/id/<?php echo $row['post_id']; ?>#disqus_thread">Loading ...</a>
 								</p>
 								<!--POST DETAILS-->
 								<!--POST INTRO-->
 								<p>
-									 <?php echo $record['message']; ?>
+									 <?php echo $row['message']; ?>
 									 <div style="clear:both;"></div>
 								</p>
-								<a href="/blog/post/id/<?php echo $record['post_id']; ?>">Read This Article</a>
+								<a href="/blog/post/id/<?php echo $row['post_id']; ?>">Read This Article</a>
 
 								<!--POST LINK-->
 								<div class="horizontal-line">
@@ -35,18 +35,7 @@
 
 
 						<!--PAGINATION-->
-						<?php echo $this->paginator($this->data); ?>
-						<!--<ul class="blog-pagination">
-							<li><a href="#"><b>page 1 of 7</b></a></li>
-							<li class="current"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#">6</a></li>
-							<li><a href="#">7</a></li>
-							<li><a href="#">Next</a></li>
-						</ul>-->
+						<?php echo $this->pager($this->data->pager(), 'partials/pager/pager.phtml'); ?>
 						<!--PAGINATION ENDS-->
 
 

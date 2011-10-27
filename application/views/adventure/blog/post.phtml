@@ -1,5 +1,5 @@
 <?php
-$record = $this->data->dataset;
+$row = $this->data->row();
 ?>
 
 			<div id="content">
@@ -15,19 +15,19 @@ $record = $this->data->dataset;
 					<div class="inner-content">
 
 
-						<h3><a href="/blog/post/id/<?php echo $record['post_id']; ?>"><?php echo $record['subject']; ?></a></h3>
+						<h3><a href="/blog/post/id/<?php echo $row['post_id']; ?>"><?php echo $row['subject']; ?></a></h3>
 						<!--POST TITLE-->
 						<!--<p>
 							<img src="/themes/adventure/images/portfolio/blog-1.jpg" alt=" " width="710" height="210"/>
 						</p>-->
 						<!--POST IMAGE-->
 						<p>
-							 Posted by: <a href="/user/profile/id/<?php echo $record['user_id']; ?>"><?php echo $record['username']; ?></a> on <?php echo date("F, d, Y", strtotime($record['created'])); ?> | <a href="/blog/post/id/<?php echo $record['post_id']; ?>#disqus_thread">Loading ...</a>
+							 Posted by: <a href="/user/profile/id/<?php echo $row['user_id']; ?>"><?php echo $row['username']; ?></a> on <?php echo date("F, d, Y", strtotime($row['created'])); ?> | <a href="/blog/post/id/<?php echo $row['post_id']; ?>#disqus_thread">Loading ...</a>
 						</p>
 						<!--POST DETAILS-->
 						<!--POST INTRO-->
 						<p>
-							 <?php echo $record['message']; ?>
+							 <?php echo $row['message']; ?>
 							 <div style="clear:both;"></div>
 						</p>
 						<!--POST LINK-->

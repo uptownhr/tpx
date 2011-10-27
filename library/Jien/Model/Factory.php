@@ -2,23 +2,53 @@
 
 class Jien_Model_Factory {
 
-	public $dataset;
-	public $paginator;
+	protected $_data;
+	protected $_pager;
 
-	public function getData(){
-		return $this->dataset;
+	public function __construct($data){
+		$this->setData($data);
 	}
+
+	//
+	// getters
+	//
+
+	// retrieve single row (can pass optional field param to get just the field)
+	public function row($field = ''){
+		$row = array();
+		if(!empty($this->_data) && !empty($this->_data[0])){
+			$row = $this->_data[0];
+			if($field != '' && !empty($row[$field])){
+				$row = $row[$field];
+			}
+		}
+		return $row;
+	}
+
+	// retrieve multiple rows
+	public function rows(){
+		$rows = array();
+		if(!empty($this->_data)){
+			$rows = $this->_data;
+		}
+		return $rows;
+	}
+
+	public function pager(){
+		return $this->_pager;
+	}
+
+
+	//
+	// setters
+	//
 
 	public function setData($data){
-		$this->dataset = $data;
+		$this->_data = $data;
 	}
 
-	public function getPaginator(){
-		return $this->paginator;
-	}
-
-	public function setPaginator($paginator){
-		$this->paginator = $paginator;
+	public function setPager($pager){
+		$this->_pager = $pager;
 	}
 
 }

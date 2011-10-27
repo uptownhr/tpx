@@ -2,7 +2,15 @@
 
 class Jien_Model extends Zend_Db_Table_Abstract {
 
+	protected $_query = array();
+	protected $_result = array(
+		'rows'	=>	array(),
+	);
 
+
+	//
+	// core methods
+	//
 	public function init(array $config = array()){
 
 		// parent constructor
@@ -21,6 +29,7 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 		// set default alias
 		if(empty($this->_alias)) $this->_alias = $this->_name;
 		$this->_primary = $this->getPrimary();
+
 	}
 
 	public function save($data, $where = ''){
@@ -76,6 +85,13 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 		$info = $this->info();
 		return $info['primary'][1];
 	}
+
+	public function scheme(){
+ 		$info = $this->info();
+ 		$meta = $info['metadata'];
+ 		$scheme = $meta;
+ 		return $scheme;
+ 	}
 
 	public function delete($where){
 
@@ -197,25 +213,15 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 	}
 
 	public function get($id = ''){
+
+		$this->_result = array();
+
 		if($id && is_numeric($id)){
 			$this->andWhere("{$this->_alias}.{$this->getPrimary()} = {$id}");
 		}
-		$res = $this->getAll();
-		$data = $res->getData();
-		if(!empty($data[0])){
-			$res->setData($data[0]);
-			return $res;
-		}else{
-			return false;
-		}
-	}
-
-	public function getAll($where = ''){
-		if($where){
-			$this->andWhere($where);
-		}
 		$select = $this->_getQuery();
 
+		// get pager data
 		if(!empty($this->_query['pager'])){
 			$pager = Zend_Paginator::factory($select);
 			$pager->setCurrentPageNumber($this->_query['pager']['current_page']);
@@ -223,18 +229,23 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 			$pager->setPageRange($this->_query['pager']['page_range']);
 		}
 
+		// get data
 		$stmt = Jien::db()->query($select);
-		$rows = $stmt->fetchAll();
-		$res = new Jien_Model_Factory();
-		if($rows){
-			$res->setData($rows);
-			if(!empty($pager)){
-				$res->setPaginator($pager);
-			}
+		$data = $stmt->fetchAll();
+
+		$modelObj = new Jien_Model_Factory($data);
+		if(!empty($pager)){
+			$modelObj->setPager($pager);
 		}
+
+		// reset query
 		$this->_resetQuery();
-		return $res;
+		return $modelObj;
 	}
+
+	//
+	// sql modifiers
+	//
 
 	public function groupBy($group){
 		$this->_query['group'][] = $group;
@@ -318,12 +329,10 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 		return $this;
 	}
 
-	public function scheme(){
- 		$info = $this->info();
- 		$meta = $info['metadata'];
- 		$scheme = $meta;
- 		return $scheme;
- 	}
+
+	//
+	// sql helpers
+	//
 
 	// enables filtering
 	public function filter($filters = array()){
@@ -342,10 +351,10 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 
 					case "category_id":
 						if(!empty($value)){
-							$category = Jien::model("Category")->get($value);
-							$categories = Jien::model("Category")->select('category_id')->where("path LIKE '{$category->dataset['path']}%'")->getAll();
+							$category = Jien::model("Category")->get($value)->row();
+							$categories = Jien::model("Category")->select('category_id')->where("path LIKE '{$category['path']}%'")->get();
 							$in = array();
-							foreach($categories->dataset AS $cat){
+							foreach($categories->rows() AS $cat){
 								$in[] = $cat['category_id'];
 							}
 							$in = implode(',', $in);
@@ -359,11 +368,6 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 		}
 		return $this;
 	}
-
-
-	/*
-		sql snippets
-	*/
 
 	// enables pagination
  	public function withPager($current_page = 1, $item_count_per_page = 10, $page_range = 10){
@@ -379,7 +383,7 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 	// joins the user model
 	public function joinUser($fields = ''){
 		$this->leftJoin("User", "u.user_id = {$this->_alias}.user_id", $fields);
-		$this->andWhere("u.user_id IS NOT NULL");
+		//$this->andWhere("u.user_id IS NOT NULL");
     	return $this;
     }
 

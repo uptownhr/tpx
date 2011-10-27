@@ -1,5 +1,4 @@
 <?php
-
 ?>
 
 <div class="left">
@@ -14,7 +13,7 @@
 
 		<div class="row">
 		  	<div class="span12">
-		    	<?php echo $this->paginator($this->data, true); ?>
+		    	<?php echo $this->pager($this->data->pager(), 'partials/pager/text_only.phtml'); ?>
 		  	</div>
 		</div>
 
@@ -38,18 +37,16 @@
 			            <th class="header">#</th>
 			            <th class="header">Type</th>
 			            <th class="header">Category</th>
-			            <th class="header">Path</th>
 			            <th class="header">Created</th>
 			            <th class="header">Action</th>
 			          </tr>
 			        </thead>
 			        <tbody>
-			        <?php foreach($this->data->dataset AS $key=>$value){ ?>
+			        <?php foreach($this->data->rows() AS $key=>$value){ ?>
 			        <tr>
 			            <td><?php echo $value['category_id']; ?></td>
 			            <td><?php echo $value['type']; ?></td>
 			            <td><?php echo $value['category']; ?></td>
-			            <td><?php echo $value['path']; ?></td>
 			            <td><?php echo date("m/d/y", strtotime($value['created'])); ?></td>
 			            <td>
 			            	<a href="/admin/<?php echo strtolower($this->model); ?>/id/<?php echo $value[strtolower($this->model).'_id']; ?>" class="btn blue">Edit</a>
@@ -60,7 +57,7 @@
 			          </tbody>
 			      </table>
 
-			     <?php echo $this->paginator($this->data); ?>
+			     <?php echo $this->pager($this->data->pager(), 'partials/pager/pager.phtml'); ?>
 		  	</div>
 
 

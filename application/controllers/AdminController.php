@@ -67,7 +67,7 @@ class AdminController extends My_Controller {
     public function usersAction(){
     	$this->view->model = "User";
     	$this->view->primary = Jien::model($this->view->model)->getPrimary();
-    	$this->view->data = Jien::model($this->view->model)->orderBy("u.user_id DESC")->withPager($this->params('page', 1))->getAll();
+    	$this->view->data = Jien::model($this->view->model)->orderBy("u.user_id DESC")->withPager($this->params('page', 1))->get();
     }
 
     public function userAction(){
@@ -82,7 +82,7 @@ class AdminController extends My_Controller {
     public function userlevelsAction(){
     	$this->view->model = "UserLevel";
     	$this->view->primary = Jien::model($this->view->model)->getPrimary();
-    	$this->view->data = Jien::model($this->view->model)->orderBy("ul.user_level_id ASC")->withPager($this->params('page', 1))->getAll();
+    	$this->view->data = Jien::model($this->view->model)->orderBy("ul.user_level_id ASC")->withPager($this->params('page', 1))->get();
     }
 
     public function userlevelAction(){
@@ -100,7 +100,8 @@ class AdminController extends My_Controller {
     	$filters = array(
     		""
     	);
-    	$this->view->data = Jien::model($this->view->model)->orderBy("p.post_id DESC")->joinCategory()->joinUser()->withPager($this->params('page', 1))->filter($_REQUEST)->getAll();
+
+    	$this->view->data = Jien::model($this->view->model)->orderBy("p.post_id DESC")->joinCategory()->joinUser()->withPager($this->params('page', 1))->filter($this->params())->get();
     }
 
     public function postAction(){
@@ -114,7 +115,7 @@ class AdminController extends My_Controller {
     public function pagesAction(){
     	$this->view->model = "Page";
     	$this->view->primary = Jien::model($this->view->model)->getPrimary();
-    	$this->view->data = Jien::model($this->view->model)->orderBy("page.page_id DESC")->joinUser()->withPager($this->params('page', 1))->getAll();
+    	$this->view->data = Jien::model($this->view->model)->orderBy("page.page_id DESC")->withPager($this->params('page', 1))->get();
     }
 
     public function pageAction(){
@@ -129,7 +130,7 @@ class AdminController extends My_Controller {
     public function contactsAction(){
     	$this->view->model = "Contact";
     	$this->view->primary = Jien::model($this->view->model)->getPrimary();
-    	$this->view->data = Jien::model($this->view->model)->orderBy("contact.contact_id DESC")->withPager($this->params('page', 1))->getAll();
+    	$this->view->data = Jien::model($this->view->model)->orderBy("contact.contact_id DESC")->withPager($this->params('page', 1))->get();
     }
 
     public function contactAction(){
@@ -148,7 +149,7 @@ class AdminController extends My_Controller {
     		->orderBy("category.category_id DESC")
     		->filter($_REQUEST)
     		->withPager($this->params('page', 1))
-    	->getAll();
+    	->get();
     }
 
     public function categoryAction(){

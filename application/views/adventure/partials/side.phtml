@@ -1,6 +1,6 @@
 <?php
-$latestPosts = Jien::model("Post")->byLatest()->limit(5)->getAll();
-$categories = Jien::model("Category")->where("category.type = 'Post'")->orderBy("category.path ASC")->getAll();
+$latestPosts = Jien::model("Post")->byLatest()->limit(5)->get();
+$categories = Jien::model("Category")->where("category.type = 'Post'")->orderBy("category.path ASC")->get();
 ?>
 
 <span class="colored">CLEAN &amp; SIMPLE TEMPLATE</span>
@@ -17,7 +17,7 @@ $categories = Jien::model("Category")->where("category.type = 'Post'")->orderBy(
 <ul class="simple-nav">
 	<!--SIMPLE UL -->
 	<?php
-		foreach($categories->getData() AS $record){
+		foreach($categories->rows() AS $record){
 			$padding = str_repeat('&nbsp;', strlen($record['path']) - 1);
 	?>
 	<li><a href="/blog/?category_id=<?php echo $record['category_id']; ?>"><?php echo $padding; ?> <?php echo $record['category']; ?></a> </li>
@@ -29,7 +29,7 @@ $categories = Jien::model("Category")->where("category.type = 'Post'")->orderBy(
 
 <ul>
 	<!-- LATEST POSTS UL-->
-	<?php foreach($latestPosts->dataset AS $record){ ?>
+	<?php foreach($latestPosts->rows() AS $record){ ?>
 	<li>
 	<a href="/blog/post/id/<?php echo $record['post_id']; ?>"><?php echo $record['subject']; ?></a>
 	<p>

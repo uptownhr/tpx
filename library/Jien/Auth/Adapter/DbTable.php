@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * I'd like to give credit for this nice adapter to some guy on stackoverflow, forgot where I got it from :/
+ *
+ */
 class Jien_Auth_Adapter_DbTable extends Zend_Auth_Adapter_DbTable
 {
 
@@ -9,7 +13,7 @@ class Jien_Auth_Adapter_DbTable extends Zend_Auth_Adapter_DbTable
         //Get the default db adapter
         //From where?  It is not stored in the registry.
         if ($zendDb == null) {
-            $zendDb = Zend_Registry::get('DbAdapter');
+            $zendDb = Jien::db();
         }
 
         //Set default values

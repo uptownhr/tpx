@@ -1,4 +1,6 @@
-
+<?php
+//Jien::debug($this->data->rows());
+?>
 <div class="left">
 
 	<div class="content">
@@ -11,7 +13,7 @@
 
 		<div class="row">
 		  	<div class="span12">
-		    	<?php echo $this->paginator($this->data, true); ?>
+		    	<?php echo $this->pager($this->data->pager(), 'partials/pager/text_only.phtml'); ?>
 		  	</div>
 		</div>
 
@@ -22,7 +24,6 @@
 			        <thead>
 			          <tr>
 			            <th class="header">#</th>
-			            <th class="header">Username</th>
 			            <th class="header">Url</th>
 			            <th class="header">Title</th>
 			            <th class="header">Content</th>
@@ -31,10 +32,9 @@
 			          </tr>
 			        </thead>
 			        <tbody>
-			        <?php foreach($this->data->dataset AS $key=>$value){ ?>
+			        <?php foreach($this->data->rows() AS $key=>$value){ ?>
 			        <tr>
 			            <td><?php echo $value['page_id']; ?></td>
-			            <td><?php echo $value['username']; ?></td>
 			            <td><?php echo $value['url']; ?></td>
 			            <td><?php echo $value['title']; ?></td>
 			            <td><?php echo $value['content']; ?></td>
@@ -48,7 +48,7 @@
 			          </tbody>
 			      </table>
 
-			     <?php echo $this->paginator($this->data); ?>
+			     <?php echo $this->pager($this->data->pager(), 'partials/pager/pager.phtml'); ?>
 		  	</div>
 
 

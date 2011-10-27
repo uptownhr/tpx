@@ -108,8 +108,8 @@
 			          				break;
 			          			}
 			          			$value = '';
-			          			if($this->data->dataset){
-			          				$value = $this->data->dataset[$field];
+			          			if($this->data->row()){
+			          				$value = $this->data->row($field);
 			          			}
 
 			          			$input = "";

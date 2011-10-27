@@ -1,4 +1,5 @@
-
+<?php
+?>
 <div class="left" style="width:20%;">
 
 	<div class="content">
@@ -47,7 +48,7 @@
 						<div class="clearfix">
 							<label for="xlInput">Type</label>
 							<div class="input">
-								<input class='large disabled' name='type' value="<?php echo $this->params('type') != '' ? $this->params('type') : (!empty($this->data->dataset['type']) ? $this->data->dataset['type'] : 'Post'); ?>" type='text'>
+								<input class='large disabled' name='type' value="<?php echo $this->params('type') != '' ? $this->params('type') : ($this->data->row('type') ? $this->data->row('type') : 'Post'); ?>" type='text'>
 							</div>
 						</div>
 
@@ -55,7 +56,7 @@
 							<label for="xlInput">Parent</label>
 							<div class="input">
 								<select name='parent_id'>
-									<?php echo $this->CategoryDropdown($this->params('type', $this->data->dataset['type']), !empty($this->data->dataset['parent_id']) ? $this->data->dataset['parent_id'] : $this->params('category_id')); ?>
+									<?php echo $this->CategoryDropdown($this->params('type', $this->data->row('type')), $this->data->row('parent_id') ? $this->data->row('parent_id') : $this->params('category_id')); ?>
 								</select>
 							</div>
 						</div>
@@ -63,7 +64,7 @@
 						<div class="clearfix">
 							<label for="xlInput">Category</label>
 							<div class="input">
-								<input class='large' name='category' value="<?php echo !empty($this->data->dataset['category']) ? $this->data->dataset['category'] : ''; ?>" type='text'>
+								<input class='large' name='category' value="<?php echo $this->data->row('category') ? $this->data->row('category') : ''; ?>" type='text'>
 							</div>
 						</div>
 

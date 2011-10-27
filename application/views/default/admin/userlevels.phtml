@@ -13,7 +13,7 @@
 
 		<div class="row">
 		  	<div class="span12">
-		    	<?php echo $this->paginator($this->data, true); ?>
+		    	<?php echo $this->pager($this->data->pager(), 'partials/pager/text_only.phtml'); ?>
 		  	</div>
 		</div>
 
@@ -30,7 +30,7 @@
 			          </tr>
 			        </thead>
 			        <tbody>
-			        <?php foreach($this->data->dataset AS $key=>$value){ ?>
+			        <?php foreach($this->data->rows() AS $key=>$value){ ?>
 			        <tr>
 			            <td><?php echo $value['user_level_id']; ?></td>
 			            <td><?php echo $value['level']; ?></td>
@@ -44,7 +44,7 @@
 			          </tbody>
 			      </table>
 
-			     <?php echo $this->paginator($this->data); ?>
+			     <?php echo $this->pager($this->data->pager(), 'partials/pager/pager.phtml'); ?>
 		  	</div>
 
 

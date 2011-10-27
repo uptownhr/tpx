@@ -38,16 +38,16 @@
 		  		<form class="trig_save" action="/admin/data" method="POST">
 		  			<input type="hidden" name="model" value="<?php echo $this->model; ?>">
 		  			<input type="hidden" name="id" value="<?php echo $this->params('id'); ?>">
-		  			<input type="hidden" name="user_id" value="<?php echo !empty($this->data->dataset['user_id']) ? $this->data->dataset['user_id'] : $_SESSION['user']->user_id; ?>">
+		  			<input type="hidden" name="user_id" value="<?php echo $this->data->row('user_id') ? $this->data->row('user_id') : $_SESSION['user']->user_id; ?>">
 			        <fieldset>
 
 						<legend><a name="basic_info"></a> Basic info</legend>
 
-						<?php if(!empty($this->data->dataset['username'])){ ?>
+						<?php if($this->data->row('username')){ ?>
 						<div class="clearfix">
 							<label for="xlInput">Username</label>
 							<div class="input">
-								<input type="text" class="medium disabled" disabled value="<?php echo $this->data->dataset['username']; ?>">
+								<input type="text" class="medium disabled" disabled value="<?php echo $this->data->row('username'); ?>">
 							</div>
 						</div>
 						<?php } ?>
@@ -56,7 +56,7 @@
 							<label for="xlInput">Category</label>
 							<div class="input">
 								<select name='category_id'>
-									<?php echo $this->CategoryDropdown('Post', $this->params('category_id', $this->data->dataset['category_id'])); ?>
+									<?php echo $this->CategoryDropdown('Post', $this->params('category_id', $this->data->row('category_id'))); ?>
 								</select>
 
 							</div>
@@ -65,14 +65,14 @@
 						<div class="clearfix">
 							<label for="xlInput">Subject</label>
 							<div class="input">
-								<input class='xxlarge' name='subject' value="<?php echo !empty($this->data->dataset['subject']) ? $this->data->dataset['subject'] : ''; ?>" type='text'>
+								<input class='xxlarge' name='subject' value="<?php echo $this->data->row('subject') ? $this->data->row('subject') : ''; ?>" type='text'>
 							</div>
 						</div>
 
 						<div class="clearfix">
 							<label for="xlInput">Message</label>
 							<div class="input">
-								<textarea name="message" rows='5' class='xxlarge wysiwyg'><?php echo !empty($this->data->dataset['message']) ? $this->data->dataset['message'] : ''; ?></textarea>
+								<textarea name="message" rows='5' class='xxlarge wysiwyg'><?php echo $this->data->row('message') ? $this->data->row('message') : ''; ?></textarea>
 							</div>
 						</div>
 
@@ -83,7 +83,7 @@
 									<?php echo $this->dropdownOptions(array(
 										"pending"	=>	"Pending",
 										"published"	=>	"Published",
-									), $this->data->dataset['status'], 'published'); ?>
+									), $this->data->row('status'), 'published'); ?>
 								</select>
 							</div>
 						</div>
