@@ -1,3 +1,15 @@
+** Installation **
+
+http://jien.jaequery.com/docs/introduction
+
+** Live Demo **
+
+Check out our live demo at:
+
+http://jien.jaequery.com/admin
+user: admin
+pass: demo
+
 ** Jien Model **
 
 *** The query methods (where, limit, orderBy, groupBy, having) are all chainable so you can mix/match them.
