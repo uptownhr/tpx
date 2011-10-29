@@ -68,7 +68,7 @@ class AdminController extends My_Controller {
     public function usersAction(){
     	$this->view->model = "User";
     	$this->view->primary = Jien::model($this->view->model)->getPrimary();
-    	$this->view->data = Jien::model($this->view->model)->orderBy("u.user_id DESC")->withPager($this->params('page', 1))->get();
+    	$this->view->data = Jien::model($this->view->model)->orderBy("u.user_id DESC")->joinUserLevel()->withPager($this->params('page', 1))->get();
     }
 
     public function userAction(){

@@ -108,9 +108,7 @@
 			          				break;
 			          			}
 			          			$value = '';
-			          			if($this->data->row()){
-			          				$value = $this->data->row($field);
-			          			}
+			          			$value = $this->data->row($field);
 
 			          			$input = "";
 
@@ -119,6 +117,7 @@
 
 			          			switch($type){
 			          				default:
+			          				Jien::debug($value);
 			          					$input = "<input class='{$class}' name='{$field}' value=\"{$value}\" size='{$size}' type='{$type}'>";
 			          				break;
 

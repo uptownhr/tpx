@@ -17,4 +17,10 @@ class Application_Model_DbTable_User extends My_Model
  		$id = parent::save($data);
  		return $id;
  	}
+
+ 	public function joinUserLevel(){
+ 		$this->leftJoin("UserLevel ul", "u.user_level_id = ul.user_level_id", "ul.level");
+ 		return $this;
+ 	}
+
 }
