@@ -90,13 +90,13 @@ And pagination is simple too:
 
 [controller]
 $current_page = $this->_getParam('page', 1);
-$this->view->data = Jien::model("User")->withPager($current_page)->get()->rows();
+$this->view->data = Jien::model("User")->withPager($current_page)->get();
 
 or to override defaults (defaults are item_per_page = 10, page_range = 10)
 
 $item_per_page = 10;
 $page_range = 10;
-$this->view->data = Jien::model("User")->withPager($current_page, $item_per_page, $page_range)->get()->rows();
+$this->view->data = Jien::model("User")->withPager($current_page, $item_per_page, $page_range)->get();
 
 [index.phtml]
 <?php echo $this->pager($this->data->pager(), 'Sliding', 'partials/pager/pager.phtml'); ?>
