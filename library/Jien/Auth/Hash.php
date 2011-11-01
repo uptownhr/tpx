@@ -206,7 +206,7 @@ class Jien_Auth_Hash {
 		return $output;
 	}
 
-	function HashPassword($password)
+	function hashPassword($password)
 	{
 		$random = '';
 

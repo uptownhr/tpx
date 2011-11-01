@@ -24,7 +24,7 @@
 			            <th class="header">#</th>
 			            <th class="header">Username</th>
 			            <th class="header">Email</th>
-			            <th class="header">Level</th>
+			            <th class="header">Role</th>
 			            <th class="header">Joined</th>
 			            <th class="header">Action</th>
 			          </tr>
@@ -35,7 +35,7 @@
 			            <td><?php echo $value['user_id']; ?></td>
 			            <td><?php echo $value['username']; ?></td>
 			            <td><?php echo $value['email']; ?></td>
-			            <td><?php echo $value['level']; ?></td>
+			            <td><?php echo $value['role']; ?></td>
 			            <td><?php echo date("m/d/y", strtotime($value['created'])); ?></td>
 			            <td>
 			            	<a href="/admin/<?php echo strtolower($this->model); ?>/id/<?php echo $value[$this->primary]; ?>" class="btn blue">Edit</a>

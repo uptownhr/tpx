@@ -10,8 +10,8 @@ class Jien_Controller extends Zend_Controller_Action {
 
     }
 
-    protected function authenticate($username, $password, $level = ''){
-        $adapter = $this->_getAuthAdapter($level);
+    protected function authenticate($username, $password, $user_role_id = ''){
+        $adapter = $this->_getAuthAdapter($user_role_id);
         $adapter->setIdentity($username);
         $adapter->setCredential($password);
 
@@ -26,11 +26,11 @@ class Jien_Controller extends Zend_Controller_Action {
         return false;
     }
 
-    protected function _getAuthAdapter($level = '') {
+    protected function _getAuthAdapter($user_role_id = '') {
         $authAdapter = new Jien_Auth_Adapter_DbTable(Jien::db(), "User", "username", "password", "");
         $select = $authAdapter->getDbSelect();
-        if($level != ''){
-        	$select->where("user_level_id >= {$level} AND active=1");
+        if($user_role_id != ''){
+        	$select->where("user_role_id >= {$user_role_id} AND active=1");
         }else{
         	$select->where('active=1');
         }

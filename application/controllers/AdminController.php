@@ -14,7 +14,7 @@ class AdminController extends My_Controller {
 
         // view vars
         $this->view->title = "Jien Framework";
-        $this->view->data = new Jien_Model_Factory();
+        $this->view->data = new Jien_Model_Factory(); // model output, contains row()/rows()/pager()
     }
 
     public function postDispatch(){
@@ -68,7 +68,7 @@ class AdminController extends My_Controller {
     public function usersAction(){
     	$this->view->model = "User";
     	$this->view->primary = Jien::model($this->view->model)->getPrimary();
-    	$this->view->data = Jien::model($this->view->model)->orderBy("u.user_id DESC")->joinUserLevel()->withPager($this->params('page', 1))->get();
+    	$this->view->data = Jien::model($this->view->model)->orderBy("u.user_id DESC")->joinUserRole()->withPager($this->params('page', 1))->get();
     }
 
     public function userAction(){
@@ -80,14 +80,14 @@ class AdminController extends My_Controller {
         $this->render('form');
     }
 
-    public function userlevelsAction(){
-    	$this->view->model = "UserLevel";
+    public function userrolesAction(){
+    	$this->view->model = "UserRole";
     	$this->view->primary = Jien::model($this->view->model)->getPrimary();
-    	$this->view->data = Jien::model($this->view->model)->orderBy("ul.user_level_id ASC")->withPager($this->params('page', 1))->get();
+    	$this->view->data = Jien::model($this->view->model)->orderBy("ur.user_role_id ASC")->withPager($this->params('page', 1))->get();
     }
 
-    public function userlevelAction(){
-    	$this->view->model = "UserLevel";
+    public function userroleAction(){
+    	$this->view->model = "UserRole";
     	$id = $this->params('id');
     	if($id){
     		$this->view->data = Jien::model($this->view->model)->get($id);
