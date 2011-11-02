@@ -78,7 +78,6 @@ class UserController extends My_Controller {
             if ($code) {
                 // for facebook
                 $adapter = $this->_getFacebookAdapter();
-                $type = 'facebook';
             } else if ($oauth_token) {
                 // for twitter
                 $adapter = $this->_getTwitterAdapter()->setQueryData($_GET);
@@ -117,6 +116,28 @@ class UserController extends My_Controller {
                     // for facebook
                     $msgs = $result->getMessages();
                     $toStore['properties'] = (array) $msgs['user'];
+
+                    // save it to our db if new, else update
+                    $user = array(
+                    	"uid"	=>	$msgs['user']->id,
+                    	"email"	=>	$msgs['user']->email,
+                    	"username"	=>	$msgs['user']->username,
+                    	"gender"	=>	$msgs['user']->gender,
+                    	"first_name"	=>	$msgs['user']->first_name,
+                    	"last_name"	=>	$msgs['user']->last_name,
+                    	"provider_id"	=>	2,
+                    	"country"	=>	$msgs['user']->locale,
+                    );
+					$condi = "provider_id = {$user['provider_id']} AND uid = '{$user['uid']}'";
+                    $data = Jien::model("User")->where($condi)->get()->row();
+                    if(!$data){
+                    	$user_id = Jien::model("User")->save($user);
+                    }else{
+                    	$user['accessed'] = new Zend_Db_Expr('NOW()');
+                    	$user_id = Jien::model("User")->update($user, $condi);
+                    }
+
+
                 } else if ($oauth_token) {
                     // for twitter
                     $identity = $result->getIdentity();
@@ -127,9 +148,33 @@ class UserController extends My_Controller {
                         $twitterUserData['status'] = (array) $twitterUserData['status'];
                     }
                     $toStore['properties'] = $twitterUserData;
+
+
+                    // save it to our db if new, else update
+                    $name = explode(" ", $twitterUserData['name']);
+                    $user = array(
+                    	"uid"	=>	$twitterUserData['id'],
+                    	//"email"	=>	$msgs['user']->email,
+                    	"username"	=>	$twitterUserData['screen_name'],
+                    	//"gender"	=>	$msgs['user']->gender,
+                    	"first_name"	=>	$name[0],
+                    	"last_name"	=>	$name[count($name)-1],
+                    	"provider_id"	=>	3,
+                    	"country"	=>	$twitterUserData['lang'],
+                    );
+					$condi = "provider_id = {$user['provider_id']} AND uid = '{$user['uid']}'";
+                    $data = Jien::model("User")->where($condi)->get()->row();
+                    if(!$data){
+                    	$user_id = Jien::model("User")->save($user);
+                    }else{
+                    	$user['accessed'] = new Zend_Db_Expr('NOW()');
+                    	$user_id = Jien::model("User")->update($user, $condi);
+                    }
+
                 }
 
                 $this->auth->getStorage()->write($toStore);
+
 
 
 

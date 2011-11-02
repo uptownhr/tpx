@@ -17,6 +17,11 @@ class Jien_Model_Factory {
 
 	// retrieve single row (can pass optional field param to get just the field)
 	public function row($field = ''){
+
+		if(empty($this->_data)){
+			return false;
+		}
+
 		if($field != ''){
 			$row = '';
 			if(!empty($this->_data[0][$field])){
