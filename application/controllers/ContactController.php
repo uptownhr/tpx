@@ -14,10 +14,9 @@ class ContactController extends My_Controller {
     	try {
     		$id = Jien::model("Contact")->save($_POST);
     		$primary = Jien::model("Contact")->getPrimary();
-    		echo Jien::outputResultToJson(200, array($primary=>$id));
+    		$this->json(array($primary=>$id), 200, 'saved');
     	}catch(Exception $e){
-    		echo Jien::outputResultToJson(405, array(), $e->getMessage());
+    		$this->json(array(), 405, $e->getMessage());
     	}
-    	exit;
     }
 }
