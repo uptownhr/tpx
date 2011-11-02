@@ -17,13 +17,11 @@ class AuthController extends My_Controller {
 				"accessed"	=>	new Zend_Db_Expr('NOW()'),
 			));
 
-			echo Jien::outputResultToJson(200, array("user"=>$_SESSION['user']));
-			exit;
+			$this->json(array("user"=>$_SESSION['user']), 200, 'logged in');
 
 		}else{
 
-			echo Jien::outputResultToJson(401, array(), "Invalid credentials");
-			exit;
+			$this->json(array(), 401, 'invalid credentials');
 
 		}
 
@@ -40,13 +38,11 @@ class AuthController extends My_Controller {
 				"accessed"	=>	new Zend_Db_Expr('NOW()'),
 			));
 
-			echo Jien::outputResultToJson(200, array("user"=>$_SESSION['user']));
-			exit;
+			$this->json(array("user"=>$_SESSION['user']), 200, 'logged in');
 
 		}else{
 
-			echo Jien::outputResultToJson(401, array(), "Invalid credentials");
-			exit;
+			$this->json(array(), 401, 'invalid credentials');
 
 		}
 
@@ -54,10 +50,9 @@ class AuthController extends My_Controller {
 
 	public function logoutAction(){
 		unset($_SESSION['user']);
-
-		echo Jien::outputResultToJson(200, array());
-		exit;
-
+		$this->auth->clearIdentity();
+        $this->flash('You were logged out');
+        $this->json(array(), 200, 'logged out');
 	}
 
 }

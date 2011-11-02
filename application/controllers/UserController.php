@@ -9,8 +9,8 @@ class UserController extends My_Controller {
      */
     protected $_keys;
 
-    public function init(){
-        parent::init();
+    public function init() {
+    	parent::init();
         $this->_keys = Zend_Registry::get('keys');
     }
 
@@ -20,13 +20,10 @@ class UserController extends My_Controller {
 
     public function loginAction() {
 
-        // get an instace of Zend_Auth
-        $auth = Zend_Auth::getInstance();
-
         // check if a user is already logged
-        if ($auth->hasIdentity()) {
-            $this->_helper->FlashMessenger('It seems you are already logged into the system ');
-            return $this->_redirect('/index/index');
+        if ($this->auth->hasIdentity()) {
+            $this->flash('It seems you are already logged into the system ');
+            return $this->redir('/');
         }
 
         // if the user is not logged, the do the logging
@@ -69,17 +66,19 @@ class UserController extends My_Controller {
             }
 
             // here a user is redirect to the provider for loging
-            $result = $auth->authenticate($adapter);
+            $result = $this->auth->authenticate($adapter);
 
             // the following two lines should never be executed unless the redirection faild.
-            $this->_helper->FlashMessenger('Redirection faild');
-            return $this->_redirect('/index/index');
+            $this->flash('Redirection failed');
+            return $this->redir('/');
+
         } else if ($openid_mode || $code || $oauth_token) {
             // this will be exectued after provider redirected the user back to us
 
             if ($code) {
                 // for facebook
                 $adapter = $this->_getFacebookAdapter();
+                $type = 'facebook';
             } else if ($oauth_token) {
                 // for twitter
                 $adapter = $this->_getTwitterAdapter()->setQueryData($_GET);
@@ -106,10 +105,10 @@ class UserController extends My_Controller {
                 }
             }
 
-            $result = $auth->authenticate($adapter);
+            $result = $this->auth->authenticate($adapter);
 
             if ($result->isValid()) {
-                $toStore = array('identity' => $auth->getIdentity());
+                $toStore = array('identity' => $this->auth->getIdentity());
 
                 if ($ext) {
                     // for openId
@@ -130,23 +129,24 @@ class UserController extends My_Controller {
                     $toStore['properties'] = $twitterUserData;
                 }
 
-                $auth->getStorage()->write($toStore);
+                $this->auth->getStorage()->write($toStore);
 
-                $this->_helper->FlashMessenger('Successful authentication');
-                return $this->_redirect('/index/index');
+
+
+                $this->flash('Successful authentication');
+                return $this->redir('/');
             } else {
-                $this->_helper->FlashMessenger('Failed authentication');
-                $this->_helper->FlashMessenger($result->getMessages());
-                return $this->_redirect('/index/index');
+                $this->flash('Failed authentication');
+                $this->flash($result->getMessages());
+                return $this->redir('/');
             }
         }
     }
 
     public function logoutAction() {
-        $auth = Zend_Auth::getInstance();
-        $auth->clearIdentity();
-        $this->_helper->FlashMessenger('You were logged out');
-        return $this->_redirect('/index/index');
+        $this->auth->clearIdentity();
+        $this->flash('You were logged out');
+        return $this->redir('/');
     }
 
     /**

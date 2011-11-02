@@ -6,7 +6,11 @@ class Jien_Controller extends Zend_Controller_Action {
 
     	// pass request params to view
     	$this->view->params = Jien::sanitizeArray($this->_request->getParams());
+		$this->view->auth = $this->auth = Zend_Auth::getInstance();
 
+		if($this->auth->getIdentity()){
+			$this->view->me = $this->auth->getIdentity();
+		}
 
     }
 
@@ -15,9 +19,7 @@ class Jien_Controller extends Zend_Controller_Action {
         $adapter->setIdentity($username);
         $adapter->setCredential($password);
 
-        $auth = Zend_Auth::getInstance();
-
-        $result = $auth->authenticate($adapter);
+        $result = $this->auth->authenticate($adapter);
         if ($result->isValid()) {
             $user = $adapter->getResultRowObject();
             $_SESSION['user'] = $user;
@@ -26,16 +28,20 @@ class Jien_Controller extends Zend_Controller_Action {
         return false;
     }
 
-    protected function _getAuthAdapter($user_role_id = '') {
+    protected function _getAuthAdapter($role_id = '') {
         $authAdapter = new Jien_Auth_Adapter_DbTable(Jien::db(), "User", "username", "password", "");
         $select = $authAdapter->getDbSelect();
-        if($user_role_id != ''){
-        	$select->where("user_role_id >= {$user_role_id} AND active=1");
+        if($role_id != ''){
+        	$select->where("role_id >= {$role_id} AND active=1");
         }else{
         	$select->where('active=1');
         }
         return $authAdapter;
     }
+
+    /*
+    * below are my main controller methods, some are just renaming the ugly zend framework naming schema
+    */
 
     protected function params($param = '', $default = ''){
 
@@ -46,35 +52,42 @@ class Jien_Controller extends Zend_Controller_Action {
 			return $request->getParams();
 		}
 
-		// @todo probably just go with prepared statements, but gotta rework how params are passed in sql clauses like where()
-		// using sanitized array
-    	/*$request = $this->view->params;
-		if($param){
-			$res = '';
-			if(!empty($request[$param])){
-				$res = $request[$param];
-			}else{
-				$res = $default;
-			}
-			return $res;
-		}else{
-			return $request;
-		}*/
-
     }
 
     // renders a script i.e; admin/form will render admin/form.phtml
-    public function render($script){
+    public function view($script){
         $this->_helper->viewRenderer($script);
     }
 
     // will retrieve the contents of the file (filename with extensions, i.e; admin/form.phtml)
-    public function retrieve($file){
+    public function load($file){
         return $this->render($file);
     }
 
-    public function setLayout($script){
+    public function layout($script){
     	$this->_helper->layout()->setLayout($script);
+    }
+
+    public function flash($msg){
+    	$this->_helper->FlashMessenger($msg);
+    }
+
+    public function redir($url){
+    	$this->_redirect($url);
+    }
+
+    public function json($data, $code = '', $msg = ''){
+    	if($code != ''){
+    		$data = Jien::outputResult($code, $data, $msg);
+    	}
+    	$this->_helper->json($data);
+    }
+
+    public function me(){
+    	$identity = $this->auth->getIdentity();
+    	$res = array();
+    	$res = $identity['properties'];
+    	return $res;
     }
 
 }

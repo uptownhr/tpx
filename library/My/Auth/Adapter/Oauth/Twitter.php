@@ -23,7 +23,6 @@
 /**
  * @see Zend_Auth_Adapter_Interface
  */
-require_once APPLICATION_PATH . '/auth/adapter/Oauth.php';
 
 /**
  * I (i.e. Marcin) added verifyCredentials method as well as $_oathConfig variable.
@@ -195,7 +194,7 @@ class My_Auth_Adapter_Oauth_Twitter extends My_Auth_Adapter_Oauth {
      *
      * @return array representation of the requesting user if authentication was successful
      */
-    public function verifyCredentials() {        
+    public function verifyCredentials() {
 
         $accessToken = $this->getAccessToken();
 

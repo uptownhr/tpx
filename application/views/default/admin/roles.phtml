@@ -7,7 +7,7 @@
 
 		<div class="page-header">
 			<h3>
-		  		Listing all User Roles <small></small> <span class='right'><a href='/admin/<?php echo strtolower($this->model); ?>'>Add a user role</a></span>
+		  		Listing all Roles <small></small> <span class='right'><a href='/admin/<?php echo strtolower($this->model); ?>'>Add a role</a></span>
 		  	</h3>
 		</div>
 
@@ -23,20 +23,20 @@
 		  		<table class="zebra-striped">
 			        <thead>
 			          <tr>
-			            <th class="header">#</th>
-			            <th class="header">Role</th>
-			            <th class="header">Created</th>
+			            <th class="header" rel="role.role_id">#</th>
+			            <th class="header" rel="role.role">Role</th>
+			            <th class="header" rel="role.created">Created</th>
 			            <th class="header">Action</th>
 			          </tr>
 			        </thead>
 			        <tbody>
 			        <?php foreach($this->data->rows() AS $key=>$value){ ?>
 			        <tr>
-			            <td><?php echo $value['user_role_id']; ?></td>
+			            <td><?php echo $value['role_id']; ?></td>
 			            <td><?php echo $value['role']; ?></td>
 			            <td><?php echo date("m/d/y", strtotime($value['created'])); ?></td>
 			            <td>
-			            	<a href="/admin/<?php echo strtolower($this->model); ?>/id/<?php echo $value['user_role_id']; ?>" class="btn blue">Edit</a>
+			            	<a href="/admin/<?php echo strtolower($this->model); ?>/id/<?php echo $value['role_id']; ?>" class="btn blue">Edit</a>
 			            	<a href="/admin/delete/?model=<?php echo $this->model; ?>&id=<?php echo $value[strtolower($this->model).'_id'];; ?>" class="btn red trig_delete" rel="model=<?php echo $this->model; ?>|id=<?php echo $value[$this->primary]; ?>">Remove</a>
 			            </td>
 			          </tr>

@@ -18,8 +18,13 @@ class Application_Model_DbTable_User extends My_Model
  		return $id;
  	}
 
- 	public function joinUserRole(){
- 		$this->leftJoin("UserRole ur", "u.user_role_id = ur.user_role_id", "ur.role");
+ 	public function joinRole(){
+ 		$this->leftJoin("Role role", "u.role_id = role.role_id", "role.role");
+ 		return $this;
+ 	}
+
+ 	public function joinProvider(){
+ 		$this->leftJoin("Provider provider", "u.provider_id = provider.provider_id", "provider.provider");
  		return $this;
  	}
 

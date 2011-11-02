@@ -440,12 +440,6 @@ class Jien {
 		return $res;
 	}
 
-	public static function outputResultToJson($code, $result, $msg = ''){
-		$res = Jien::outputResult($code, $result, $msg);
-		header('Content-type: application/json');
-		return Zend_Json::encode($res);
-	}
-
 	// parses filter string query
 	public static function parseStrQuery($str = ''){
 		$filters = array();

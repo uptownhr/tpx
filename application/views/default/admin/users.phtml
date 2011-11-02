@@ -21,11 +21,12 @@
 		  		<table class="zebra-striped">
 			        <thead>
 			          <tr>
-			            <th class="header">#</th>
-			            <th class="header">Username</th>
-			            <th class="header">Email</th>
-			            <th class="header">Role</th>
-			            <th class="header">Joined</th>
+			            <th class="header" rel="u.user_id">#</th>
+			            <th class="header" rel="u.provider_id">Provider</th>
+			            <th class="header" rel="u.username">Username</th>
+			            <th class="header" rel="u.email">Email</th>
+			            <th class="header" rel="u.role_id">Role</th>
+			            <th class="header" rel="u.created">Joined</th>
 			            <th class="header">Action</th>
 			          </tr>
 			        </thead>
@@ -33,6 +34,7 @@
 			        <?php foreach($this->data->rows() AS $key=>$value){ ?>
 			        <tr>
 			            <td><?php echo $value['user_id']; ?></td>
+			            <td><?php echo ucfirst($value['provider']); ?></td>
 			            <td><?php echo $value['username']; ?></td>
 			            <td><?php echo $value['email']; ?></td>
 			            <td><?php echo $value['role']; ?></td>
