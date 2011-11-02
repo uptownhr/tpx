@@ -200,8 +200,7 @@ class UserController extends My_Controller {
      * @return My_Auth_Adapter_Facebook
      */
     protected function _getFacebookAdapter() {
-        extract($this->_keys->facebook->toArray());
-        return new My_Auth_Adapter_Facebook($appid, $secret, $redirecturi, $scope);
+        return new My_Auth_Adapter_Facebook(FACEBOOK_APPID, FACEBOOK_SECRET, FACEBOOK_REDIRECTURI, FACEBOOK_SCOPE);
     }
 
     /**
@@ -210,8 +209,7 @@ class UserController extends My_Controller {
      * @return My_Auth_Adapter_Oauth_Twitter
      */
     protected function _getTwitterAdapter() {
-        extract($this->_keys->twitter->toArray());
-        return new My_Auth_Adapter_Oauth_Twitter(array(), $appid, $secret, $redirecturi);
+        return new My_Auth_Adapter_Oauth_Twitter(array(), TWITTER_APPID, TWITTER_SECRET, TWITTER_REDIRECTURI);
     }
 
     /**
