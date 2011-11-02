@@ -241,7 +241,7 @@ DROP TABLE IF EXISTS `User`;
 CREATE TABLE `User` (
   `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `provider_id` int(11) NOT NULL DEFAULT '1',
-  `foreign_id` bigint(20) NOT NULL,
+  `uid` bigint(20) NOT NULL,
   `role_id` int(11) NOT NULL DEFAULT '1',
   `username` varchar(64) NOT NULL,
   `password` varchar(60) NOT NULL,
@@ -285,4 +285,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-11-01 23:37:34
+-- Dump completed on 2011-11-01 23:38:55
