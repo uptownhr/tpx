@@ -8,14 +8,28 @@ class Jien_Controller extends Zend_Controller_Action {
     	$this->view->params = Jien::sanitizeArray($this->_request->getParams());
 		$this->view->auth = $this->auth = Zend_Auth::getInstance();
 
+		// if user logged in
 		if($this->auth->getIdentity()){
-			$this->view->me = $this->auth->getIdentity();
+			$this->view->user = $_SESSION['user'];
 		}
 
     }
 
-    protected function authenticate($username, $password, $user_role_id = ''){
-        $adapter = $this->_getAuthAdapter($user_role_id);
+    public function setUser($user){
+		$condi = "provider_id = {$user['provider_id']} AND uid = '{$user['uid']}'";
+        $data = Jien::model("User")->where($condi)->get()->row();
+        if(!$data){
+        	$user['user_id'] = Jien::model("User")->save($user);
+        }else{
+        	$user['accessed'] = new Zend_Db_Expr('NOW()');
+        	$user['user_id'] = Jien::model("User")->update($user, $condi);
+        }
+        $user['accessed'] = date("Y-m-d h:i:s");
+		$_SESSION['user'] = $user;
+    }
+
+    protected function authenticate($username, $password, $role_id = ''){
+        $adapter = $this->_getAuthAdapter($role_id);
         $adapter->setIdentity($username);
         $adapter->setCredential($password);
 

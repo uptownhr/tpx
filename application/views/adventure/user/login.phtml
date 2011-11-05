@@ -1,32 +1,93 @@
 <script type="text/javascript">
-
     var imgPath = '<?php echo $this->baseUrl('images/');?>';
     jQuery(document).ready(function() {
         openid.img_path = imgPath;
         openid.init('openid_identifier');
         openid.setDemoMode(false); //Stops form submission for client javascript-only test purposes
-
     });
 </script>
 
-<div>
-    <!-- Simple OpenID Selector -->
-    <form action="<?php echo $this->baseUrl('/user/login');?>" method="get" id="openid_form">
-        <input type="hidden" name="action" value="verify" />
-        <fieldset>
-            <legend>Sign-in using</legend>
-            <div id="openid_choice">
-                <div id="openid_btns"></div>
-            </div>
-            <div id="openid_input_area">
-                <input id="openid_identifier" name="openid_identifier" type="text" value="http://" />
-                <input id="openid_submit" type="submit" value="Sign-In"/>
-            </div>
-            <noscript>
-                <p>OpenID is service that allows you to log-on to many different websites using a single indentity.
-				Find out <a href="http://openid.net/what/">more about OpenID</a> and <a href="http://openid.net/get/">how to get an OpenID enabled account</a>.</p>
-            </noscript>
-        </fieldset>
-    </form>
-    <!-- /Simple OpenID Selector -->
+<div id="content">
+	<div class="one">
+		<!-- COLUMNS CONTAINER STARTS-->
+		<div class="intro-pages">
+			<!-- INTRO DIV STARTS-->
+			<h3>Welcome to <span class="colored">Adventure</span>, Clean &amp; Simple <span class="colored">HTML5 </span> template.Feel free to browse through all the pages and see what's &quot;Adventure&quot; capable to do for You.Enjoy! </h3>
+		</div>
+		<!-- INTRO ENDS-->
+	</div>
+<!-- COLUMNS CONTAINER ENDS-->
+<div class="one">
+	<div class="one-fourth">
+		<ul class="simple-nav">
+			<li><a href="about-us.html"  class="current">About Us</a></li>
+			<li><a href="news.html">News Archive</a></li>
+			<li><a href="services.html">Our Services</a></li>
+			<li><a href="our-team.html">Our Team</a></li>
+			<li><a href="testimonials.html">Clients Testimonials</a></li>
+			<li><a href="jobs.html">Job Opportunities</a></li>
+			<li><a href="faq.html">F.A.Q</a></li>
+			<li><a href="404-Error.html">404 Error Page</a></li>
+		</ul>
+	</div>
+	<div class="inner-content last">
+
+		<div id="user_register" class="one-third login_register">
+			<h4>Register a new account</h4><br/>
+			<form action="/auth/register" id="register_form" method="post">
+				<input type="hidden" name="redir" value="/">
+				<fieldset>
+					<label>Email <span class="required">*</span></label>
+					<input type="text" name="username" id="register_username" value="" class="text requiredField email"/>
+				</fieldset>
+				<fieldset>
+					<label>Password<span class="required">*</span></label>
+					<input type="text" name="password" id="password" value="" class="text requiredField subject"/>
+				</fieldset>
+				<fieldset>
+					<label>Password (Again)<span class="required">*</span></label>
+					<input type="text" name="password2" id="password2" value="" class="text requiredField subject"/>
+				</fieldset>
+				<br>
+				<fieldset>
+					<input name="user_register_submit" value="Register Now" class="button small green" type="submit"/>
+				</fieldset>
+			</form>
+		</div>
+
+		<div id="user_login" class="one-third hide login_register">
+			<h4>Log-in to your account</h4><br/>
+			<form action="/auth/login" id="login_form" method="post">
+				<input type="hidden" name="redir" value="/">
+				<fieldset>
+					<label>Email <span class="required">*</span></label>
+					<input type="text" name="username" id="login_username" value="" class="text requiredField email"/>
+				</fieldset>
+				<fieldset>
+					<label>Password<span class="required">*</span></label>
+					<input type="text" name="password" id="login_password" value="" class="text requiredField subject"/>
+				</fieldset>
+				<br>
+				<fieldset>
+					<input name="user_login_submit" value="Login to your account" class="button small orange" type="submit"/>
+				</fieldset>
+			</form>
+		</div>
+
+		<div class="one-third-big last">
+		<h4>Already Have an Account?</h4><br/>
+		<p>
+			<a href="#" id="user_login_show" class="login_register_show button big round green">Sign In &amp; Explore!</a>
+			<a href="#" id="user_register_show" class="login_register_show hide button big round orange">Register a new account!</a>
+		</p><br/>
+
+		<h4> -- or -- </h4><br/>
+		<form action="<?php echo $this->baseUrl('/user/login');?>" method="get" id="openid_form">
+			<p><a href="javascript:openid.signin('facebook');"><img src="/images/login/facebook.png"></a></p>
+			<p><a href="javascript:openid.signin('twitter');"><img src="/images/login/twitter.png"></a></p><br/>
+		</form>
+
+		</div>
+		<div class="horizontal-line"></div>
+	</div>
 </div>

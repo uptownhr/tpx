@@ -1838,3 +1838,7 @@ ul.list-box > li{
 .menu li a { background: #3d4753; padding:5px 10px; float:left; border-right: 1px solid #f5f5f5; border-bottom: none; text-decoration: none; color: #FFF; font-weight: normal;}
 .menu li.active a { background: #f5f5f5;color:#272727; }
 .content { float: left; clear: both; border-top: none; border-left: none; background: #f5f5f5; padding: 10px 20px 20px; width: 400px; }
+
+
+/* jien */
+.hide { display: none; }

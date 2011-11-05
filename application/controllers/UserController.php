@@ -23,7 +23,7 @@ class UserController extends My_Controller {
         // check if a user is already logged
         if ($this->auth->hasIdentity()) {
             $this->flash('It seems you are already logged into the system ');
-            return $this->redir('/');
+            $this->redir('/');
         }
 
         // if the user is not logged, the do the logging
@@ -39,6 +39,8 @@ class UserController extends My_Controller {
         // while this one will be set by twitter
         $oauth_token = $this->getRequest()->getParam('oauth_token', null);
 
+        // defaults
+        $ext = false;
 
         // do the first query to an authentication provider
         if ($openid_identifier) {
@@ -70,7 +72,7 @@ class UserController extends My_Controller {
 
             // the following two lines should never be executed unless the redirection faild.
             $this->flash('Redirection failed');
-            return $this->redir('/');
+            $this->redir('/');
 
         } else if ($openid_mode || $code || $oauth_token) {
             // this will be exectued after provider redirected the user back to us
@@ -107,12 +109,16 @@ class UserController extends My_Controller {
             $result = $this->auth->authenticate($adapter);
 
             if ($result->isValid()) {
+
                 $toStore = array('identity' => $this->auth->getIdentity());
 
                 if ($ext) {
+
                     // for openId
                     $toStore['properties'] = $ext->getProperties();
+
                 } else if ($code) {
+
                     // for facebook
                     $msgs = $result->getMessages();
                     $toStore['properties'] = (array) $msgs['user'];
@@ -128,27 +134,17 @@ class UserController extends My_Controller {
                     	"provider_id"	=>	2,
                     	"country"	=>	$msgs['user']->locale,
                     );
-					$condi = "provider_id = {$user['provider_id']} AND uid = '{$user['uid']}'";
-                    $data = Jien::model("User")->where($condi)->get()->row();
-                    if(!$data){
-                    	$user_id = Jien::model("User")->save($user);
-                    }else{
-                    	$user['accessed'] = new Zend_Db_Expr('NOW()');
-                    	$user_id = Jien::model("User")->update($user, $condi);
-                    }
-
 
                 } else if ($oauth_token) {
-                    // for twitter
+
+                	// for twitter
                     $identity = $result->getIdentity();
-                    // get user info
                     $twitterUserData = (array) $adapter->verifyCredentials();
                     $toStore = array('identity' => $identity['user_id']);
                     if (isset($twitterUserData['status'])) {
                         $twitterUserData['status'] = (array) $twitterUserData['status'];
                     }
                     $toStore['properties'] = $twitterUserData;
-
 
                     // save it to our db if new, else update
                     $name = explode(" ", $twitterUserData['name']);
@@ -162,36 +158,31 @@ class UserController extends My_Controller {
                     	"provider_id"	=>	3,
                     	"country"	=>	$twitterUserData['lang'],
                     );
-					$condi = "provider_id = {$user['provider_id']} AND uid = '{$user['uid']}'";
-                    $data = Jien::model("User")->where($condi)->get()->row();
-                    if(!$data){
-                    	$user_id = Jien::model("User")->save($user);
-                    }else{
-                    	$user['accessed'] = new Zend_Db_Expr('NOW()');
-                    	$user_id = Jien::model("User")->update($user, $condi);
-                    }
+
 
                 }
 
+                // sets $this->view->user that can be accessed via view
+                $this->setUser($user);
+
                 $this->auth->getStorage()->write($toStore);
-
-
-
-
                 $this->flash('Successful authentication');
-                return $this->redir('/');
+                $this->redir('/');
+
             } else {
+
                 $this->flash('Failed authentication');
-                $this->flash($result->getMessages());
-                return $this->redir('/');
+                $this->redir('/');
+
             }
         }
     }
 
     public function logoutAction() {
         $this->auth->clearIdentity();
+        $_SESSION = array();
         $this->flash('You were logged out');
-        return $this->redir('/');
+        $this->redir('/');
     }
 
     /**

@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -178,7 +178,10 @@ class My_Auth_Adapter_Facebook implements Zend_Auth_Adapter_Interface
             return new Zend_Auth_Result( Zend_Auth_Result::SUCCESS, $user->id, array('user'=>$user, 'token'=>$params['access_token']) );
     	}
 
-        return new Zend_Auth_Result( Zend_Auth_Result::FAILURE, null, 'Error while attempting to redirect.' );
+    	exit;
+    	/*
+    	return new Zend_Auth_Result( Zend_Auth_Result::FAILURE, null, array('msg'=>'Error while attempting to redirect.'));
+        */
     }
 }
 ?>

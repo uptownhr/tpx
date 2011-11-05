@@ -6,8 +6,62 @@ class AuthController extends My_Controller {
         parent::init();
     }
 
+
+    public function registerAction(){
+		$data = Jien::sanitizeArray($_POST);
+
+		if(empty($data['username'])){
+			$error['msg'] = "Username can't be blank";
+			$error['focus'] = "username";
+		}else if(empty($data['password'])){
+			$error['msg'] = "Password can't be blank";
+			$error['focus'] = "password";
+		}else if(empty($data['password2'])){
+			$error['msg'] = "Confirmation password can't be blank";
+			$error['focus'] = "password2";
+		}else if($data['password'] != $data['password2']){
+			$error['msg'] = "Passwords do not match";
+			$error['focus'] = "password";
+		}
+		if(!empty($error)){
+			$this->json($error, 401, 'input validation error');
+		}
+
+		try {
+			$data['role_id'] = 2;
+			$user_id = Jien::model("User")->save($data);
+
+			$auth = $this->authenticate($data['username'], $data['password']);
+			$res = array();
+			if($auth){
+				Jien::model("User")->save(array(
+					"user_id"	=>	$_SESSION['user']->user_id,
+					"accessed"	=>	new Zend_Db_Expr('NOW()'),
+				));
+				$this->json(array("user"=>$_SESSION['user']), 200, 'logged in');
+			}else{
+				$this->json(array(), 401, 'invalid credentials');
+			}
+
+		}catch(Exception $e){
+			$this->json(array(), 401, $e->getMessage());
+		}
+    }
+
 	public function loginAction(){
-		$auth = $this->authenticate($_REQUEST['username'], $_REQUEST['password']);
+		$data = Jien::sanitizeArray($_POST);
+		if(empty($data['username'])){
+			$error['msg'] = "Username can't be blank";
+			$error['focus'] = "username";
+		}else if(empty($data['password'])){
+			$error['msg'] = "Password can't be blank";
+			$error['focus'] = "password";
+		}
+		if(!empty($error)){
+			$this->json($error, 401, 'input validation error');
+		}
+
+		$auth = $this->authenticate($data['username'], $data['password']);
 		$res = array();
 		if($auth){
 
@@ -20,8 +74,9 @@ class AuthController extends My_Controller {
 			$this->json(array("user"=>$_SESSION['user']), 200, 'logged in');
 
 		}else{
-
-			$this->json(array(), 401, 'invalid credentials');
+			$error['msg'] = 'Invalid user/pass, try again';
+			$error['focus'] = 'username';
+			$this->json($error, 401, 'invalid credentials');
 
 		}
 
