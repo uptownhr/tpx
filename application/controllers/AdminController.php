@@ -5,7 +5,7 @@ class AdminController extends My_Controller {
     public function init(){
     	parent::init();
 
-    	if(!empty($_SESSION['user'])){
+    	if(!empty($_SESSION['user']) && $_SESSION['user']['role'] == 'Moderator'){
     		$this->layout('admin');
     	}else{
     		$this->layout('admin-loggedout');
@@ -15,6 +15,7 @@ class AdminController extends My_Controller {
         // view vars
         $this->view->title = "Jien Framework";
         $this->view->data = new Jien_Model_Factory(); // model output, contains row()/rows()/pager()
+
     }
 
     // all the save/delete requests goes through here and calls on the model's save/delete accordingly
@@ -102,7 +103,7 @@ class AdminController extends My_Controller {
     public function pagesAction(){
     	$this->view->model = "Page";
     	$this->view->primary = Jien::model($this->view->model)->getPrimary();
-    	$this->view->data = Jien::model($this->view->model)->orderBy("page.page_id DESC")->withPager($this->params('page', 1))->filter($this->params())->get();
+    	$this->view->data = Jien::model($this->view->model)->orderBy("page.rank ASC")->withPager($this->params('page', 1))->filter($this->params())->get();
     }
 
     public function pageAction(){
@@ -111,7 +112,6 @@ class AdminController extends My_Controller {
     	if($id){
     		$this->view->data = Jien::model($this->view->model)->get($id);
     	}
-        $this->view('form');
     }
 
     public function contactsAction(){

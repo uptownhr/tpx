@@ -1,17 +1,12 @@
 <?php
 
-class UserController extends My_Controller {
+// created by some guy on the web, ugly code but atleast it works
+// will have to re-factor this from the ground up
 
-    /**
-     * Application keys from appkeys.ini
-     *
-     * @var Zend_Config
-     */
-    protected $_keys;
+class UserController extends My_Controller {
 
     public function init() {
     	parent::init();
-        $this->_keys = Zend_Registry::get('keys');
     }
 
     public function indexAction() {
@@ -49,22 +44,6 @@ class UserController extends My_Controller {
                 $adapter = $this->_getTwitterAdapter();
             } else if ('https://www.facebook.com' == $openid_identifier) {
                 $adapter = $this->_getFacebookAdapter();
-            } else {
-                // for openid
-                $adapter = $this->_getOpenIdAdapter($openid_identifier);
-
-                // specify what to grab from the provider and what extension to use
-                // for this purpose
-                $toFetch = $this->_keys->openid->tofetch->toArray();
-
-                // for google and yahoo use AtributeExchange Extension
-                if ('https://www.google.com/accounts/o8/id' == $openid_identifier || 'http://me.yahoo.com/' == $openid_identifier) {
-                    $ext = $this->_getOpenIdExt('ax', $toFetch);
-                } else {
-                    $ext = $this->_getOpenIdExt('sreg', $toFetch);
-                }
-
-                $adapter->setExtensions($ext);
             }
 
             // here a user is redirect to the provider for loging
@@ -83,27 +62,6 @@ class UserController extends My_Controller {
             } else if ($oauth_token) {
                 // for twitter
                 $adapter = $this->_getTwitterAdapter()->setQueryData($_GET);
-            } else {
-                // for openid
-                $adapter = $this->_getOpenIdAdapter(null);
-
-                // specify what to grab from the provider and what extension to use
-                // for this purpose
-                $ext = null;
-
-                $toFetch = $this->_keys->openid->tofetch->toArray();
-
-                // for google and yahoo use AtributeExchange Extension
-                if (isset($_GET['openid_ns_ext1']) || isset($_GET['openid_ns_ax'])) {
-                    $ext = $this->_getOpenIdExt('ax', $toFetch);
-                } else if (isset($_GET['openid_ns_sreg'])) {
-                    $ext = $this->_getOpenIdExt('sreg', $toFetch);
-                }
-
-                if ($ext) {
-                    $ext->parseResponse($_GET);
-                    $adapter->setExtensions($ext);
-                }
             }
 
             $result = $this->auth->authenticate($adapter);
@@ -112,12 +70,7 @@ class UserController extends My_Controller {
 
                 $toStore = array('identity' => $this->auth->getIdentity());
 
-                if ($ext) {
-
-                    // for openId
-                    $toStore['properties'] = $ext->getProperties();
-
-                } else if ($code) {
+                if ($code) {
 
                     // for facebook
                     $msgs = $result->getMessages();
@@ -201,46 +154,6 @@ class UserController extends My_Controller {
      */
     protected function _getTwitterAdapter() {
         return new My_Auth_Adapter_Oauth_Twitter(array(), TWITTER_APPID, TWITTER_SECRET, TWITTER_REDIRECTURI);
-    }
-
-    /**
-     * Get Zend_Auth_Adapter_OpenId adapter
-     *
-     * @param string $openid_identifier
-     * @return Zend_Auth_Adapter_OpenId
-     */
-    protected function _getOpenIdAdapter($openid_identifier = null) {
-        $adapter = new Zend_Auth_Adapter_OpenId($openid_identifier);
-        $dir = APPLICATION_PATH . '/../tmp';
-
-        if (!file_exists($dir)) {
-            if (!mkdir($dir)) {
-                throw new Zend_Exception("Cannot create $dir to store tmp auth data.");
-            }
-        }
-        $adapter->setStorage(new Zend_OpenId_Consumer_Storage_File($dir));
-
-        return $adapter;
-    }
-
-    /**
-     * Get Zend_OpenId_Extension. Sreg or Ax.
-     *
-     * @param string $extType Possible values: 'sreg' or 'ax'
-     * @param array $propertiesToRequest
-     * @return Zend_OpenId_Extension|null
-     */
-    protected function _getOpenIdExt($extType, array $propertiesToRequest) {
-
-        $ext = null;
-
-        if ('ax' == $extType) {
-            $ext = new My_OpenId_Extension_AttributeExchange($propertiesToRequest);
-        } elseif ('sreg' == $extType) {
-            $ext = new Zend_OpenId_Extension_Sreg($propertiesToRequest);
-        }
-
-        return $ext;
     }
 
 }

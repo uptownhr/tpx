@@ -1,3 +1,4 @@
+
 			<!-- MAIN CONTAINER -->
 			<div id="content">
 				<div class="one">
@@ -34,42 +35,31 @@
 				<div class="one">
 					<div class="horizontal-line">
 					</div>
+
 					<div class="one-fourth">
-						<ul class="simple-nav">
-							<li><a href="about.html">About Us</a></li>
-							<li><a href="about.html">News Archive</a></li>
-							<li><a href="about.html">Our Services</a></li>
-							<li><a href="about.html">Our Team</a></li>
-							<li><a href="about.html">Clients Testimonials</a></li>
-							<li><a href="jobs.html">Job Opportunities</a></li>
-							<li><a href="about.html">F.A.Q</a></li>
-							<li><a href="about.html">404 Error Page</a></li>
-						</ul>
-						<br/>
-						<div class="pdf">
-							<a href="#">Download our <br/> Services Brochure</a>
-						</div>
+						<?php echo $this->partial('partials/pages.phtml'); ?>
 					</div>
+
 					<div class="inner-content last">
 						<form action="/contact/add" id="contact-form" method="post">
 							<fieldset>
 								<label>Name <span class="required">*</span></label>
-								<input type="text" name="name" id="Myname" value="" class="text requiredField"/>
+								<input type="text" name="name" id="contact_name" value="<?php echo $this->user->first_name; ?>" class="text requiredField"/>
 							</fieldset>
 							<fieldset>
 								<label>Email <span class="required">*</span></label>
-								<input type="text" name="email" id="myemail" value="" class="text requiredField email"/>
+								<input type="text" name="email" id="contact_email" value="<?php echo $this->user->email; ?>" class="text requiredField email"/>
 							</fieldset>
 							<fieldset>
 								<label>Subject <span class="required">*</span></label>
-								<input type="text" name="subject" id="mySubject" value="" class="text requiredField subject"/>
+								<input type="text" name="subject" id="contact_subject" value="" class="text requiredField subject"/>
 							</fieldset>
 							<fieldset>
 								<label>Your Message <span class="required">*</span></label>
-								<textarea name="message" id="Mymessage" rows="20" cols="30" class="text requiredField"></textarea>
+								<textarea name="message" id="contact_message" rows="20" cols="30" class="text requiredField"></textarea>
 							</fieldset>
 							<fieldset>
-								<input name="Mysubmitted" id="Mysubmitted" value="Send Message" class="button blue" type="submit"/>
+								<input name="contact_submit" id="contact_submit" value="Send Message" class="button blue" type="submit"/>
 							</fieldset>
 						</form>
 						<!--END form ID contact_form-->

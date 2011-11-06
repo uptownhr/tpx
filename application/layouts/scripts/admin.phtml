@@ -51,12 +51,12 @@
             <li><a href="/admin/contacts">Contacts</a></li>
           </ul>
 
-          <?php if(!empty($_SESSION['user'])){ ?>
+          <?php if(!empty($this->user)){ ?>
           <ul id="profile" class="nav secondary-nav">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle"><?php echo $_SESSION['user']->username; ?></a>
+              <a href="#" class="dropdown-toggle"><?php echo $_SESSION['user']['username']; ?></a>
               <ul class="dropdown-menu">
-              	<li><a href="/admin/user/id/<?php echo $_SESSION['user']->user_id; ?>">Settings</a></li>
+              	<li><a href="/admin/user/id/<?php echo $_SESSION['user']['user_id']; ?>">Settings</a></li>
                 <li><a href="/auth/logout" class='trig_logout'>Log-out</a></li>
               </ul>
             </li>

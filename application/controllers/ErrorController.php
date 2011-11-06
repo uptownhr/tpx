@@ -6,6 +6,8 @@ class ErrorController extends My_Controller
     public function init()
     {
 
+    	parent::init();
+
     	/* Initialize action controller here */
         if(substr($_SERVER['REQUEST_URI'], 0, 6) != '/error'){
 

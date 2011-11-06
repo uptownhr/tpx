@@ -5,19 +5,25 @@ class Jien_Controller extends Zend_Controller_Action {
     public function init(){
 
     	// pass request params to view
-    	$this->view->params = Jien::sanitizeArray($this->_request->getParams());
+    	$this->view->params = $this->params();
 		$this->view->auth = $this->auth = Zend_Auth::getInstance();
 
 		// if user logged in
-		if($this->auth->getIdentity()){
+		if(!empty($_SESSION['user'])){
 			$this->view->user = $_SESSION['user'];
 		}
 
     }
 
     public function setUser($user){
-		$condi = "provider_id = {$user['provider_id']} AND uid = '{$user['uid']}'";
-        $data = Jien::model("User")->where($condi)->get()->row();
+    	$user = (array) $user;
+
+    	if($user['uid'] != 0){
+			$condi = "provider_id = {$user['provider_id']} AND uid = '{$user['uid']}'";
+    	}else{
+    		$condi = "user_id = '{$user['user_id']}'";
+    	}
+        $data = Jien::model("User")->where($condi)->joinRole()->get()->row();
         if(!$data){
         	$user['user_id'] = Jien::model("User")->save($user);
         }else{
@@ -25,32 +31,8 @@ class Jien_Controller extends Zend_Controller_Action {
         	$user['user_id'] = Jien::model("User")->update($user, $condi);
         }
         $user['accessed'] = date("Y-m-d h:i:s");
+        $user['role'] = $data['role'];
 		$_SESSION['user'] = $user;
-    }
-
-    protected function authenticate($username, $password, $role_id = ''){
-        $adapter = $this->_getAuthAdapter($role_id);
-        $adapter->setIdentity($username);
-        $adapter->setCredential($password);
-
-        $result = $this->auth->authenticate($adapter);
-        if ($result->isValid()) {
-            $user = $adapter->getResultRowObject();
-            $_SESSION['user'] = $user;
-            return true;
-        }
-        return false;
-    }
-
-    protected function _getAuthAdapter($role_id = '') {
-        $authAdapter = new Jien_Auth_Adapter_DbTable(Jien::db(), "User", "username", "password", "");
-        $select = $authAdapter->getDbSelect();
-        if($role_id != ''){
-        	$select->where("role_id >= {$role_id} AND active=1");
-        }else{
-        	$select->where('active=1');
-        }
-        return $authAdapter;
     }
 
     /*

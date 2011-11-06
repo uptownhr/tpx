@@ -22,7 +22,10 @@
 								<!--POST DETAILS-->
 								<!--POST INTRO-->
 								<p>
-									 <?php echo substr(strip_tags($row['message']), 0, 400); ?>
+									 <?php
+									 	// echo substr(strip_tags($row['message']), 0, 400);
+									 ?>
+									 <?php echo $row['message']; ?>
 									 <div style="clear:both;"></div>
 								</p>
 								<a href="/blog/post/id/<?php echo $row['post_id']; ?>">Read This Article</a>
@@ -57,18 +60,3 @@
 					<!-- COLUMNS CONTAINER ENDS-->
 				</div>
 
-<script type="text/javascript">
-/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-var disqus_shortname = '<?php echo DISQUS_ID; ?>'; // required: replace example with your forum shortname
-<?php if(APPLICATION_ENV != 'prod'){ ?>
-var disqus_developer = 1;
-<?php } ?>
-
-/* * * DON'T EDIT BELOW THIS LINE * * */
-(function () {
-    var s = document.createElement('script'); s.async = true;
-    s.type = 'text/javascript';
-    s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
-    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-}());
-</script>

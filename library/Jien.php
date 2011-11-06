@@ -454,15 +454,17 @@ class Jien {
 	}
 
 	public function sanitize($str){
-		$str = htmlspecialchars($str);
-        $str = mysql_escape_string($str);
+		//$str = htmlspecialchars($str);
+        //$str = mysql_escape_string($str);
         return $str;
 	}
 
 	public function sanitizeArray($arr = array()){
 		if(!empty($arr)){
 			foreach($arr AS $key=>$value){
-				$arr[$key] = self::sanitize($value);
+				if($value){
+					$arr[$key] = self::sanitize($value);
+				}
 			}
 		}
 		return $arr;

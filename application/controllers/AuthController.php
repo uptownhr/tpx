@@ -28,7 +28,7 @@ class AuthController extends My_Controller {
 		}
 
 		try {
-			$data['role_id'] = 2;
+			$data['role_id'] = 2; // member
 			$user_id = Jien::model("User")->save($data);
 
 			$auth = $this->authenticate($data['username'], $data['password']);
@@ -83,13 +83,14 @@ class AuthController extends My_Controller {
 	}
 
 	public function loginAdminAction(){
-		$auth = $this->authenticate($_REQUEST['username'], $_REQUEST['password'], 10);
+		$auth = $this->authenticate($_REQUEST['username'], $_REQUEST['password']);
 		$res = array();
+
 		if($auth){
 
 			// updates accessed field to now
 			Jien::model("User")->save(array(
-				"user_id"	=>	$_SESSION['user']->user_id,
+				"user_id"	=>	$_SESSION['user']['user_id'],
 				"accessed"	=>	new Zend_Db_Expr('NOW()'),
 			));
 
@@ -109,5 +110,32 @@ class AuthController extends My_Controller {
         $this->flash('You were logged out');
         $this->json(array(), 200, 'logged out');
 	}
+
+	protected function authenticate($username, $password, $role_id = ''){
+        $adapter = $this->_getAuthAdapter($role_id);
+        $adapter->setIdentity($username);
+        $adapter->setCredential($password);
+
+        $result = $this->auth->authenticate($adapter);
+        if ($result->isValid()) {
+            $user = $adapter->getResultRowObject();
+            $this->setUser($user);
+            return true;
+        }
+        return false;
+    }
+
+    protected function _getAuthAdapter($role_id = '') {
+        $authAdapter = new Jien_Auth_Adapter_DbTable(Jien::db(), "User", "username", "password", "");
+        $select = $authAdapter->getDbSelect();
+        if($role_id != ''){
+        	$select->where("role_id >= {$role_id} AND active=1");
+        }else{
+        	$select->where('active=1');
+        }
+        return $authAdapter;
+    }
+
+
 
 }

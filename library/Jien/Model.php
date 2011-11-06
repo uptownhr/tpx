@@ -331,7 +331,7 @@ class Jien_Model extends Zend_Db_Table_Abstract {
 
 
 	//
-	// sql helpers
+	// sql snippets
 	//
 
 	// enables filtering
@@ -393,5 +393,9 @@ class Jien_Model extends Zend_Db_Table_Abstract {
     	return $this;
     }
 
+    // gets latest
+    public function byLatest(){
+    	$this->orderBy("{$this->_alias}.{$this->_primary} DESC");
+    }
 }
 ?>
