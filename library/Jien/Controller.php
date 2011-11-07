@@ -2,6 +2,8 @@
 
 class Jien_Controller extends Zend_Controller_Action {
 
+	protected $_resources = array();
+
     public function init(){
 
     	// pass request params to view
