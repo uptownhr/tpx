@@ -25,6 +25,9 @@
 	display: block;
 	position: relative;
 	margin: 0 0 12px 0;
+	background-position: 10px center;
+	background-repeat: no-repeat;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 .toast-item p {
@@ -33,7 +36,7 @@
 }
 
 .toast-item-close {
-    background:url(../images/close.gif);
+    background:url(../images/close.gif) 0 0 no-repeat;
     width:22px;
     height:22px;
     position: absolute;
@@ -44,26 +47,25 @@
 .toast-item-image {
     width:32px;
     height: 32px;
-    margin-left: 10px;
-    margin-top: 10px;
-    margin-right: 10px;
-    float:left;
+    position: absolute;
+    left: 10px;
+    top: 14px;
 }
 
 .toast-item-image-notice {
-    background:url(../images/notice.png);
+    background:url(../images/notice.png) 0 0 no-repeat;
 }
 
 .toast-item-image-success {
-    background:url(../images/success.png);
+    background:url(../images/success.png) 0 0 no-repeat;
 }
 
 .toast-item-image-warning {
-    background:url(../images/warning.png);
+    background:url(../images/warning.png) 0 0 no-repeat;
 }
 
 .toast-item-image-error {
-    background:url(../images/error.png);
+    background:url(../images/error.png) 0 0 no-repeat;
 }
 
 
