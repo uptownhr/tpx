@@ -8,30 +8,59 @@ class Jien_Controller extends Zend_Controller_Action {
     	$this->view->params = $this->params();
 		$this->view->auth = $this->auth = Zend_Auth::getInstance();
 
-		// setup auth / acl
-		$role = 'guest';
-
 		// if user logged in
 		if(!empty($_SESSION['user'])){
-			$this->view->user = $_SESSION['user'];
+			$this->view->user = $this->user = $_SESSION['user'];
 		}
 
 		// activate access control
-		$this->accessControl();
+		$this->initAcl();
 
     }
 
-    public function accessControl(){
+    public function initAcl(){
     	$acl = new Zend_Acl();
-    	$acl->addRole(new Zend_Acl_Role('guest'));
-    	$acl->addRole(new Zend_Acl_Role('member'), 'guest');
-    	$acl->addRole(new Zend_Acl_Role('vip member'), 'member');
-    	$acl->addRole(new Zend_Acl_Role('moderator'), 'vip member');
-    	$acl->addRole(new Zend_Acl_Role('admin'), 'moderator');
+    	$roles = Jien::model("Role")->orderBy('role.role_id asc')->leftJoin("Role r2", "r2.role_id = role.parent_id", "r2.role as parent_role")->get()->rows();
+		if($roles){
+	    	foreach($roles AS $role){
+	    		$acl->addRole(new Zend_Acl_Role($role['role']), $role['parent_role']);
+	    	}
+		}
+    	$this->acl = $acl;
+    }
 
+    public function hasRole($role, $action = ''){
 
-    	//$acl->allow('moderator', 'admin');
+    	$resource = $this->params('controller');
+    	if(!in_array($resource, $this->_resources)){
+    		$this->acl->add(new Zend_Acl_Resource($resource));
+    		$this->_resources[] = $resource;
+    	}
 
+    	if($action != ''){
+    		$permission = array($action);
+    	}else{
+    		$permission = null;
+    	}
+    	$this->acl->allow($role, $resource, $permission);
+
+    	if(!empty($this->user['role'])){
+    		$user_role = $this->user['role'];
+    	}else{
+    		$user_role = 'guest';
+    	}
+
+    	if($action != ''){
+    		if(!$this->acl->isAllowed($user_role, $resource, $action)){
+				return false;
+			}
+    	}else{
+    		if(!$this->acl->isAllowed($user_role, $resource)){
+				return false;
+			}
+    	}
+
+		return true;
     }
 
     public function setUser($user){
@@ -47,7 +76,8 @@ class Jien_Controller extends Zend_Controller_Action {
         	$user['user_id'] = Jien::model("User")->save($user);
         }else{
         	$user['accessed'] = new Zend_Db_Expr('NOW()');
-        	$user['user_id'] = Jien::model("User")->update($user, $condi);
+        	Jien::model("User")->update($user, $condi);
+        	$user['user_id'] = $data['user_id'];
         }
         $user['accessed'] = date("Y-m-d h:i:s");
         $user['role'] = $data['role'];

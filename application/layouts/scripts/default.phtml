@@ -80,9 +80,17 @@ if($flash){
 ?>
 
 <div id="wrapper">
+
 	<div class="center">
+		<?php if($this->user){ ?>
+		<div style="padding-top:20px;">
+			Welcome <?php echo $this->user['username']; ?>!
+		</div>
+		<?php } ?>
+
 		<div id="container">
 			<!--WRAPPER-->
+
 			<div id="header">
 				<!-- HEADER  -->
 				<!-- LOGO -->
@@ -97,7 +105,7 @@ if($flash){
 						<li><a href="/blog">Blog</a></li>
 						<li><a href="/contact">Contact Us</a></li>
 						<?php if($this->user){ ?>
-						<li><a href="/user/logout">Logout</a></li>
+						<li> <small><a href="/user/logout">Logout</a></li>
 						<?php }else{ ?>
 						<li><a href="/user/login">Sign in</a></li>
 						<?php } ?>
