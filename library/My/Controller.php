@@ -6,11 +6,9 @@ class My_Controller extends Jien_Controller {
     	parent::init();
 
     	// if it doesn't exist, it will use the default
-    	$theme = 'my';
-
-    	// set path and layout file
+    	/*$theme = 'my';
     	$this->view->addScriptPath(APPLICATION_PATH.'/views/'.$theme.'/');
-    	$this->layout($theme);
+    	$this->layout($theme);*/
 
     	// set title
     	$this->view->title = "Jien - An open-source CMS built on top of Zend Framework";
