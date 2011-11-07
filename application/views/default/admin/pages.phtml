@@ -1,0 +1,63 @@
+<?php
+//Jien::debug($this->data->rows());
+?>
+<div class="left">
+
+	<div class="content">
+
+		<div class="page-header">
+			<h3>
+		  		Listing all <?php echo $this->model; ?>s <small></small> <span class='right'><a href='/admin/<?php echo strtolower($this->model); ?>'>Add a <?php echo strtolower($this->model); ?></a></span>
+		  	</h3>
+		</div>
+
+		<div class="row">
+		  	<div class="span12">
+		    	<?php echo $this->pager($this->data->pager(), 'partials/pager/text_only.phtml'); ?>
+		  	</div>
+		</div>
+
+		<div class="row">
+		  	<div class="span15">
+
+		  		<table class="zebra-striped">
+			        <thead>
+			          <tr>
+			            <th class="header" rel="page.page_id">#</th>
+			            <th class="header" rel="page.rank">Rank</th>
+			            <th class="header" rel="page.title">Title</th>
+			            <th class="header" rel="page.permalink">Permalink</th>
+			            <th class="header" rel="page.src">Src</th>
+			            <th class="header" rel="page.created">Created</th>
+			            <th class="header">Action</th>
+			          </tr>
+			        </thead>
+			        <tbody>
+			        <?php foreach($this->data->rows() AS $key=>$value){ ?>
+			        <tr>
+			            <td><?php echo $value['page_id']; ?></td>
+			            <td><?php echo $value['rank']; ?></td>
+			            <td><?php echo $value['title']; ?></td>
+			            <td><?php echo $value['permalink']; ?></td>
+			            <td><?php echo $value['src']; ?></td>
+			            <td><?php echo date("m/d/y", strtotime($value['created'])); ?></td>
+			            <td>
+			            	<a href="/admin/<?php echo strtolower($this->model); ?>/id/<?php echo $value[strtolower($this->model).'_id']; ?>" class="btn blue">Edit</a>
+			            	<a href="/admin/delete/?model=<?php echo $this->model; ?>&id=<?php echo $value[strtolower($this->model).'_id'];; ?>" class="btn red trig_delete" rel="model=<?php echo $this->model; ?>|id=<?php echo $value[$this->primary]; ?>">Remove</a>
+			            </td>
+			          </tr>
+			          <?php } ?>
+			          </tbody>
+			      </table>
+
+			     <?php echo $this->pager($this->data->pager(), 'partials/pager/pager.phtml'); ?>
+		  	</div>
+
+
+
+		</div>
+
+	</div>
+
+</div>
+

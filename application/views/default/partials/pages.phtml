@@ -1,0 +1,13 @@
+<ul class="simple-nav">
+<?php
+$pages = Jien::model("Page")->orderBy("page.rank")->get()->rows();
+foreach($pages AS $page){
+?>
+	<?php if($page['permalink'] == $_SERVER['REQUEST_URI']){ ?>
+		<li><a href="<?php echo $page['permalink']; ?>"><strong><?php echo $page['title']; ?></strong></a></li>
+	<?php }else{ ?>
+		<li><a href="<?php echo $page['permalink']; ?>"><?php echo $page['title']; ?></a></li>
+	<?php } ?>
+<?php } ?>
+</ul>
+<br/>

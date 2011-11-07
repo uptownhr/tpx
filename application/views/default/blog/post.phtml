@@ -1,0 +1,63 @@
+<?php
+$row = $this->data->row();
+?>
+
+			<div id="content">
+				<div class="one">
+					<!-- COLUMNS CONTAINER STARTS-->
+					<div class="horizontal-line2">
+						<!-- INTRO DIV STARTS-->
+					</div>
+					<!-- INTRO ENDS-->
+				</div>
+				<!-- COLUMNS CONTAINER ENDS-->
+				<div class="one">
+					<div class="inner-content">
+
+
+						<h3><a href="/blog/post/id/<?php echo $row['post_id']; ?>"><?php echo $row['subject']; ?></a></h3>
+						<!--POST TITLE-->
+						<!--<p>
+							<img src="/themes/adventure/images/portfolio/blog-1.jpg" alt=" " width="710" height="210"/>
+						</p>-->
+						<!--POST IMAGE-->
+						<p>
+							 Posted by: <a href="/user/profile/id/<?php echo $row['user_id']; ?>"><?php echo $row['username']; ?></a> on <?php echo date("F, d, Y", strtotime($row['created'])); ?> | <a href="/blog/post/id/<?php echo $row['post_id']; ?>#disqus_thread">Loading ...</a>
+						</p>
+						<!--POST DETAILS-->
+						<!--POST INTRO-->
+						<p>
+							 <?php echo $row['message']; ?>
+							 <div style="clear:both;"></div>
+						</p>
+						<!--POST LINK-->
+						<div class="horizontal-line">
+						</div>
+
+						<div class="fb-comments" data-href="jien.local" data-num-posts="2" data-width="500"></div>
+
+						<!-- DISQUS -->
+<div id="disqus_thread"></div>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a></script>
+
+					</div>
+
+					<div class="one-fourth last">
+						<?php echo $this->partial('partials/side.phtml'); ?>
+					</div>
+					<!-- COLUMNS CONTAINER ENDS-->
+				</div>
+
+
+<script type="text/javascript">
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })()
+
+
+</script>

@@ -1,0 +1,70 @@
+<?php
+?>
+
+<div class="left">
+
+	<div class="content">
+
+		<div class="page-header">
+			<h3>
+		  		Listing all <?php echo $this->model; ?>s <small></small> <span class='right'><a href='/admin/<?php echo strtolower($this->model); ?>?category_id=<?php echo $this->params('category_id'); ?>'>Add a <?php echo strtolower($this->model); ?></a></span>
+		  	</h3>
+		</div>
+
+		<div class="row">
+		  	<div class="span12">
+		    	<?php echo $this->pager($this->data->pager(), 'partials/pager/text_only.phtml'); ?>
+		  	</div>
+		</div>
+
+		<div class="row">
+		  	<div class="span15">
+
+		  		<div>
+		  			<p>
+			  			By category:
+			  			<select class="filter dropdown" rel="category_id">
+			  				<?php echo $this->CategoryDropdown('Post', $this->params('category_id')); ?>
+			  			</select>
+			  		</p>
+		  		</div>
+
+		  		<table class="zebra-striped">
+			        <thead>
+			          <tr>
+			            <th class="header" rel="p.post_id">#</th>
+			            <th class="header" rel="p.user_id">User</th>
+			            <th class="header" rel="category.category_id">Category</th>
+			            <th class="header" rel="p.subject">Subject</th>
+			            <th class="header" rel="p.created">Created</th>
+			            <th width="150">Action</th>
+			          </tr>
+			        </thead>
+			        <tbody>
+			        <?php foreach($this->data->rows() AS $key=>$value){ ?>
+			        <tr>
+			            <td><?php echo $value['post_id']; ?></td>
+			            <td><?php echo $value['username']; ?></td>
+			            <td><?php echo $value['category']; ?></td>
+			            <td><?php echo $value['subject']; ?></td>
+			            <td><?php echo date("m/d/y", strtotime($value['created'])); ?></td>
+			            <td>
+			            	<a href="/admin/<?php echo strtolower($this->model); ?>/id/<?php echo $value[strtolower($this->model).'_id']; ?>" class="btn blue">Edit</a>
+			            	<a href="/admin/delete/?model=<?php echo $this->model; ?>&id=<?php echo $value[strtolower($this->model).'_id'];; ?>" class="btn red trig_delete" rel="model=<?php echo $this->model; ?>|id=<?php echo $value[$this->primary]; ?>">Remove</a>
+			            </td>
+			          </tr>
+			          <?php } ?>
+			          </tbody>
+			      </table>
+
+			     <?php echo $this->pager($this->data->pager(), 'partials/pager/pager.phtml'); ?>
+		  	</div>
+
+
+
+		</div>
+
+	</div>
+
+</div>
+

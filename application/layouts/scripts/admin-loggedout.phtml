@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title><?php echo $this->title ?></title>
+
+	<!-- jquery -->
+	<script src="/js/jquery.min.js" type="text/javascript"></script>
+
+	<!-- jquery ui -->
+	<script src="/js/plugins/ui/jquery-ui.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="/js/plugins/ui/jquery-ui.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="/js/plugins/ui/ui.theme.css" type="text/css" media="all" />
+
+	<!-- jien lib -->
+	<script src="/js/jien.js" type="text/javascript"></script>
+
+	<!-- ckeditor -->
+	<script src="/js/ckeditor/ckeditor.js" type="text/javascript"></script>
+	<script src="/js/ckeditor/adapters/jquery.js" type="text/javascript"></script>
+
+	<!-- plugins -->
+	<script src="/js/plugins/toastmessage/jquery.toastmessage.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="/js/plugins/toastmessage/css/jquery.toastmessage.css">
+
+	<!-- bootstrap css -->
+	<script src="/themes/admin/js/bootstrap-combined.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="/themes/admin/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/themes/admin/css/docs.css">
+
+	<!-- admin -->
+	<link rel="stylesheet" href="/themes/admin/css/admin.css">
+	<link rel="stylesheet" href="/css/pagination.css">
+	<script src="/themes/admin/js/admin.php" type="text/javascript"></script>
+
+</head>
+
+ <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/admin">Jien Framework</a>
+
+          <form action="/auth/login" method="POST" id="login_form" class="pull-right">
+            <input class="input-small" type="text" placeholder="username" name="username">
+            <input class="input-small" type="password" placeholder="password" name="password">
+            <button class="btn" type="submit">Sign in</button>
+          </form>
+          <script>
+          $(document).ready(function(){
+          	$('#login_form input[name=username]').focus();
+          });
+          </script>
+        </div>
+      </div>
+    </div>
+
+	<?php echo $this->layout()->content; ?>
+
+	<div class="container" style='padding-top: 10px;'>
+	  	<footer>
+	    	<p>&copy; Powered by Jien Framework. All rights reserved.</p>
+	  	</footer>
+	</div>
+
+  </body>
+
+
+</html>

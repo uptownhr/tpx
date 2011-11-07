@@ -1,0 +1,19 @@
+html {  background: url(/themes/admin/images/bg.r20676.jpg); }
+body {padding-top: 0px; background: url(/themes/admin/images/bg.r20676.jpg); }
+.hide { display: none; }
+.show { display: block; }
+.left { float: left; }
+.right { float: right; }
+.clear { clear: both; }
+.round1 { border-radius: 10px; }
+#main { padding-bottom:20px; padding-top: 60px;}
+#main > .container { background-color:#fff; border: 1px solid #d4d4d6; border-radius: 10px;}
+#main > .container .content { padding: 20px; }
+
+.border-right { border-right: 1px solid #acb9bc;}
+ul.menu { list-style-type: none; }
+ul.menu li { margin-left: -10px; margin-top: 10px;}
+
+.row { padding: 10px 0; }
+
+.content_menu .active { font-weight: bolder; color: black; }

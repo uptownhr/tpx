@@ -1,0 +1,71 @@
+<div class="left">
+
+	<div class="content">
+
+		<div class="page-header">
+		  <h3>
+		  	<?php if($this->params('id')){ ?>
+		  		Update <?php echo strtolower($this->model); ?>
+		  	<?php }else { ?>
+		  		Add <?php echo strtolower($this->model); ?>
+		  	<?php } ?>
+		  </h3>
+		</div>
+
+		<div class="row">
+		  	<div class="">
+		  		<form class="trig_save" action="/admin/data" method="POST">
+		  			<input type="hidden" name="model" value="<?php echo $this->model; ?>">
+		  			<input type="hidden" name="id" value="<?php echo $this->params('id'); ?>">
+		  			<input type="hidden" name="user_id" value="<?php echo $this->data->row('user_id') ? $this->data->row('user_id') : $_SESSION['user']->user_id; ?>">
+			        <fieldset>
+
+						<legend><a name="basic_info"></a> Basic info</legend>
+
+						<div class="clearfix">
+							<label for="xlInput">Title</label>
+							<div class="input">
+								<input class='xxlarge' name='title' value="<?php echo $this->data->row('title') ? $this->data->row('title') : ''; ?>" type='text'>
+							</div>
+						</div>
+
+						<div class="clearfix">
+							<label for="xlInput">Permalink</label>
+							<div class="input">
+								<input class='xxlarge' name='permalink' value="<?php echo $this->data->row('permalink') ? $this->data->row('permalink') : ''; ?>" type='text'>
+							</div>
+						</div>
+
+						<div class="clearfix">
+							<label for="xlInput">Source (file or db)</label>
+							<div class="input">
+								<select name="src">
+									<?php echo $this->dropdownOptions(array(
+										"file"	=>	"file",
+										"content"	=>	"content",
+									), $this->data->row('src'), 'file'); ?>
+								</select>
+							</div>
+						</div>
+
+						<div class="clearfix">
+							<label for="xlInput">Content</label>
+							<div class="input">
+								<textarea name="content" rows='225' class='xxlarge wysiwyg' style="width:90%;"><?php echo $this->data->row('content') ? $this->data->row('content') : ''; ?></textarea>
+							</div>
+						</div>
+
+			        </fieldset>
+
+			        <fieldset>
+			          <div class="actions">
+			            <input type="submit" class="btn primary" value="Save changes">&nbsp;<button type="reset" class="btn back">Cancel</button>
+			          </div>
+			        </fieldset>
+			      </form>
+		  	</div>
+		</div>
+
+	</div>
+
+</div>

@@ -1,0 +1,119 @@
+<div class="left">
+
+	<div class="content">
+
+		<div class="page-header">
+		  <h3>
+		  	<?php if($this->params('id')){ ?>
+		  		Update <?php echo strtolower($this->model); ?>
+		  	<?php }else { ?>
+		  		Add <?php echo strtolower($this->model); ?>
+		  	<?php } ?>
+		  </h3>
+		</div>
+
+		<div class="row">
+		  	<div class="">
+		  		<form class="trig_save" action="/admin/data" method="POST">
+		  			<input type="hidden" name="model" value="<?php echo $this->model; ?>">
+		  			<input type="hidden" name="id" value="<?php echo $this->params('id'); ?>">
+		  			<input type="hidden" name="user_id" value="<?php echo $this->data->row('user_id') ? $this->data->row('user_id') : $_SESSION['user']['user_id']; ?>">
+			        <fieldset>
+
+						<legend><a name="basic_info"></a> Basic info</legend>
+
+						<div class="clearfix">
+							<label for="xlInput">Layout</label>
+							<div class="input">
+								views/scripts/page/<input class='xsmall' style="width:50px;" name='view_script' value="<?php echo $this->data->row('view_script') ? $this->data->row('view_script') : 'index'; ?>" type='text'>.phtml
+							</div>
+						</div>
+
+						<div class="clearfix">
+							<label for="xlInput">Title</label>
+							<div class="input">
+								<input class='xxlarge' name='title' value="<?php echo $this->data->row('title') ? $this->data->row('title') : ''; ?>" type='text'>
+							</div>
+						</div>
+
+						<div class="clearfix">
+							<label for="xlInput">Permalink</label>
+							<div class="input">
+								<input class='xxlarge' name='permalink' value="<?php echo $this->data->row('permalink') ? $this->data->row('permalink') : ''; ?>" type='text'>
+							</div>
+						</div>
+
+						<div class="clearfix">
+							<label for="xlInput">Content</label>
+							<div class="input">
+								<select id='src' name="src">
+									<?php echo $this->dropdownOptions(array(
+										"none"	=>	"none",
+										"file"	=>	"file",
+										"html"	=>	"html",
+									), $this->data->row('src'), 'none'); ?>
+								</select>
+
+								<span id='file'>views/scripts/<input type="text" name="file" value="<?php echo $this->data->row('file') ? $this->data->row('file') : ''; ?>"></span>
+
+								This sets the $this->content on the layout file
+							</div>
+						</div>
+
+						<div class="clearfix" id='html'>
+							<label for="xlInput">Html</label>
+							<div class="input">
+								<textarea name="html" rows='225' class='xxlarge wysiwyg' style="width:90%;"><?php echo $this->data->row('html') ? $this->data->row('html') : ''; ?></textarea>
+							</div>
+						</div>
+
+						<div class="clearfix">
+							<label for="xlInput">Rank</label>
+							<div class="input">
+								<input class='small' name='rank' value="<?php echo $this->data->row('rank') ? $this->data->row('rank') : 1; ?>" type='text'>
+							</div>
+						</div>
+
+			        </fieldset>
+
+			        <fieldset>
+			          <div class="actions">
+			            <input type="submit" class="btn primary" value="Save changes">&nbsp;<button type="reset" class="btn back">Cancel</button>
+			          </div>
+			        </fieldset>
+			      </form>
+		  	</div>
+		</div>
+
+	</div>
+
+</div>
+
+
+<script>
+function showhidesrc(){
+	var src = $('#src').val()
+	switch(src){
+		case 'none':
+			$('#file').hide();
+			$('#html').hide();
+		break;
+
+		case 'file':
+			$('#file').show();
+			$('#html').hide();
+		break;
+
+		case 'html':
+			$('#file').hide();
+			$('#html').show();
+		break;
+	}
+}
+
+showhidesrc();
+
+$('#src').change(function(){
+	showhidesrc();
+});
+</script>

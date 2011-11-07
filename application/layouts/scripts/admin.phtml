@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title><?php echo $this->title ?></title>
+
+	<!-- libs -->
+	<script src="/js/jquery.min.js" type="text/javascript"></script>
+	<script src="/js/plugins/ui/jquery-ui.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="/js/plugins/ui/jquery-ui.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="/js/plugins/ui/ui.theme.css" type="text/css" media="all" />
+	<script src="/js/jien.js" type="text/javascript"></script>
+	<script src="/js/ckeditor/ckeditor.js" type="text/javascript"></script>
+	<script src="/js/ckeditor/adapters/jquery.js" type="text/javascript"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+	<!-- plugins -->
+	<script src="/js/plugins/toastmessage/jquery.toastmessage.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="/js/plugins/toastmessage/css/jquery.toastmessage.css">
+
+	<!-- bootstrap css -->
+	<script src="/themes/admin/js/bootstrap-combined.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="/themes/admin/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/themes/admin/css/docs.css">
+
+	<!-- admin -->
+	<script src="/themes/admin/js/admin.php" type="text/javascript"></script>
+	<link rel="stylesheet" href="/themes/admin/css/admin.css">
+	<link rel="stylesheet" href="/css/pagination.css">
+
+</head>
+
+ <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/admin">Admin</a>
+          <ul class="nav" id="main_menu">
+            <li class="active"><a href="/admin">Home</a></li>
+            <li>
+            	<a href="#" class="dropdown-toggle">Users</a>
+	            <ul class="dropdown-menu">
+	              	<li><a href="/admin/users">List users</a></li>
+	                <li><a href="/admin/roles">List roles</a></li>
+	            </ul>
+            </li>
+            <li><a href="/admin/posts">Posts</a></li>
+            <li><a href="/admin/pages">Pages</a></li>
+            <li><a href="/admin/categories">Categories</a></li>
+            <li><a href="/admin/contacts">Contacts</a></li>
+          </ul>
+
+          <?php if(!empty($this->user)){ ?>
+          <ul id="profile" class="nav secondary-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle"><?php echo $_SESSION['user']['username']; ?></a>
+              <ul class="dropdown-menu">
+              	<li><a href="/admin/user/id/<?php echo $_SESSION['user']['user_id']; ?>">Settings</a></li>
+                <li><a href="/auth/logout" class='trig_logout'>Log-out</a></li>
+              </ul>
+            </li>
+          </ul>
+          <?php } ?>
+
+          <?php if(empty($_SESSION['user'])){ ?>
+          <form action="/auth/login" method="POST" id="login_form" class="pull-right">
+            <input class="input-small" type="text" placeholder="username" name="username">
+            <input class="input-small" type="password" placeholder="password" name="password">
+            <button class="btn" type="submit">Sign in</button>
+          </form>
+          <script>
+          $(document).ready(function(){
+          	$('#login_form input[name=username]').focus();
+          });
+          </script>
+          <?php } ?>
+        </div>
+      </div>
+    </div>
+
+    <div id="main" class="main">
+    	<div class="container">
+			<?php echo $this->layout()->content; ?>
+		</div>
+	</div>
+
+	<div class="container" style="padding-left: 10px;">
+		<p> Powered by Jien Framework &copy; All rights reserved.</p>
+	</div>
+
+
+  </body>
+
+
+</html>

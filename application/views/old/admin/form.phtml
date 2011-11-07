@@ -1,0 +1,186 @@
+<div class="left" style="width:20%;">
+
+	<div class="content">
+
+		<div>
+			<h4><a href="/admin/<?php echo strtolower($this->model); ?>s"><-- Back to <?php echo $this->model; ?>s</a></h4>
+		</div>
+
+		<div class="row">
+		  <div class="span10">
+		  	<ul class="content_menu menu">
+		  		<!-- <li><a href="#basic_info">Basic <?php echo strtolower($this->model); ?> info</a></li> -->
+		  	</ul>
+
+		  </div>
+		</div>
+
+	</div>
+
+</div>
+
+<div class="left">
+
+	<div class="content">
+
+		<div class="page-header">
+		  <h3>
+		  	<?php if($this->params('id')){ ?>
+		  		Update <?php echo strtolower($this->model); ?>
+		  	<?php }else { ?>
+		  		Add <?php echo strtolower($this->model); ?>
+		  	<?php } ?>
+		  </h3>
+		</div>
+
+		<div class="row">
+		  	<div class="span12">
+		  		<form class="trig_save" action="/admin/data" method="POST">
+		  			<input type="hidden" name="model" value="<?php echo $this->model; ?>">
+		  			<input type="hidden" name="id" value="<?php echo $this->params('id'); ?>">
+			        <fieldset>
+
+			        	<legend><a name="basic_info"></a> Basic info</legend>
+
+			          	<?php
+			          		$scheme = Jien::model($this->model)->scheme();
+			          		foreach($scheme AS $field=>$values){
+			          			$label = ucwords(str_replace('_', ' ', $field));
+			          			$type = 'text';
+			          			$class = 'large';
+			          			$size = 30;
+
+			          			// skip these
+			          			if($values['PRIMARY'] == 1 || $field == 'created' || $field == 'updated' || $field == 'deleted' || $field == 'accessed' || $field == 'active'){
+				          			continue;
+				          		}
+
+				          		$enum = '';
+				          		if(strstr($values['DATA_TYPE'], 'enum')){
+				          			$enum = $values['DATA_TYPE'];
+				          			$enum = str_replace("enum(", '', $enum);
+				          			$enum = str_replace(")", '', $enum);
+				          			$enum = str_replace("'", '', $enum);
+				          			$enum = explode(",", $enum);
+				          		}
+
+				          		switch($values['DATA_TYPE']){
+				          			case 'varchar':
+				          				if($values['LENGTH'] <= 32){
+				          					$class = 'mini';
+				          				}else if($values['LENGTH'] <= 64){
+				          					$class = 'medium';
+				          				}else if($values['LENGTH'] <= 128){
+				          					$class = 'large';
+				          				}else{
+				          					$class = 'xlarge';
+				          				}
+				          			break;
+
+				          			case 'tinyint':
+				          				$class = 'mini';
+				          			break;
+
+				          			case 'int':
+				          				$class = 'medium';
+				          			break;
+
+				          			case 'bigint':
+				          				$class = 'large';
+				          			break;
+
+				          			case 'date':
+				          				$class = 'small datepicker';
+				          			break;
+
+				          			case 'datetime':
+				          				$class = 'small';
+				          			break;
+
+				          			case 'text':
+				          				$type = 'textarea';
+				          			break;
+				          		}
+
+			          			switch($field){
+			          				case 'password':
+			          					$type = 'password';
+			          				break;
+			          			}
+			          			$value = '';
+			          			$value = $this->data->row($field);
+
+			          			$input = "";
+
+			          			if(!empty($enum)) $type = 'enum';
+
+
+			          			switch($type){
+			          				default:
+			          					$input = "<input class='{$class}' name='{$field}' value=\"{$value}\" size='{$size}' type='{$type}'>";
+			          				break;
+
+			          				case 'enum':
+			          					$class = 'medium';
+			          					$input = "<select class='{$class}' name='{$field}'>";
+			          					$input .= "<option></option>";
+			          					foreach($enum AS $choice){
+			          						$sel = '';
+			          						if($choice == $value){
+			          							$sel = 'selected';
+			          						}
+			          						$input .= "<option {$sel} value='{$choice}'>{$choice}</option>";
+			          					}
+			          					$input .= "</select>";
+			          				break;
+
+			          				case "textarea":
+			          					$input = "<textarea name='{$field}' rows='7' class='xxlarge'>{$value}</textarea>";
+			          				break;
+
+			          				case "wysiwyg":
+			          					$input = "<textarea name='{$field}' class='xxlarge wysiwyg'>{$value}</textarea>";
+			          				break;
+
+			          				case "password":
+			          					$input = "<a href='#' class='btn trig_password' rel='{$field}'>set password</a>";
+			          				break;
+
+			          			}
+			          	?>
+
+				          <div class="clearfix">
+				            <label for="xlInput"><?php echo $label; ?></label>
+				            <div class="input">
+				              <?php echo $input; ?>
+				            </div>
+				          </div><!-- /clearfix -->
+
+			          	 <?php } ?>
+
+
+			        </fieldset>
+
+			        <fieldset>
+			          <div class="actions">
+			            <input type="submit" class="btn primary" value="Save changes">&nbsp;<button type="reset" class="btn back">Cancel</button>
+			          </div>
+			        </fieldset>
+			      </form>
+		  	</div>
+		</div>
+
+	</div>
+
+</div>
+
+<script>
+$(document).ready(function(){
+	$('.trig_password').click(function(e){
+		e.preventDefault();
+		var target = $(this).attr('rel');
+		var html = "<input type='password' class='medium' name='"+target+"' value=''>";
+		$(this).parent().html(html);
+	});
+});
+</script>
