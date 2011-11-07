@@ -1,0 +1,84 @@
+@charset "utf-8";
+/* Basic and Header Styles */
+
+body {
+	background: #EFEAEA;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0;
+	padding: 0;	
+}
+a {
+	text-decoration: none;
+	border: none;
+	color: black;
+}
+#wrapper {
+	width: 960px;
+	margin: 0 auto;	
+	overflow: hidden;
+}
+#header {
+	width: 960px;
+	height: 110px;
+	position: relative;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+	background: url(/images/layout/header-bg-main.png) 0 40px repeat-x;
+}
+#logo {
+	display: block;
+	width: 119px;
+	height: 48px;
+	background: url(/images/layout/logo.png) 0 0 no-repeat;
+	display: block;
+	position: absolute;
+	bottom: 20px	;
+	left: 21px;
+}
+#login {
+	position: absolute;
+	right: 36px;
+	top: 14px;	
+	color: black;
+}
+#menu {
+	position: absolute;
+	top: 70px;
+	right: 36px;
+	color: #888;
+	font-size: 28px;
+	text-transform: uppercase;
+}
+#menu a {
+	color: #EE606E;
+}
+
+
+/* Footer */
+
+#footer {
+	background: #F8F7F7;
+	margin-top: 30px;
+	padding: 32px 30px;
+	height: 80px;
+	position: relative;
+	line-height: 170%;
+	font-size: 12px;
+}
+.footer-list {
+	float: left;
+	margin-right: 90px;
+}
+.footer-list strong {
+	font-weight: bold;
+	font-size: 14px;
+}
+#footer-logo {
+	position: absolute;
+	right: 30px;
+	top: 32px;
+	width: 200px;
+	background: url(/images/layout/logo-footer-main.png) right top no-repeat;
+	text-align: right;
+	padding-top: 44px;
+}
