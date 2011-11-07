@@ -22,7 +22,6 @@
 			        <thead>
 			          <tr>
 			            <th class="header" rel="u.user_id">#</th>
-			            <th class="header" rel="u.provider_id">Provider</th>
 			            <th class="header" rel="u.username">Username</th>
 			            <th class="header" rel="u.email">Email</th>
 			            <th class="header" rel="u.role_id">Role</th>
@@ -34,8 +33,20 @@
 			        <?php foreach($this->data->rows() AS $key=>$value){ ?>
 			        <tr>
 			            <td><?php echo $value['user_id']; ?></td>
-			            <td><?php echo ucfirst($value['provider']); ?></td>
-			            <td><?php echo $value['username']; ?></td>
+			            <td>
+			            	<?php
+			            		switch($value['provider']){
+			            			case "facebook":
+			            				echo "<a href='http://facebook.com/{$value['username']}' target='_blank'><img src='/images/icons/facebook.png' width='15'></a>";
+			            			break;
+
+			            			case "twitter":
+			            				echo "<a href='http://twitter.com/{$value['username']}' target='_blank'><img src='/images/icons/twitter.png' width='15'></a>";
+			            			break;
+			            		}
+			            	?>
+			            	<?php echo $value['username']; ?>
+			            </td>
 			            <td><?php echo $value['email']; ?></td>
 			            <td><?php echo $value['role']; ?></td>
 			            <td><?php echo date("m/d/y", strtotime($value['created'])); ?></td>
