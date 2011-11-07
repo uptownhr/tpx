@@ -48,6 +48,7 @@ var disqus_developer = 1;
 <script src="/js/plugins/toastmessage/jquery.toastmessage.js" type="text/javascript"></script>
 <link rel="stylesheet" href="/js/plugins/toastmessage/css/jquery.toastmessage.css">
 
+<script type="text/javascript">var switchTo5x=true;</script><script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script><script type="text/javascript">stLight.options({publisher:'467721af-6431-4c3f-be47-2e80a05eff2c'});</script>
 
 </head>
 <body>
@@ -209,56 +210,8 @@ if($flash){
 </div>
 </div>
 
-<script>
-// login event
-$(document).ready(function(){
-	$('#login_form').submit(function(e){
-		e.preventDefault();
-		var form = jien.util.serializeForm($(this));
-		$.post("/auth/login", form, function(res){
-			if(res.status.code == 200){
-				$().toastmessage('showSuccessToast', 'Success');
-				window.location.href = form.redir;
-			}else{
-				$().toastmessage('showErrorToast', res.result.msg);
-				$('#login_form input[name='+res.result.focus+']').focus();
-			}
-		});
-	});
-
-	$('#register_form').submit(function(e){
-		e.preventDefault();
-		var form = jien.util.serializeForm($(this));
-		$.post("/auth/register", form, function(res){
-			if(res.status.code == 200){
-				$().toastmessage('showSuccessToast', 'Success');
-				window.location.href = form.redir;
-			}else{
-				$().toastmessage('showErrorToast', res.result.msg);
-				$('#register_form input[name='+res.result.focus+']').focus();
-			}
-		});
-	});
-
-	$('#user_login_show').click(function(e){
-		$('.login_register_show').hide();
-		$('.login_register').hide();
-		$('#user_register_show').show();
-		$('#user_login').show();
-	});
-
-	$('#user_register_show').click(function(e){
-		$('.login_register_show').hide();
-		$('.login_register').hide();
-		$('#user_login_show').show();
-		$('#user_register').show();
-	});
-
-});
-</script>
-
+<!--DISQUS-->
 <script type="text/javascript">
-
 /* * * DON'T EDIT BELOW THIS LINE * * */
 (function () {
     var s = document.createElement('script'); s.async = true;
