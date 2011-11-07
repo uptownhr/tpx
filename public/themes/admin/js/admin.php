@@ -32,16 +32,44 @@ $(document).ready(function(){
   	$('#login_form').submit(function(e){
 		e.preventDefault();
 		var form = jien.util.serializeForm($(this));
-		$.post("/auth/login-admin", form, function(res){
+		$.post("/auth/login", form, function(res){
 			if(res.status.code == 200){
 				$().toastmessage('showSuccessToast', 'Success');
-				window.location.href = '/admin/dashboard';
+				window.location.href = form.redir;
 			}else{
-				$().toastmessage('showErrorToast', 'Access denied. Please try again.');
-				$('#login_form input[name=username]').focus();
+				$().toastmessage('showErrorToast', res.result.msg);
+				$('#login_form input[name='+res.result.focus+']').focus();
 			}
 		});
-  	});
+	});
+
+	$('#register_form').submit(function(e){
+		e.preventDefault();
+		var form = jien.util.serializeForm($(this));
+		$.post("/auth/register", form, function(res){
+			if(res.status.code == 200){
+				$().toastmessage('showSuccessToast', 'Success');
+				window.location.href = form.redir;
+			}else{
+				$().toastmessage('showErrorToast', res.result.msg);
+				$('#register_form input[name='+res.result.focus+']').focus();
+			}
+		});
+	});
+
+	$('#user_login_show').click(function(e){
+		$('.login_register_show').hide();
+		$('.login_register').hide();
+		$('#user_register_show').show();
+		$('#user_login').show();
+	});
+
+	$('#user_register_show').click(function(e){
+		$('.login_register_show').hide();
+		$('.login_register').hide();
+		$('#user_login_show').show();
+		$('#user_register').show();
+	});
 
   	// logout event
   	$('.trig_logout').click(function(e){
