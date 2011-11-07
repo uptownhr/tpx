@@ -7,32 +7,34 @@
     });
 </script>
 
-<div id="content">
-<div class="one">
-	<div class="one-fourth">
-		<?php echo $this->partial('partials/pages.phtml'); ?>
-	</div>
-	<div class="inner-content last">
-
 		<div id="user_register" class="one-third login_register">
 			<h4>Register a new account</h4><br/>
 			<form action="/auth/register" id="register_form" method="post">
-				<input type="hidden" name="redir" value="/">
+				<input type="hidden" name="redir" value="/user/registrationCompleted">
+				<fieldset>
+					<label>Are you looking to be a TPX girl or a standard user? <span class="required">*</span></label>
+					<input type="radio" name="user_type" value="standard" class="radio requiredField" checked /> &nbsp; Standard user<br />
+					<input type="radio" name="user_type" value="tpx_girl" class="radio requiredField" /> &nbsp; TPX girl
+				</fieldset>
 				<fieldset>
 					<label>Email <span class="required">*</span></label>
-					<input type="text" name="username" id="register_username" value="" class="text requiredField email"/>
+					<input type="text" name="username" id="register_username" value="" class="text requiredField email" />
+				</fieldset>
+				<fieldset>
+					<label>Screen name <span class="required">*</span></label>
+					<input type="text" name="screen_name" id="register_screen_name" value="" class="text requiredField" />
 				</fieldset>
 				<fieldset>
 					<label>Password<span class="required">*</span></label>
-					<input type="password" name="password" id="password" value="" class="text requiredField subject"/>
+					<input type="password" name="password" id="password" value="" class="text requiredField subject" />
 				</fieldset>
 				<fieldset>
 					<label>Password (Again)<span class="required">*</span></label>
-					<input type="password" name="password2" id="password2" value="" class="text requiredField subject"/>
+					<input type="password" name="password2" id="password2" value="" class="text requiredField subject" />
 				</fieldset>
 				<br>
 				<fieldset>
-					<input name="user_register_submit" value="Register Now" class="button small orange" type="submit"/>
+					<input name="user_register_submit" value="Register Now" class="button small orange" type="submit" />
 				</fieldset>
 			</form>
 		</div>
@@ -71,5 +73,3 @@
 
 		</div>
 		<div class="horizontal-line"></div>
-	</div>
-</div>

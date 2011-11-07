@@ -1,0 +1,36 @@
+<script type="text/javascript">
+    var imgPath = '<?php echo $this->baseUrl('images/');?>';
+    jQuery(document).ready(function() {
+        openid.img_path = imgPath;
+        openid.init('openid_identifier');
+        openid.setDemoMode(false); //Stops form submission for client javascript-only test purposes
+    });
+</script>
+
+
+		<div id="user_complete_registration" class="one-third login_register">
+			<h4>Complete Registration</h4><br/>
+			<form action="/auth/completeRegistration" id="register_form" method="post">
+				<input type="hidden" name="redir" value="/user/registrationCompleted">
+				<p>You have been logged in with Facebook/Twitter. Please provide the below information to start using TPX.</p>
+				<fieldset>
+					<label>Are you looking to be a TPX girl or a standard user? <span class="required">*</span></label>
+					<input type="radio" name="user_type" value="standard" class="radio requiredField" checked /> &nbsp; Standard user<br />
+					<input type="radio" name="user_type" value="tpx_girl" class="radio requiredField" /> &nbsp; TPX girl
+				</fieldset>
+				<fieldset>
+					<label>Email <span class="required">*</span></label>
+					<input type="text" name="username" id="register_username" value="" class="text requiredField email" />
+				</fieldset>
+				<fieldset>
+					<label>Pick a screen name<span class="required">*</span></label>
+					<input type="text" name="screen_name" id="screen_name" value="" class="text requiredField subject" />
+				</fieldset>
+				<br>
+				<fieldset>
+					<input name="user_register_submit" value="Register Now" class="button small orange" type="submit" />
+				</fieldset>
+			</form>
+		</div>
+
+		<div class="horizontal-line"></div>

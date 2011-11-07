@@ -16,6 +16,7 @@ a {
 	width: 960px;
 	margin: 0 auto;	
 	overflow: hidden;
+	font-family: Arial, Helvetica, sans-serif;
 }
 #header {
 	width: 960px;
@@ -151,7 +152,9 @@ footer, header, hgroup, menu, nav, section {
 
 
 /* Forms */
-
+form {
+	font-family: Arial, Helvetica, sans-serif;
+}
 label {
 	font-weight:normal;
 	display:block;

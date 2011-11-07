@@ -1,0 +1,11 @@
+<script type="text/javascript">
+    var imgPath = '<?php echo $this->baseUrl('images/');?>';
+    jQuery(document).ready(function() {
+        openid.img_path = imgPath;
+        openid.init('openid_identifier');
+        openid.setDemoMode(false); //Stops form submission for client javascript-only test purposes
+    });
+</script>
+
+
+<p>Thank you for registering for TPX. You may now use the site.</p>
