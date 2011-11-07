@@ -11,7 +11,7 @@ class My_Controller extends Jien_Controller {
     	$this->layout($theme);*/
 
     	// set title
-    	$this->view->title = "Jien - An open-source CMS built on top of Zend Framework";
+    	$this->view->title = "Tthe Panty Exchange";
 
     	// increase counter
     	Jien::model("Hit")->save(array(
