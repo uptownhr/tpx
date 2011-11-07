@@ -35,7 +35,7 @@ class AuthController extends My_Controller {
 			$res = array();
 			if($auth){
 				Jien::model("User")->save(array(
-					"user_id"	=>	$_SESSION['user']->user_id,
+					"user_id"	=>	$_SESSION['user']['user_id'],
 					"accessed"	=>	new Zend_Db_Expr('NOW()'),
 				));
 				$this->json(array("user"=>$_SESSION['user']), 200, 'logged in');
