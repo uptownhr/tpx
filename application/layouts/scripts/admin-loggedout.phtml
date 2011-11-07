@@ -43,6 +43,7 @@
           <a class="brand" href="/admin">Jien Framework</a>
 
           <form action="/auth/login" method="POST" id="login_form" class="pull-right">
+          	<input type="hidden" name="redir" value="/admin">
             <input class="input-small" type="text" placeholder="username" name="username">
             <input class="input-small" type="password" placeholder="password" name="password">
             <button class="btn" type="submit">Sign in</button>

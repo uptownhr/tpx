@@ -1,25 +1,4 @@
 
-<div class="left" style="width:20%;">
-
-	<div class="content">
-
-		<div>
-			<h4><a href="/admin/<?php echo strtolower($this->model); ?>s"><-- Back to <?php echo $this->model; ?>s</a></h4>
-		</div>
-
-		<div class="row">
-		  <div class="span10">
-		  	<ul class="content_menu menu">
-		  		<!-- <li><a href="#basic_info">Basic <?php echo strtolower($this->model); ?> info</a></li> -->
-		  	</ul>
-
-		  </div>
-		</div>
-
-	</div>
-
-</div>
-
 <div class="left">
 
 	<div class="content">
@@ -35,7 +14,7 @@
 		</div>
 
 		<div class="row">
-		  	<div class="span12">
+		  	<div>
 		  		<form class="trig_save" action="/admin/data" method="POST">
 		  			<input type="hidden" name="model" value="<?php echo $this->model; ?>">
 		  			<input type="hidden" name="id" value="<?php echo $this->params('id'); ?>">
@@ -73,7 +52,7 @@
 						<div class="clearfix">
 							<label for="xlInput">Message</label>
 							<div class="input">
-								<textarea name="message" rows='5' class='xxlarge wysiwyg'><?php echo $this->data->row('message') ? $this->data->row('message') : ''; ?></textarea>
+								<textarea name="message" rows='5' class='xxlarge wysiwyg' style='width:90%;'><?php echo $this->data->row('message') ? $this->data->row('message') : ''; ?></textarea>
 							</div>
 						</div>
 

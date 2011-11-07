@@ -19,6 +19,7 @@
 								<p>
 									 Posted by: <a href="/user/profile/id/<?php echo $row['user_id']; ?>"><?php echo $row['username']; ?></a> on <?php echo date("F, d, Y", strtotime($row['created'])); ?> | <a href="/blog/post/id/<?php echo $row['post_id']; ?>#disqus_thread">Loading ...</a>
 								</p>
+
 								<!--POST DETAILS-->
 								<!--POST INTRO-->
 								<p>
@@ -29,6 +30,8 @@
 									 <div style="clear:both;"></div>
 								</p>
 								<a href="/blog/post/id/<?php echo $row['post_id']; ?>">Read This Article</a>
+
+
 
 								<!--POST LINK-->
 								<div class="horizontal-line">
