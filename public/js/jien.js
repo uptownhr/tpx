@@ -28,6 +28,29 @@ if (!window.console) {
 					break;
 				}
 				$().toastmessage(method, msg);
+			},
+
+			modal: function(title, content, opts){
+				var html = '<div id="modal" class="modal hide fade">';
+	    			html += '	<div class="modal-header">';
+	      			html += '		<a href="#" class="close">&times;</a>';
+	      			html += '		<h3>'+title+'</h3>';
+	    			html += '	</div>';
+	    			html += '	<div class="modal-body">';
+	      			html += '	<p>'+content+'</p>';
+	    			html += '</div>';
+				    /*<div class="modal-footer hide">
+				      <a href="#" class="btn primary">Ok</a>
+				      <a href="#" class="btn secondary">Cancel</a>
+				    </div>*/
+				    if($('#modal').length == 0){
+				    	$('body').append(html);
+				    }
+					$('#modal').modal({
+						'show': true,
+						'backdrop': true,
+						'keyboard': true
+					});
 			}
 		},
 		util: {
