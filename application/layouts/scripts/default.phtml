@@ -58,6 +58,7 @@ if($flash){
         </div>
     </div>
     
+
 	<?php
 		echo $this->layout()->content;
 	?>
@@ -69,6 +70,68 @@ if($flash){
     </div>
     
 </div><!-- #wrapper -->
+</div>
+</div>
+
+<script>
+// login event
+$(document).ready(function(){
+	$('#login_form').submit(function(e){
+		e.preventDefault();
+		var form = jien.util.serializeForm($(this));
+		$.post("/auth/login", form, function(res){
+			if(res.status.code == 200){
+				$().toastmessage('showSuccessToast', 'Success');
+				window.location.href = form.redir;
+			}else{
+				$().toastmessage('showErrorToast', res.result.msg);
+				$('#login_form input[name='+res.result.focus+']').focus();
+			}
+		});
+	});
+
+	$('#register_form').submit(function(e){
+		e.preventDefault();
+		var form = jien.util.serializeForm($(this));
+		$.post("/auth/register", form, function(res){
+			if(res.status.code == 200){
+				$().toastmessage('showSuccessToast', 'Success');
+				window.location.href = form.redir;
+			}else{
+				$().toastmessage('showErrorToast', res.result.msg);
+				$('#register_form input[name='+res.result.focus+']').focus();
+			}
+		});
+	});
+
+	$('#user_login_show').click(function(e){
+		$('.login_register_show').hide();
+		$('.login_register').hide();
+		$('#user_register_show').show();
+		$('#user_login').show();
+	});
+
+	$('#user_register_show').click(function(e){
+		$('.login_register_show').hide();
+		$('.login_register').hide();
+		$('#user_login_show').show();
+		$('#user_register').show();
+	});
+
+});
+</script>
+
+<!--DISQUS-->
+<script type="text/javascript">
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
 
 <script>
 // login event

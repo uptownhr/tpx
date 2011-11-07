@@ -5,7 +5,7 @@ class AdminController extends My_Controller {
     public function init(){
     	parent::init();
 
-    	if(!empty($_SESSION['user']) && $_SESSION['user']['role'] == 'Moderator'){
+    	if(!empty($_SESSION['user']) && $_SESSION['user']['role'] == 'moderator'){
     		$this->layout('admin');
     	}else{
     		$this->layout('admin-loggedout');

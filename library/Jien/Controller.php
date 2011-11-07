@@ -8,10 +8,29 @@ class Jien_Controller extends Zend_Controller_Action {
     	$this->view->params = $this->params();
 		$this->view->auth = $this->auth = Zend_Auth::getInstance();
 
+		// setup auth / acl
+		$role = 'guest';
+
 		// if user logged in
 		if(!empty($_SESSION['user'])){
 			$this->view->user = $_SESSION['user'];
 		}
+
+		// activate access control
+		$this->accessControl();
+
+    }
+
+    public function accessControl(){
+    	$acl = new Zend_Acl();
+    	$acl->addRole(new Zend_Acl_Role('guest'));
+    	$acl->addRole(new Zend_Acl_Role('member'), 'guest');
+    	$acl->addRole(new Zend_Acl_Role('vip member'), 'member');
+    	$acl->addRole(new Zend_Acl_Role('moderator'), 'vip member');
+    	$acl->addRole(new Zend_Acl_Role('admin'), 'moderator');
+
+
+    	//$acl->allow('moderator', 'admin');
 
     }
 

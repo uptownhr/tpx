@@ -49,7 +49,9 @@ $(document).ready(function(){
 		$.post("/auth/register", form, function(res){
 			if(res.status.code == 200){
 				$().toastmessage('showSuccessToast', 'Success');
-				window.location.href = form.redir;
+				if(form.redir){
+					window.location.href = form.redir;
+				}
 			}else{
 				$().toastmessage('showErrorToast', res.result.msg);
 				$('#register_form input[name='+res.result.focus+']').focus();
