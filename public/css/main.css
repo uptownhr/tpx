@@ -60,7 +60,10 @@ a {
 	display: block;
 	float: left;
 }
-
+.menu-sep {
+	float: left;
+	padding: 0 10px;
+}
 
 /* Footer */
 
