@@ -31,7 +31,7 @@ class AuthController extends My_Controller {
 		}
 
 		try {
-			$data['role_id'] = 2; // member
+			//$data['role_id'] = 2; // member
 			$user_id = Jien::model("User")->save($data);
 
 			$auth = $this->authenticate($data['username'], $data['password']);
@@ -53,8 +53,8 @@ class AuthController extends My_Controller {
 
 	public function loginAction(){
 		$data = Jien::sanitizeArray($_POST);
-		if(empty($data['username'])){
-			$error['msg'] = "Username can't be blank";
+		if(empty($data['email'])){
+			$error['msg'] = "Email can't be blank";
 			$error['focus'] = "username";
 		}else if(empty($data['password'])){
 			$error['msg'] = "Password can't be blank";

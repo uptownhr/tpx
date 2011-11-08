@@ -134,16 +134,18 @@ class UserController extends My_Controller {
     public function profileAction(){
     	if($this->_request->getMethod() == "POST"){
     		if( $this->params('user_profile_update') == "Save Profile"){
-				try{
-					$new_user = array_merge($this->user,$_POST);
-					unset($new_user['role']);
-					unset($new_user['redir']);
-					unset($new_user['user_profile_update']);
-					$this->setUser($new_user);
-					$this->redir('/');
-				}catch(Exception $e){
-					$this->redir('/user/profile');
-				}
+    			if($this->params['role_id'] == 2 || $this->params['role_id'] == 3 ){
+					try{
+						$new_user = array_merge($this->user,$_POST);
+						unset($new_user['role']);
+						unset($new_user['redir']);
+						unset($new_user['user_profile_update']);
+						$this->setUser($new_user);
+						$this->redir('/');
+					}catch(Exception $e){
+						$this->redir('/user/profile');
+					}
+    			}
     		}
     	}
     	
