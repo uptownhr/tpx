@@ -120,7 +120,7 @@ class UserController extends My_Controller {
 
                 $this->auth->getStorage()->write($toStore);
                 $this->flash('Successful authentication');
-                $this->redir('/');
+                $this->redir('/user/profile');
 
             } else {
 
@@ -130,7 +130,27 @@ class UserController extends My_Controller {
             }
         }
     }
-
+	
+    public function profileAction(){
+    	if($this->_request->getMethod() == "POST"){
+    		if( $this->params('user_profile_update') == "Save Profile"){
+				try{
+					$new_user = array_merge($this->user,$_POST);
+					unset($new_user['role']);
+					unset($new_user['redir']);
+					unset($new_user['user_profile_update']);
+					$this->setUser($new_user);
+					$this->redir('/');
+				}catch(Exception $e){
+					$this->redir('/user/profile');
+				}
+    		}
+    	}
+    	
+    	$this->view->username = $this->user['username'];
+    	$this->view->email = $this->user['email'];    		
+    }
+    
     public function logoutAction() {
         $this->auth->clearIdentity();
         $_SESSION = array();
