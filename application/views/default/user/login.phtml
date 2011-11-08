@@ -7,69 +7,67 @@
     });
 </script>
 
-		<div id="user_register" class="one-third login_register">
-			<h4>Register a new account</h4><br/>
-			<form action="/auth/register" id="register_form" method="post">
-				<input type="hidden" name="redir" value="/user/registrationCompleted">
-				<fieldset>
-					<label>Are you looking to be a TPX girl or a standard user? <span class="required">*</span></label>
-					<input type="radio" name="user_type" value="standard" class="radio requiredField" checked /> &nbsp; Standard user<br />
-					<input type="radio" name="user_type" value="tpx_girl" class="radio requiredField" /> &nbsp; TPX girl
-				</fieldset>
-				<fieldset>
-					<label>Email <span class="required">*</span></label>
-					<input type="text" name="username" id="register_username" value="" class="text requiredField email" />
-				</fieldset>
-				<fieldset>
-					<label>Screen name <span class="required">*</span></label>
-					<input type="text" name="screen_name" id="register_screen_name" value="" class="text requiredField" />
-				</fieldset>
-				<fieldset>
-					<label>Password<span class="required">*</span></label>
-					<input type="password" name="password" id="password" value="" class="text requiredField subject" />
-				</fieldset>
-				<fieldset>
-					<label>Password (Again)<span class="required">*</span></label>
-					<input type="password" name="password2" id="password2" value="" class="text requiredField subject" />
-				</fieldset>
-				<br>
-				<fieldset>
-					<input name="user_register_submit" value="Register Now" class="button small orange" type="submit" />
-				</fieldset>
-			</form>
-		</div>
+<div class="one-half">
+	<h4>Use your existing services</h4>
+	<form action="<?php echo $this->baseUrl('/user/login');?>" method="get" id="openid_form">
+		<p><a href="javascript:openid.signin('facebook');"><img src="/images/login/facebook.png"></a></p>
+		<p><a href="javascript:openid.signin('twitter');"><img src="/images/login/twitter.png"></a></p><br/>
+	</form>
+</div>
 
-		<div id="user_login" class="one-third hide login_register">
-			<h4>Log-in to your account</h4><br/>
-			<form action="/auth/login" id="login_form" method="post">
-				<input type="hidden" name="redir" value="/">
-				<fieldset>
-					<label>Email <span class="required">*</span></label>
-					<input type="text" name="username" id="login_username" value="" class="text requiredField email"/>
-				</fieldset>
-				<fieldset>
-					<label>Password<span class="required">*</span></label>
-					<input type="password" name="password" id="login_password" value="" class="text requiredField subject"/>
-				</fieldset>
-				<br>
-				<fieldset>
-					<input name="user_login_submit" value="Login to your account" class="button small red" type="submit"/>
-				</fieldset>
-			</form>
-		</div>
-
-		<div class="one-third-big last">
-		<h4>Already Have an Account?</h4><br/>
-		<p>
-			<a href="#" id="user_login_show" class="login_register_show button big round orange">Sign In &amp; Explore!</a>
-			<a href="#" id="user_register_show" class="login_register_show hide button big round red">Register a new account!</a>
-		</p><br/>
-
-		<h4> -- or -- </h4><br/>
-		<form action="<?php echo $this->baseUrl('/user/login');?>" method="get" id="openid_form">
-			<p><a href="javascript:openid.signin('facebook');"><img src="/images/login/facebook.png"></a></p>
-			<p><a href="javascript:openid.signin('twitter');"><img src="/images/login/twitter.png"></a></p><br/>
+<div class="one-half">
+	
+	<div id="user_login" class="hide login_register">
+		<h4>Use your TPX account</h4>
+		<form action="/auth/login" id="login_form" method="post">
+			<input type="hidden" name="redir" value="/">
+			<fieldset>
+				<label>Email <span class="required">*</span></label>
+				<input type="text" name="username" id="login_username" value="" class="text requiredField email"/>
+			</fieldset>
+			<fieldset>
+				<label>Password<span class="required">*</span></label>
+				<input type="password" name="password" id="login_password" value="" class="text requiredField subject"/>
+			</fieldset>
+			<br>
+			<fieldset>
+				<input name="user_login_submit" value="Login" class="button small red" type="submit"/>
+			</fieldset>
+			<a href="#" id="user_register_show" class="login_register_show hide">Create new TPX account</a>
 		</form>
+	</div>
+	
+	<div id="user_register" class="login_register">
+	<h4>Register a new TPX account</h4>
+	<form action="/auth/register" id="register_form" method="post">
+		<input type="hidden" name="redir" value="/user/registrationCompleted">
+		<fieldset>
+			<label>Are you looking to be a TPX girl or a standard user? <span class="required">*</span></label>
+			<input type="radio" name="user_type" value="standard" class="radio requiredField" checked /> &nbsp; Standard user<br />
+			<input type="radio" name="user_type" value="tpx_girl" class="radio requiredField" /> &nbsp; TPX girl
+		</fieldset>
+		<fieldset>
+			<label>Email <span class="required">*</span></label>
+			<input type="text" name="username" id="register_username" value="" class="text requiredField email" />
+		</fieldset>
+		<fieldset>
+			<label>Screen name <span class="required">*</span></label>
+			<input type="text" name="screen_name" id="register_screen_name" value="" class="text requiredField" />
+		</fieldset>
+		<fieldset>
+			<label>Password<span class="required">*</span></label>
+			<input type="password" name="password" id="password" value="" class="text requiredField subject" />
+		</fieldset>
+		<fieldset>
+			<label>Password (Again)<span class="required">*</span></label>
+			<input type="password" name="password2" id="password2" value="" class="text requiredField subject" />
+		</fieldset>
+		<br>
+		<fieldset>
+			<input name="user_register_submit" value="Create account" class="button small red" type="submit" />
+		</fieldset>
+		<a href="#" id="user_login_show" class="login_register_show hide">I have a password. Sign in.</a>
+	</form>
+	</div>
 
-		</div>
-		<div class="horizontal-line"></div>
+</div>

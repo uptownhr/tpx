@@ -651,3 +651,12 @@ ul.buttons li {display:list;margin:25px 0;}
 		to(#7ccce5));
 }
 /*BUTTON ENDS*/
+
+#user_register {
+	display: none;	
+}
+#user_register_show, #user_login_show {
+	text-align: right;
+	display: block;	
+}
+}
