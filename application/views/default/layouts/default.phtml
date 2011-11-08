@@ -56,7 +56,6 @@ if($flash){
 <body>
 
 <div id="wrapper">
-<<<<<<< HEAD
 
 	<div id="header">
     	<a href="/" id="logo"></a>
@@ -141,54 +140,6 @@ $(document).ready(function(){
     s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
     (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
-</script>
-
-<script>
-// login event
-$(document).ready(function(){
-	$('#login_form').submit(function(e){
-		e.preventDefault();
-		var form = jien.util.serializeForm($(this));
-		$.post("/auth/login", form, function(res){
-			if(res.status.code == 200){
-				$().toastmessage('showSuccessToast', 'Success');
-				window.location.href = form.redir;
-			}else{
-				$().toastmessage('showErrorToast', res.result.msg);
-				$('#login_form input[name='+res.result.focus+']').focus();
-			}
-		});
-	});
-
-	$('#register_form').submit(function(e){
-		e.preventDefault();
-		var form = jien.util.serializeForm($(this));
-		$.post("/auth/register", form, function(res){
-			if(res.status.code == 200){
-				$().toastmessage('showSuccessToast', 'Success');
-				window.location.href = form.redir;
-			}else{
-				$().toastmessage('showErrorToast', res.result.msg);
-				$('#register_form input[name='+res.result.focus+']').focus();
-			}
-		});
-	});
-
-	$('#user_login_show').click(function(e){
-		$('.login_register_show').hide();
-		$('.login_register').hide();
-		$('#user_register_show').show();
-		$('#user_login').show();
-	});
-
-	$('#user_register_show').click(function(e){
-		$('.login_register_show').hide();
-		$('.login_register').hide();
-		$('#user_login_show').show();
-		$('#user_register').show();
-	});
-
-});
 </script>
 
 <script type="text/javascript">
