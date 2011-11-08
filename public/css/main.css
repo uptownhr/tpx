@@ -57,6 +57,8 @@ a {
 }
 #menu a {
 	color: #EE606E;
+	display: block;
+	float: left;
 }
 
 
@@ -128,8 +130,8 @@ a {
 .last {
 	margin-right: 0px!important;
 }
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+html, body, div, span, applet, object, iframe, 
+p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,

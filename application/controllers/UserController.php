@@ -131,14 +131,6 @@ class UserController extends My_Controller {
         }
     }
 
-	public function completeregistrationAction() {
-        // action body
-	}
-	
-	public function registrationcompletedAction() {
-        // action body
-    }
-
     public function logoutAction() {
         $this->auth->clearIdentity();
         $_SESSION = array();
