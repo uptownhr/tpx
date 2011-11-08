@@ -14,7 +14,7 @@ $(document).ready(function() {
 	
 
 	Cufon.replace('#menu, .twitter-header a', { fontFamily: 'HelveticaSTDLightCondensed', hover: { color: '#EA2440' } } );
-	Cufon.replace('#battle-menu li', { fontFamily: 'HelveticaSTDBlackCondensed', hover: { color: '#ffffff' } } );
+	// Cufon.replace('#battle-menu li', { fontFamily: 'HelveticaSTDBlackCondensed', hover: { color: '#ffffff' } } );
 	// Cufon.replace('h1,h2,h3,h4,h5,#battle-compare, .battle-username, #start-your-profile, .battle-stats, .widget h2, .rightcol h3, .middlecol, #login, #create-account,.home-question-top,.home-question,.home-question-stat,.home-question-answer,#twitter-header-title,.footer-list strong', { fontFamily: 'HelveticaSTDBlackCondensed' } );
 	//	Cufon.replace('.home-question-answer', { fontFamily: 'HelveticaSTDBlackCondensed', fontStyle: 'italic' } );
 	

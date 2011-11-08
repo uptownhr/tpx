@@ -22,18 +22,19 @@ body {
 }
 #create-account {
 	border-radius: 10px;
-	background: #E45C6A url(/images/layout/plus.png) 44px 15px no-repeat;
+	-moz-border-radius: 10px;
+	background: #E45C6A url(/images/layout/plus.png) 20px 15px no-repeat;
 	color: white;
 	display: block;
 	font-size: 20px;
 	text-align: right;
 	width: 236px;
-	padding: 16px 34px 14px 0;
+	padding: 16px 24px 14px 0;
 	float: left;
 	margin-left: 128px;
 }
 #create-account:hover {
-	background: #E53E56 url(/images/layout/plus.png) -185px 15px no-repeat;
+	background: #E53E56 url(/images/layout/plus.png) -480px 15px no-repeat;
 }
 
 
@@ -207,7 +208,6 @@ body {
 .home-question-answer {
 	color: #E45C6A;
 	font-size: 54px;
-	padding-top: 4px;
 	margin-left: 20px;
 	float: left;
 }
@@ -366,7 +366,7 @@ body {
 	height: 42px;
 }
 .middlecol h3 span {
-	padding: 10px 0 0;
+	padding: 8px 0 0;
 	display: block;
 	float: left;
 	margin-right: 22px;
@@ -376,7 +376,7 @@ body {
 .middlecol h3 p {
 	text-transform: uppercase;
 	font-size: 13px;
-	padding: 6px 0;
+	padding: 4px 0;
 	float: left;
 	width: 280px;
 	margin: 0;

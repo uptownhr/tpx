@@ -2,8 +2,10 @@
 /* Basic and Header Styles */
 
 h1,h2,h3,h4,h5,#battle-compare, .battle-username, #start-your-profile, .battle-stats, .widget h2, .rightcol h3, .middlecol, #login, #create-account,.home-question-top,.home-question,.home-question-stat,.home-question-answer,#twitter-header-title,.footer-list strong {
-	font-family: nimbus-sans,sans-serif;
 	font-style: normal;
+	font-weight: 500;
+}
+.middlecol span, h1, h2, h3, h4, h5 {
 	font-weight: 700;
 }
 body {
@@ -166,9 +168,15 @@ form {
 	font-family: Arial, Helvetica, sans-serif;
 }
 label {
-	font-weight:normal;
+	font-weight:700;
 	display:block;
-	color:#7f7f7f;
+	color:#333;
+	font-size: 12px;
+}
+fieldset {
+	margin-bottom: 12px;
+	font-size: 12px;
+	color:#666;
 }
 input[type=text],input[type=password],input.text,input.title,textarea {
 	background-color:#FFF;
@@ -290,8 +298,8 @@ form.inline p {
 	border-radius: 99px;
 	-moz-border-radius: 99px;
 	-webkit-border-radius: 99px;
-
-	}
+	margin-top: -10px;
+}
 .button.round{
 	border-radius:4px;
 	-moz-border-radius:4px;
@@ -657,11 +665,14 @@ ul.buttons li {display:list;margin:25px 0;}
 }
 /*BUTTON ENDS*/
 
+/* LOGIN/REGISTRATION */
 #user_register {
 	display: none;	
 }
 #user_register_show, #user_login_show {
-	text-align: right;
-	display: block;	
+	text-align: left;
+	display: block;
+	font-size: 12px;
+	font-weight: 700;
 }
 }
