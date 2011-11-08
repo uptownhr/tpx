@@ -117,10 +117,17 @@ class UserController extends My_Controller {
 
                 // sets $this->view->user that can be accessed via view
                 $this->setUser($user);
-
+				
                 $this->auth->getStorage()->write($toStore);
                 $this->flash('Successful authentication');
-                $this->redir('/user/profile');
+                
+                $role = Jien::model('Role')->getByName('member')->get()->row();
+                
+                if($role['role_id'] > 1 ){
+                	$this->redir('/');
+                }else{
+                	$this->redir('/user/profile');
+                }         
 
             } else {
 
@@ -134,7 +141,7 @@ class UserController extends My_Controller {
     public function profileAction(){
     	if($this->_request->getMethod() == "POST"){
     		if( $this->params('user_profile_update') == "Save Profile"){
-    			if($this->params['role_id'] == 2 || $this->params['role_id'] == 3 ){
+    			if($this->params('role_id') == 2 || $this->params('role_id') == 3 ){
 					try{
 						$new_user = array_merge($this->user,$_POST);
 						unset($new_user['role']);
@@ -148,7 +155,6 @@ class UserController extends My_Controller {
     			}
     		}
     	}
-    	
     	$this->view->username = $this->user['username'];
     	$this->view->email = $this->user['email'];    		
     }
