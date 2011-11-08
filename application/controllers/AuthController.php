@@ -10,7 +10,10 @@ class AuthController extends My_Controller {
     public function registerAction(){
 		$data = Jien::sanitizeArray($_POST);
 
-		if(empty($data['username'])){
+		if(empty($data['email'])){
+			$error['msg'] = "Email can't be blank";
+			$error['focus'] = "email";
+		}else if(empty($data['username'])){
 			$error['msg'] = "Username can't be blank";
 			$error['focus'] = "username";
 		}else if(empty($data['password'])){
