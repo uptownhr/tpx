@@ -172,7 +172,6 @@ class UserController extends My_Controller {
         }else{
         	$User = Jien::model('User')->select("user_id, uid, role_id, screenname, gender, first_name, last_name, age, city, state, zip, country, quote, twitter_name, religion, hair_color, relationship_status, education, outlook, social, meat_lover, panty_choice")->get($this->user_id)->row();
         	$this->view->User = $User;
-        	Jien::debug($User);
         }    
 			
     	if( file_exists('images/user/' . $this->user_id ) ){
