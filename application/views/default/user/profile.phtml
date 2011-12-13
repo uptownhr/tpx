@@ -6,15 +6,70 @@
         openid.setDemoMode(false); //Stops form submission for client javascript-only test purposes
     });
 </script>
-<?php Jien::debug($this->User);?>
 
-<div style="clear:both;padding:30px 29px;width:360px;background-color:black;">
 
-	<img src="<?php echo $this->profile_image_url; ?>" style="width:200px;height:300px;" />
-	
-	<?php echo $this->user['first_name'] . ' ' . substr($this->user['last_name'], 0,1);?>
-	
-
+<div style="width:418px;float:left;">
+	<div id="profile" style="padding:30px 29px;width:360px;background-color:black;">
+		
+		<img src="<?php echo $this->profile_image_url; ?>" style="width:200px;height:300px;margin: 0 23px 26px 0;float:left;" />
+		
+		<h1>Kate S.</h1>
+		<h2>25, Chicago</h2>
+		<p class="blurb">I'm just a girl who has fun everyday and everywhere.</p>
+		<div>
+		<a href="" target="_blank" class="twitter-link">@katess1244</a>
+		<div class="facebook-verified">verified &#x2713;</div>
+		</div>
+		<div style="clear:both"></div>
+		<ul>
+			<li>
+				<strong>Hometown</strong>
+				<span>Chicago, IL</span>
+				<input name="hometown" type="text" value="" />
+			</li>
+			<li>
+				<strong>Relgion</strong>
+				<span>Great Mystery</span>
+				<input name="religion" type="text" value="" />
+			</li>
+			<li>
+				<strong>Relationship Status</strong>
+				<span>Single</span>
+				<input name="relationship_status" type="text" value="" />
+			</li>
+			<li>
+				<strong>Social</strong>
+				<span>Outgoing</span>
+				<input name="social" type="text" value="" />
+			</li>
+			<li>
+				<strong>Hair Color</strong>
+				<span>Brunette</span>
+				<input name="hair_color" type="text" value="" />
+			</li>
+			<li>
+				<strong>Meat Lover</strong>
+				<span>Love it</span>
+				<input name="meat_lover" type="text" value="" />
+			</li>
+			<li>
+				<strong>Education</strong>
+				<span>College</span>
+				<input name="education" type="text" value="" />
+			</li>
+			<li>
+				<strong>Panty of Choice</strong>
+				<span>Thong</span>
+				<input name="panty_style" type="text" value="" />
+			</li>
+			<li>
+				<strong>Outlook</strong>
+				<span>Optimist</span>
+				<input name="outlook" type="text" value="" />
+			</li>
+		</ul>
+		<div style="clear:both"></div>
+	</div>
 </div>
 
 

@@ -675,4 +675,30 @@ ul.buttons li {display:list;margin:25px 0;}
 	font-size: 12px;
 	font-weight: 700;
 }
-}
+
+/* PROFILE PAGE */
+
+#profile { color: white; }
+
+#profile img { }
+
+
+#profile h1 { font-size:40px; text-transform:uppercase; }
+
+#profile h2 { color: #696969; text-transform:uppercase; font-size: 18px; }
+
+#profile p.blurb { font-size: 16px; }
+
+#profile .twitter-link { margin-top: 24px; font-size: 12px; padding: 6px 0 7px 38px; background: url(../images/icons/profile-twitter.png) 2px 0 no-repeat; display: block; color: white; margin-left: 223px; }
+
+#profile .facebook-verified { margin-top: 24px; font-size: 12px; padding: 6px 0 7px 38px; background: url(../images/icons/profile-facebook.png) 2px 0 no-repeat; color: white; display: block; margin-left: 223px; }
+
+#profile ul { width: 100%; padding: 0; margin: 0; list-style-type: none; }
+
+#profile ul li {  font-size: 16px; margin: 16px 20px 16px 0; width: 150px; float: left; }
+
+#profile ul li strong { color: #696969; text-transform:uppercase; display:block; }
+
+#profile ul li span { display:block; }
+
+#profile ul li input { display: block; height: 14px; font-size: 12px; padding: 2px 3px; border: none; }
