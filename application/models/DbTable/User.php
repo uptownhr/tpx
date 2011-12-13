@@ -14,10 +14,7 @@ class Application_Model_DbTable_User extends My_Model
 			$data['password'] = $hash->hashPassword($data['password']);
  		}
 
- 		// if username is empty, use email as the username
- 		if(empty($data['email']) && !empty($data['username'])){
- 			$data['email'] = $data['username'];
- 		}
+ 		$data['username'] = $data['email'];
 
  		$id = parent::save($data);
  		return $id;

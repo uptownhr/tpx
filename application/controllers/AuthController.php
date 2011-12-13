@@ -13,8 +13,8 @@ class AuthController extends My_Controller {
 		if(empty($data['email'])){
 			$error['msg'] = "Email can't be blank";
 			$error['focus'] = "email";
-		}else if(empty($data['username'])){
-			$error['msg'] = "Username can't be blank";
+		}else if(empty($data['screenname'])){
+			$error['msg'] = "Screenname can't be blank";
 			$error['focus'] = "username";
 		}else if(empty($data['password'])){
 			$error['msg'] = "Password can't be blank";
@@ -34,16 +34,12 @@ class AuthController extends My_Controller {
 			//$data['role_id'] = 2; // member
 			$user_id = Jien::model("User")->save($data);
 
-			$auth = $this->authenticate($data['username'], $data['password']);
+			$auth = $this->authenticate($data['email'], $data['password']);
 			$res = array();
 			if($auth){
-				Jien::model("User")->save(array(
-					"user_id"	=>	$_SESSION['user']['user_id'],
-					"accessed"	=>	new Zend_Db_Expr('NOW()'),
-				));
-				$this->json(array("user"=>$_SESSION['user']), 200, 'logged in');
+				$this->redir('/');
 			}else{
-				$this->json(array(), 401, 'invalid credentials');
+				$this->redir('/user/login');
 			}
 
 		}catch(Exception $e){
@@ -52,6 +48,7 @@ class AuthController extends My_Controller {
     }
 
 	public function loginAction(){
+		
 		$data = Jien::sanitizeArray($_POST);
 		if(empty($data['email'])){
 			$error['msg'] = "Email can't be blank";
@@ -60,23 +57,25 @@ class AuthController extends My_Controller {
 			$error['msg'] = "Password can't be blank";
 			$error['focus'] = "password";
 		}
+		
 		if(!empty($error)){
 			$this->json($error, 401, 'input validation error');
 		}
-
-		$auth = $this->authenticate($data['username'], $data['password']);
-
+		
+		$auth = $this->authenticate($data['email'], $data['password']);
+		
+			
 		$res = array();
 		if($auth){
 
 			// updates accessed field to now
-			Jien::model("User")->save(array(
-				"user_id"	=>	$_SESSION['user']['user_id'],
-				"accessed"	=>	new Zend_Db_Expr('NOW()'),
-			));
-
-			$this->json(array("user"=>$_SESSION['user']), 200, 'logged in');
-
+			Jien::model("User")->update( 
+				array(
+					"accessed"	=>	new Zend_Db_Expr('NOW()'),
+				),
+				"user_id = {$_SESSION['user']['user_id']}"
+			);
+			$this->redir('/');
 		}else{
 			$error['msg'] = 'Invalid user/pass, try again';
 			$error['focus'] = 'username';
@@ -121,6 +120,7 @@ class AuthController extends My_Controller {
         $adapter->setCredential($password);
 
         $result = $this->auth->authenticate($adapter);
+        
         if ($result->isValid()) {
             $user = $adapter->getResultRowObject();
             $this->setUser($user);
