@@ -217,5 +217,11 @@ class UserController extends My_Controller {
     		$this->json(0);
     	}
     }
+    
+    public function forgotAction(){
+    	if( $this->isPost() ){
+    		if( $this->params('email') != ''  )
+    	}
+    }
 }
 

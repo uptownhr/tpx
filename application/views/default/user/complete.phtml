@@ -1,0 +1,23 @@
+<div id="user_complete_registration" class="one-third login_register">
+	<h4>Edit Profile</h4><br/>
+	<form action="/user/complete?redir=complete" id="profile_form" method="post">
+		<input type="hidden" name="redir" value="/user/registrationCompleted">
+		<fieldset>
+			<label>Are you looking to be a TPX girl or a standard user? <span class="required">*</span></label>
+			<input type="radio" name="role_id" value="2" class="radio requiredField" <?php if($this->user['role_id'] == "2"){echo "checked"; }?> /> &nbsp; Standard user<br />
+			<input type="radio" name="role_id" value="3" class="radio requiredField" <?php if($this->user['role_id'] == "3"){echo "checked"; }?> /> &nbsp; TPX girl
+		</fieldset>
+		<fieldset>
+			<label>Email <span class="required">*</span></label>
+			<input type="text" name="email" id="register_email" value="<?php echo $this->user['email'];?>" class="text requiredField email" />
+		</fieldset>
+		<fieldset>
+			<label>Pick a screen name<span class="required">*</span></label>
+			<input type="text" name="screenanme" id="register_username" value="<?php echo $this->user['screenname']; ?>" class="text requiredField subject" />
+		</fieldset>
+		<br>
+		<fieldset>
+			<input name="user_profile_update" value="Save Profile" class="button small red" type="submit" />
+		</fieldset>
+	</form>
+</div>
