@@ -7,10 +7,26 @@ class UserController extends My_Controller {
 
     public function init() {
     	parent::init();
+    	$data = $this->params();
+    	
+    	if( isset($this->data['user_id']) ){
+    		$user_id = $this->data['user_id'];
+    		
+    		if($user_id == $this->user['user_id']){
+    			$this->view->me = true;
+    			$this->user_id = $this->user['user_id'];
+    		}else{
+    			$this->view->me = false;
+    			$this->user_id = $this->data['user_id'];
+    		}
+    	}else{
+    		$this->view->me = true;
+    		$this->user_id = $this->user['user_id'];
+    	}
     }
 
     public function indexAction() {
-        // action body
+        
     }
 
     public function loginAction() {
@@ -139,28 +155,26 @@ class UserController extends My_Controller {
     }
 	
     public function profileAction(){
-    	if($this->_request->getMethod() == "POST"){
+    	if( $this->isPost() ){
     		if( $this->params('user_profile_update') == "Save Profile"){
-    			if($this->params('role_id') == 2 || $this->params('role_id') == 3 ){
-					try{
-						$new_user = array_merge($this->user,$_POST);
-						unset($new_user['role']);
-						unset($new_user['redir']);
-						unset($new_user['user_profile_update']);
-						$this->setUser($new_user);
-						$this->redir('/');
-					}catch(Exception $e){
-						$this->redir('/user/profile');
-					}
+    			$data = $this->params();
+    			$data['user_id'] = $this->user['user_id'];
+    			$save = Jien::model('User')->save($data);
+    			if($save){
+    				$this->view->updated = true;	
     			}
     		}
     	}
     	
-    	$this->view->username = $this->user['username'];
-    	$this->view->email = $this->user['email'];    
+    	if($this->user_id == ''){
+        	$this->view->error = true; echo $this->user_id;
+        }else{
+        	$this->view->User = Jien::model('User')->get($this->user_id)->row();
+        	unset($this->view->User['password']);
+        }    
 			
-    	if( file_exists('images/user/' . $this->user['user_id']) ){
-    		$this->view->profile_image_url = '/images/user/' . $this->user['user_id'];
+    	if( file_exists('images/user/' . $this->user_id ) ){
+    		$this->view->profile_image_url = '/images/user/' . $this->user_id;
     	}else{
     		$this->view->profile_image_url = '/images/layout/battle/battle_10.jpg';
     	}
@@ -213,7 +227,6 @@ class UserController extends My_Controller {
     	if($mail){
     		$this->json(1);
     	}else{
-    		Jien::debug($mail);
     		$this->json(0);
     	}
     }
