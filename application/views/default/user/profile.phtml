@@ -9,8 +9,8 @@
 
 
 <div style="width:418px;float:left;">
-	<div id="profile" style="padding:30px 29px;width:360px;background-color:black;">
-		
+	<div id="profile">
+		<div class="utility edit">Edit Profile</div>
 		<img src="<?php echo $this->profile_image_url; ?>" style="width:200px;height:300px;margin: 0 23px 26px 0;float:left;" />
 		
 		<h1>Kate S.</h1>
@@ -22,6 +22,7 @@
 		</div>
 		<div style="clear:both"></div>
 		<ul>
+			<input type="hidden" name="user_profile_update" value="Save Profile" />
 			<li>
 				<strong>Hometown</strong>
 				<span>Chicago, IL</span>
@@ -72,5 +73,30 @@
 	</div>
 </div>
 
-
-<div class="horizontal-line"></div>
+<script type="text/javascript">
+$(document).ready(function() { 
+	
+	var save = true;
+	$(".utility").click (function() {
+		if (save == true) {
+			$(this).text('Save Changes');
+			$("#profile ul li input").show();
+			$("#profile ul li span").hide();
+			$.each($("#profile ul li"), function(k,v) {
+				var property = $(this).children("span").text();
+			});
+			save = false;
+		} else {
+			$(this).text('Edit Profile');
+			$("#profile ul li input").hide();
+			$("#profile ul li span").show();
+			save = true;
+			var data = {'name':name, 'where':where, 'when':when, 'notes':notes};
+			$.post("/user/profile", data, function(res) {
+				if(res[0] != 0) {
+				}
+			});
+		}
+	});
+});
+</script>
