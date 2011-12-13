@@ -38,7 +38,7 @@
 				<input name="hometown" type="text" value="" />
 			</li>
 			<li>
-				<strong>Relgion</strong>
+				<strong>Religion</strong>
 				<span><?php echo $this->User['religion']; ?></span>
 				<input name="religion" type="text" value="" />
 			</li>
@@ -115,7 +115,7 @@ $(document).ready(function() {
 			var outlook = $('input[name="outlook"]').val();
 			
 			var data = {'user_profile_update':'Save Profile',
-						'birthday':age, 'quote':quote, 'twitter_name':twitter_name, 'city':city,
+						'age':age, 'quote':quote, 'twitter_name':twitter_name, 'city':city,
 						'religion':religion, 'social':social, 'relationship_status':relationship_status,
 						'hair_color':hair_color,'meat_lover':meat_lover,'education':education,
 						'panty_choice':panty_choice,'outlook':outlook};
