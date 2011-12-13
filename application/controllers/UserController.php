@@ -248,7 +248,6 @@ class UserController extends My_Controller {
     			$this->view->reset = true;
     			
     			if( $this->isPost() ){
-    				Jien::debug($data);
     				if( strlen($data['password']) > 3 ){
     					$user['user_id'] = $check['user_id'];
     					$user['password'] = $data['password'];
@@ -256,7 +255,6 @@ class UserController extends My_Controller {
     					try{$changed = Jien::model('User')->save($user);}catch(exception $e){ echo $e->getMessage(); }
     					
     					if($changed){
-    						Jien::debug($changed);
     						Jien::model('ForgotPassword')->delete("user_id = {$check['user_id']}");
     						$this->redir('/user/login');
     					}
