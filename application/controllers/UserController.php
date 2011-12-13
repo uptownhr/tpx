@@ -155,8 +155,16 @@ class UserController extends My_Controller {
     			}
     		}
     	}
+    	
     	$this->view->username = $this->user['username'];
-    	$this->view->email = $this->user['email'];    		
+    	$this->view->email = $this->user['email'];    
+			
+    	if( file_exists('images/user/' . $this->user['user_id']) ){
+    		$this->view->profile_image_url = '/images/user/' . $this->user['user_id'];
+    	}else{
+    		$this->view->profile_image_url = '/images/layout/battle/battle_10.jpg';
+    	}
+    	
     }
     
     public function logoutAction() {

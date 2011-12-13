@@ -7,7 +7,6 @@
     });
 </script>
 
-
 <div id="user_complete_registration" class="one-third login_register">
 	<h4>Edit Profile</h4><br/>
 	<form action="/user/profile/save" id="profile_form" method="post">
@@ -31,5 +30,16 @@
 		</fieldset>
 	</form>
 </div>
+
+
+<div style="clear:both;padding: 30px; 29px; background-color: black;">
+
+	<img src="<?php echo $this->profile_image_url; ?>" />
+	
+	<?php echo $this->user['first_name'] . ' ' . substr($this->user['last_name'], 0,1);?>
+	
+
+</div>
+
 
 <div class="horizontal-line"></div>
