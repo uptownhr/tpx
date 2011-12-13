@@ -676,14 +676,21 @@ ul.buttons li {display:list;margin:25px 0;}
 	font-weight: 700;
 }
 
-/* PROFILE PAGE */
+/* PROFILE PAGE 
+ 
+ font-family:'Helvetica W01 Bd Cn';
+font-family:'Helvetica W01 Cn';
+font-family:'Helvetica W01 Ultra Cm';
 
-#profile { color: white; position: relative; padding:30px 29px;width:360px;background-color:black; }
+ 
+ * 
+ * */
 
-#profile img { }
+#profile { font-family:'Helvetica W01 Cn'; color: white; position: relative; padding:30px 29px;width:360px;background-color:black; }
 
+#profile img { width:200px;height:300px;margin: 0 23px 26px 0;float:left; }
 
-#profile h1 { font-size:40px; text-transform:uppercase; }
+#profile h1 { font-family:'Helvetica W01 Ultra Cm'; font-size:40px; text-transform:uppercase; }
 
 #profile h2 { color: #696969; text-transform:uppercase; font-size: 18px; }
 
@@ -695,7 +702,7 @@ ul.buttons li {display:list;margin:25px 0;}
 
 #profile ul { width: 100%; padding: 0; margin: 0; list-style-type: none; }
 
-#profile ul li {  font-size: 16px; margin: 16px 20px 16px 0; width: 150px; float: left; }
+#profile ul li {  font-size: 16px; margin: 10px 20px 10px 0; width: 150px; float: left; }
 
 #profile ul li strong { color: #696969; text-transform:uppercase; display:block; }
 
