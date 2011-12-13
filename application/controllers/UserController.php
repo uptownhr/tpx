@@ -220,13 +220,47 @@ class UserController extends My_Controller {
     
     public function forgotAction(){
     	if( $this->isPost() ){
+    		$this->view->post = true;
     		$email = $this->params('email');
     		if( $email != ''  ){
     			$user = Jien::model('User')->where("email = '$email'")->get()->row();
-    			
     			if($user){
-    				$pw = $user['pw'];
-    				Jien::send_mail( array($email), "Forgot Password", "PW: $pw");
+    				$time = time();
+    				$id = Jien::model('ForgotPassword')->save( array(
+    					'user_id' => $user['user_id'],
+    					'key' => $time
+    				));
+    				
+    				Jien::send_mail( array($email), "<a href='http://udl.local/user/reset?id=$id&key=$time'>Click to Reset</a>");
+    			}
+    		}
+    	}
+    }
+    
+    public function resetAction(){
+    	$data = $this->params();
+    	if( !empty($data['id']) && !empty($data['key']) ){
+    		$id = $data['id'];
+    		$key = $data['key'];
+    		$check = Jien::model('ForgotPassword')->where("`key`='$key'")->andWhere("id=$id")->get()->row();
+    		
+    		if($check){
+    			$this->view->reset = true;
+    			
+    			if( $this->isPost() ){
+    				Jien::debug($data);
+    				if( strlen($data['password']) > 3 ){
+    					$user['user_id'] = $check['user_id'];
+    					$user['password'] = $data['password'];
+    					
+    					try{$changed = Jien::model('User')->save($user);}catch(exception $e){ echo $e->getMessage(); }
+    					
+    					if($changed){
+    						Jien::debug($changed);
+    						Jien::model('ForgotPassword')->delete("user_id = {$check['user_id']}");
+    						$this->redir('/user/login');
+    					}
+    				}
     			}
     		}
     	}
