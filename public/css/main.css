@@ -678,7 +678,7 @@ ul.buttons li {display:list;margin:25px 0;}
 
 /* PROFILE PAGE */
 
-#profile { color: white; }
+#profile { color: white; position: relative; padding:30px 29px;width:360px;background-color:black; }
 
 #profile img { }
 
@@ -701,4 +701,6 @@ ul.buttons li {display:list;margin:25px 0;}
 
 #profile ul li span { display:block; }
 
-#profile ul li input { display: block; height: 14px; font-size: 12px; padding: 2px 3px; border: none; }
+#profile ul li input { display: none; height: 14px; font-size: 12px; padding: 2px 3px; border: none; }
+
+#profile .utility { position:absolute; right:10px; top:10px; font-size:12px; font-style:italic;cursor: pointer; color: white; }
