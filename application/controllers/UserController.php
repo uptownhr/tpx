@@ -170,7 +170,7 @@ class UserController extends My_Controller {
     	if($this->user_id == ''){
         	$this->view->error = true;
         }else{
-        	$User = Jien::model('User')->select("user_id, uid, role_id, screenname, gender, first_name, last_name, birthday, city, state, zip, country, quote, twitter_name, religion, hair_color, relationship_status, education, outlook, social, meat_lover, panty_choice")->get($this->user_id)->row();
+        	$User = Jien::model('User')->select("user_id, uid, role_id, screenname, gender, first_name, last_name, age, city, state, zip, country, quote, twitter_name, religion, hair_color, relationship_status, education, outlook, social, meat_lover, panty_choice")->get($this->user_id)->row();
         	$this->view->User = $User;
         	Jien::debug($User);
         }    

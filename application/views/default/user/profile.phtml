@@ -12,8 +12,7 @@
 	<div id="profile">
 		<div class="utility edit">Edit Profile</div>
 		<img src="<?php echo $this->profile_image_url; ?>" style="width:200px;height:300px;margin: 0 23px 26px 0;float:left;" />
-		
-		<h1>Kate S.</h1>
+		<h1><?php echo $this->User['screenname'];?></h1>
 		<h2>
 			<span>25</span>
 			<input name="age" type="text" value="" />
