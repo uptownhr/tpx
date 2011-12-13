@@ -220,7 +220,15 @@ class UserController extends My_Controller {
     
     public function forgotAction(){
     	if( $this->isPost() ){
-    		if( $this->params('email') != ''  )
+    		$email = $this->params('email');
+    		if( $email != ''  ){
+    			$user = Jien::model('User')->where("email = '$email'")->get()->row();
+    			
+    			if($user){
+    				$pw = $user['pw'];
+    				Jien::send_mail( array($email), "Forgot Password", "PW: $pw");
+    			}
+    		}
     	}
     }
 }
