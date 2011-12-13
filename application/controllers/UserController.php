@@ -161,7 +161,8 @@ class UserController extends My_Controller {
     			$data['user_id'] = $this->user['user_id'];
     			$save = Jien::model('User')->save($data);
     			if($save){
-    				$this->view->updated = true;	
+    				$this->view->updated = true; // if not-ajax
+    				$this->json( array(1, 'updated'));
     			}
     		}
     	}
