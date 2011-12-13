@@ -10,21 +10,23 @@
 
 <div style="width:418px;float:left;">
 	<div id="profile">
+		<?php if ($this->me == true) { ?>
 		<div class="utility edit">Edit Profile</div>
+		<?php } ?>
 		<img src="<?php echo $this->profile_image_url; ?>" style="width:200px;height:300px;margin: 0 23px 26px 0;float:left;" />
 		
-		<h1>Kate S.</h1>
+		<h1><?php echo $this->User['screenname']; ?></h1>
 		<h2>
-			<span>25</span>
+			<span><?php echo $this->User['age']; ?></span>
 			<input name="age" type="text" value="" />
 		</h2>
-		<p class="blurb">
-			<span>I'm just a girl who has fun everyday and everywhere.</span>
+		<p class="quote">
+			<span><?php echo $this->User['quote']; ?></span>
 			<textarea name="quote"></textarea>
 		</p>
 		<div>
 		<div class="twitter-link">
-			@<span>katess1244</span>
+			@<span><?php echo $this->User['twitter_name']; ?></span>
 			<input type="text" name="twitter_name" val="" style="width:50px;"/>
 		</div>
 		<div class="facebook-verified">verified &#x2713;</div>
@@ -33,47 +35,47 @@
 		<ul>
 			<li>
 				<strong>Hometown</strong>
-				<span>Chicago, IL</span>
+				<span><?php echo $this->User['city']; ?></span>
 				<input name="hometown" type="text" value="" />
 			</li>
 			<li>
 				<strong>Relgion</strong>
-				<span>Great Mystery</span>
+				<span><?php echo $this->User['religion']; ?></span>
 				<input name="religion" type="text" value="" />
 			</li>
 			<li>
 				<strong>Relationship Status</strong>
-				<span>Single</span>
+				<span><?php echo $this->User['relationship_status']; ?></span>
 				<input name="relationship_status" type="text" value="" />
 			</li>
 			<li>
 				<strong>Social</strong>
-				<span>Outgoing</span>
+				<span><?php echo $this->User['social']; ?></span>
 				<input name="social" type="text" value="" />
 			</li>
 			<li>
 				<strong>Hair Color</strong>
-				<span>Brunette</span>
+				<span><?php echo $this->User['hair_color']; ?></span>
 				<input name="hair_color" type="text" value="" />
 			</li>
 			<li>
 				<strong>Meat Lover</strong>
-				<span>Love it</span>
+				<span><?php echo $this->User['meat_lover']; ?></span>
 				<input name="meat_lover" type="text" value="" />
 			</li>
 			<li>
 				<strong>Education</strong>
-				<span>College</span>
+				<span><?php echo $this->User['education']; ?></span>
 				<input name="education" type="text" value="" />
 			</li>
 			<li>
 				<strong>Panty of Choice</strong>
-				<span>Thong</span>
-				<input name="panty_style" type="text" value="" />
+				<span><?php echo $this->User['panty_choice']; ?></span>
+				<input name="panty_choice" type="text" value="" />
 			</li>
 			<li>
 				<strong>Outlook</strong>
-				<span>Optimist</span>
+				<span><?php echo $this->User['outlook']; ?></span>
 				<input name="outlook" type="text" value="" />
 			</li>
 		</ul>
@@ -88,19 +90,20 @@ $(document).ready(function() {
 	$(".utility").click (function() {
 		if (save == true) {
 			$(this).text('Save Changes');
-			$("#profile ul li input, #profile h2 input, .twitter-link input, .blurb textarea").show();
-			$("#profile ul li span, #profile h2 span, .twitter-link span, .blurb span").hide();
+			$("#profile ul li input, #profile h2 input, .twitter-link input, .quote textarea").show();
+			$("#profile ul li span, #profile h2 span, .twitter-link span, .quote span").hide();
 			$.each($("#profile ul li"), function(k,v) {
 				var property = $(this).children("span").text();
 				$(this).children("input").val(property);
 			});
 			$('#profile h2 input').val($('#profile h2 span').text());
 			$('.twitter-link input').val($('.twitter-link span').text());
-			$('.blurb textarea').val($('.blurb span').text());
+			$('.quote textarea').val($('.quote span').text());
+			$('.age input').val($('.age span').text());
 			save = false;
 		} else {
 			var age = $('input[name="age"]').val();
-			var quote = $('textarea[name="blurb"]').val();
+			var quote = $('textarea[name="quote"]').val();
 			var twitter_name = $('input[name="twitter_name"]').val();
 			var city = $('input[name="hometown"]').val();
 			var religion = $('input[name="religion"]').val();
@@ -111,6 +114,7 @@ $(document).ready(function() {
 			var education = $('input[name="education"]').val();
 			var panty_choice = $('input[name="panty_choice"]').val();
 			var outlook = $('input[name="outlook"]').val();
+			
 			var data = {'user_profile_update':'Save Profile',
 						'birthday':age, 'quote':quote, 'twitter_name':twitter_name, 'city':city,
 						'religion':religion, 'social':social, 'relationship_status':relationship_status,
@@ -129,9 +133,9 @@ $(document).ready(function() {
 			});
 			$('#profile h2 span').text($('#profile h2 input').val());
 			$('.twitter-link span').text($('.twitter-link input').val());
-			$('.blurb span').text($('.blurb textarea').val());
-			$("#profile ul li input, #profile h2 input, .twitter-link input, .blurb textarea").hide();
-			$("#profile ul li span,  #profile h2 span, .twitter-link span, .blurb span").show();
+			$('.quote span').text($('.quote textarea').val());
+			$("#profile ul li input, #profile h2 input, .twitter-link input, .quote textarea").hide();
+			$("#profile ul li span,  #profile h2 span, .twitter-link span, .quote span").show();
 			save = true;
 		}
 	});

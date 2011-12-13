@@ -687,7 +687,7 @@ ul.buttons li {display:list;margin:25px 0;}
 
 #profile h2 { color: #696969; text-transform:uppercase; font-size: 18px; }
 
-#profile p.blurb { font-size: 16px; }
+#profile p.quote { font-size: 16px; }
 
 #profile .twitter-link { margin-top: 24px; font-size: 12px; padding: 6px 0 7px 38px; background: url(../images/icons/profile-twitter.png) 2px 0 no-repeat; display: block; color: white; margin-left: 223px; }
 
@@ -703,7 +703,7 @@ ul.buttons li {display:list;margin:25px 0;}
 
 #profile ul li input, #profile h2 input, .twitter-link input { margin: 0; display: none; font-size: 10px; padding: 3px 3px; border: none; }
 
-#profile .blurb textarea { display:none; font-size: 12px; border: none; height: 3em; width: 125px; font-family: Arial, Helvetica, sans-serif; }
+#profile .quote textarea { display:none; font-size: 12px; border: none; height: 3em; width: 125px; font-family: Arial, Helvetica, sans-serif; }
 
 #profile .utility { position:absolute; right:10px; top:10px; font-size:12px; font-style:italic;cursor: pointer; color: white; }
 
