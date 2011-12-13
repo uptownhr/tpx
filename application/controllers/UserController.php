@@ -167,10 +167,11 @@ class UserController extends My_Controller {
     	}
     	
     	if($this->user_id == ''){
-        	$this->view->error = true; echo $this->user_id;
+        	$this->view->error = true;
         }else{
-        	$this->view->User = Jien::model('User')->get($this->user_id)->row();
-        	unset($this->view->User['password']);
+        	$User = Jien::model('User')->select("user_id, uid, role_id, username, gender, first_name, last_name, birthday, city, state, zip, country, quote, twitter_name, religion, hair_color, relationship_status, education, outlook, social, meat_lover, panty_choice")->get($this->user_id)->row();
+        	$this->view->User = $User;
+        	Jien::debug($User);
         }    
 			
     	if( file_exists('images/user/' . $this->user_id ) ){
