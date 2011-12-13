@@ -14,15 +14,23 @@
 		<img src="<?php echo $this->profile_image_url; ?>" style="width:200px;height:300px;margin: 0 23px 26px 0;float:left;" />
 		
 		<h1>Kate S.</h1>
-		<h2>25, Chicago</h2>
-		<p class="blurb">I'm just a girl who has fun everyday and everywhere.</p>
+		<h2>
+			<span>25</span>
+			<input name="age" type="text" value="" />
+		</h2>
+		<p class="blurb">
+			<span>I'm just a girl who has fun everyday and everywhere.</span>
+			<textarea name="quote"></textarea>
+		</p>
 		<div>
-		<a href="" target="_blank" class="twitter-link">@katess1244</a>
+		<div class="twitter-link">
+			@<span>katess1244</span>
+			<input type="text" name="twitter_name" val="" style="width:50px;"/>
+		</div>
 		<div class="facebook-verified">verified &#x2713;</div>
 		</div>
 		<div style="clear:both"></div>
 		<ul>
-			<input type="hidden" name="user_profile_update" value="Save Profile" />
 			<li>
 				<strong>Hometown</strong>
 				<span>Chicago, IL</span>
@@ -80,22 +88,51 @@ $(document).ready(function() {
 	$(".utility").click (function() {
 		if (save == true) {
 			$(this).text('Save Changes');
-			$("#profile ul li input").show();
-			$("#profile ul li span").hide();
+			$("#profile ul li input, #profile h2 input, .twitter-link input, .blurb textarea").show();
+			$("#profile ul li span, #profile h2 span, .twitter-link span, .blurb span").hide();
 			$.each($("#profile ul li"), function(k,v) {
 				var property = $(this).children("span").text();
+				$(this).children("input").val(property);
 			});
+			$('#profile h2 input').val($('#profile h2 span').text());
+			$('.twitter-link input').val($('.twitter-link span').text());
+			$('.blurb textarea').val($('.blurb span').text());
 			save = false;
 		} else {
-			$(this).text('Edit Profile');
-			$("#profile ul li input").hide();
-			$("#profile ul li span").show();
-			save = true;
-			var data = {'name':name, 'where':where, 'when':when, 'notes':notes};
+			var age = $('input[name="age"]').val();
+			var quote = $('textarea[name="blurb"]').val();
+			var twitter_name = $('input[name="twitter_name"]').val();
+			var city = $('input[name="hometown"]').val();
+			var religion = $('input[name="religion"]').val();
+			var social = $('input[name="social"]').val();
+			var relationship_status = $('input[name="relationship_status"]').val();
+			var hair_color = $('input[name="hair_color"]').val();
+			var meat_lover = $('input[name="meat_lover"]').val();
+			var education = $('input[name="education"]').val();
+			var panty_choice = $('input[name="panty_choice"]').val();
+			var outlook = $('input[name="outlook"]').val();
+			var data = {'user_profile_update':'Save Profile',
+						'birthday':age, 'quote':quote, 'twitter_name':twitter_name, 'city':city,
+						'religion':religion, 'social':social, 'relationship_status':relationship_status,
+						'hair_color':hair_color,'meat_lover':meat_lover,'education':education,
+						'panty_choice':panty_choice,'outlook':outlook};
 			$.post("/user/profile", data, function(res) {
 				if(res[0] != 0) {
+					
 				}
+				console.log(res);
 			});
+			$(this).text('Edit Profile');
+			$.each($("#profile ul li"), function(k,v) {
+				var property = $(this).children("input").val();
+				$(this).children("span").text(property);
+			});
+			$('#profile h2 span').text($('#profile h2 input').val());
+			$('.twitter-link span').text($('.twitter-link input').val());
+			$('.blurb span').text($('.blurb textarea').val());
+			$("#profile ul li input, #profile h2 input, .twitter-link input, .blurb textarea").hide();
+			$("#profile ul li span,  #profile h2 span, .twitter-link span, .blurb span").show();
+			save = true;
 		}
 	});
 });
