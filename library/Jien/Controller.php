@@ -72,18 +72,20 @@ class Jien_Controller extends Zend_Controller_Action {
 			$condi = "provider_id = {$user['provider_id']} AND uid = '{$user['uid']}'";
     	}else{
     		$condi = "user_id = '{$user['user_id']}'";
-    	}
-        $data = Jien::model("User")->where($condi)->joinRole()->get()->row();
+    	} 
+    	$data = Jien::model("User")->where($condi)->joinRole()->get()->row();
         if(!$data){
         	$user['user_id'] = Jien::model("User")->save($user);
         }else{
         	$user['accessed'] = new Zend_Db_Expr('NOW()');
         	Jien::model("User")->update($user, $condi);
         	$user['user_id'] = $data['user_id'];
+        	$data = Jien::model("User")->where($condi)->joinRole()->get()->row();
         }
         $user['accessed'] = date("Y-m-d h:i:s");
         $user['role'] = $data['role'];
-		$_SESSION['user'] = $user;
+        $user['screenname'] = $data['screenname'];
+		$this->user = $_SESSION['user'] = $user;
     }
 
     /*

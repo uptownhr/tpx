@@ -173,7 +173,23 @@ class UserController extends My_Controller {
         $this->flash('You were logged out');
         $this->redir('/');
     }
-
+	
+    public function completeAction(){
+    	if($this->isPost()){
+    		$user['user_id'] = $this->user['user_id'];
+    		$user['screenname'] = $this->params('screenanme');
+    		$user['role_id'] = $this->params('role_id');
+    		$user['email'] = $this->params('email');
+    		$this->setUser($user);
+    	}
+    	if($this->user['role'] == 'member'){
+			$this->redir('/');
+		}else if($this->user['role'] == 'vip member'){
+			$this->redir('/user/profile');
+		}
+    	
+    }
+    
     /**
      * Get My_Auth_Adapter_Facebook adapter
      *
@@ -192,5 +208,14 @@ class UserController extends My_Controller {
         return new My_Auth_Adapter_Oauth_Twitter(array(), TWITTER_APPID, TWITTER_SECRET, TWITTER_REDIRECTURI);
     }
 
+    public function testAction(){
+    	$mail = Jien::send_mail( array('uptownhr@gmail.com'), "Testing Subject", "Testing Body");
+    	if($mail){
+    		$this->json(1);
+    	}else{
+    		Jien::debug($mail);
+    		$this->json(0);
+    	}
+    }
 }
 

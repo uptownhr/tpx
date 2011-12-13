@@ -37,9 +37,9 @@ class AuthController extends My_Controller {
 			$auth = $this->authenticate($data['email'], $data['password']);
 			$res = array();
 			if($auth){
-				if($data['role_id'] == 2){
+				if($data['role'] == 'member'){
 					$this->redir('/');
-				}else if($data['role_id'] == 3){
+				}else if($data['role'] == 'vip member'){
 					$this->redir('/user/profile');
 				}else{
 					$this->redir('/');

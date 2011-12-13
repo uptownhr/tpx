@@ -469,5 +469,16 @@ class Jien {
 		}
 		return $arr;
 	}
+	
+	static function send_mail($to = array(), $subject, $body, $from = array( 'name'=>'TPX', 'address'=>'info@tpx.com')){
+		$mail = new Zend_Mail();
+		$mail->setBodyText($body);
+		$mail->setFrom( $from['address'], $from['name'] );
+		foreach($to as $email){
+			$mail->addTo($email);	
+		}
+		$mail->setSubject($subject);
+		$mail->send();
+	}
 
 }
